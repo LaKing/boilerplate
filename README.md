@@ -26,6 +26,8 @@ Take a look at the project_scripts, you may want to move it to the project, edit
 
 Well, I use red Hat based systems so if you know what DNF is, you can run the installer.
 
+You will need NodeJS and npm of course. There are some npm.sh files in th emodules, these will install the node_modules of the modules.
+
 ### Other files to consider
 
 You can start your project with server.js that you copy from the project_scripts folder. There is not much in there:
@@ -40,7 +42,6 @@ require("./boilerplate");
 Sorry, I dont like camel case so much. My variables contain some underscores and are longer. My bad.
 
 ## Others
-
 
 if you see this:
 ```

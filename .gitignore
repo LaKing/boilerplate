@@ -8,17 +8,5 @@ lib-cov
 *.gz
 
 npm-debug.log
-node_modules
 node_modules/
-
 extras
-
-pids
-logs
-local
-config
-promo
-invoice
-boilerplate/extras
-
-static
