@@ -10,11 +10,11 @@ if (fs.existsSync(config_file)) {
     config = fs.readJsonSync(config_file);
 } else {
 
-    config.description = "LaKing@D250.hu PayPal";
+    config.description = "Replace this to some real data";
     config.sandbox = true;
-    config.merchantId = "mjmdgkg9sp6qzqyk";
-    config.publicKey = "vftb2w59vzzjgfp3";
-    config.privateKey = "e8f3356437ea8d226811763d6806657f";
+    config.merchantId = "abcdefghijklmnop";
+    config.publicKey = "qrstuvwxyz123456789";
+    config.privateKey = "qwertzuiopasdfghjklyxcvbnm123456789";
 
     fs.writeJsonSync(config_file, config);
 }

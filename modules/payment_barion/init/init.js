@@ -10,8 +10,8 @@ if (fs.existsSync(config_file)) {
     config = fs.readJsonSync(config_file);
 } else {
 
-    config.POSKey = "cf44edb114814e668fd94235b538233f";
-    config.payee = "LaKing@D250.hu";
+    config.POSKey = "qwertzuiopasdfghjklyxcvbnm123456789";
+    config.payee = "payee@example.com";
     config.test = true;
 
     fs.writeJsonSync(config_file, config);

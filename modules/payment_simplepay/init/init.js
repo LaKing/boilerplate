@@ -9,7 +9,7 @@ https://sandbox.simplepay.hu/admin
 
 /*jshint esnext: true */
 
-const config_file = ß.CWD + '/config/simplepay.json';
+const config_file = ß.CWD + '/config/payment_simplepay.json';
 
 const fs = ß.fs;
 
@@ -19,10 +19,10 @@ if (fs.existsSync(config_file)) {
     config = fs.readJsonSync(config_file);
 } else {
 
-    config.description = "D250BOILERONE";
+    config.description = "Replace this to some real data";
 
-    config.secretKey = 'E2B90EFvh1j2vg2vTQ2we5V7OgzgW3Jw';
-    config.merchant = 'S117001';
+    config.secretKey = 'The-secret-key-from-simplepay';
+    config.merchant = 'S1234567';
 
     fs.writeJsonSync(config_file, config);
 }

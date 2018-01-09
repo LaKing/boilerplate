@@ -35,7 +35,7 @@ module.exports = function(lang, file) {
     //if (fs.existsSync(ß.CWD + '/' + dir + '/' + file)) f = ß.CWD + '/' + dir + '/' + file;
 
     fs.readFile(file, 'utf8', function(err, data) {
-        if (err) console.log(err);
+        if (err) return console.log(err);
 
         var filename = file.split('/').pop();
 

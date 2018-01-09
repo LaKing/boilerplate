@@ -14,8 +14,8 @@ if (fs.existsSync(config_file)) {
     config = {};
 
     config.client = {
-        user: 'tester@d250.hu',
-        password: 'xxx',
+        user: 'user@example.com',
+        password: '123456',
         eInvoice: false, // create e-invoice. optional, default: false 
         passpharase: '', // passpharase for e-invoice. optional 
         requestInvoiceDownload: true, // downloads the issued pdf invoice. optional, default: false 
