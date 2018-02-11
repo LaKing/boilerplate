@@ -22,20 +22,8 @@ module.exports = function(session, callback) {
             return callback(err);
         }
 
-
-        var now = new Date();
-        if (user.payments)
-            for (var i = 0; i < user.payments.length; i++) {
-                //console.log("payments", user.payments[i]);
-                if (!user.payments[i].paid)
-                    if (user.payments[i].date) {
-                        if (user.payments[i].date.getTime() + 24 * 60 * 60 * 1000, now.getTime()) {
-                            console.log("Payment expired", user.payments[i]._id);
-                            user.payments.splice(i, 1);
-                        }
-                    }
-
-            }
+        // on a new payment, clear expired payments
+        ß.lib.payment.purge(user);
 
         var p = new Payment();
 
@@ -57,6 +45,10 @@ module.exports = function(session, callback) {
         }
 
         user.payments.push(p);
+
+        session.payment = p;
+        session.save();
+
         p.markModified('items');
 
         user.save(function(err) {

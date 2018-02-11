@@ -17,7 +17,7 @@ https://www.szamlazz.hu/szamla/docs/SzamlaAgent.zip
 const HOSTNAME = require('os').hostname();
 
 const fs = ß.fs;
-const szamlazz = require('szamlazz.js');
+const szamlazz = ß.szamlazz;
 
 function convertItems(s) {
     var r = [];
@@ -64,18 +64,18 @@ function convertBuyer(user) {
 
 module.exports = function(userid, paymentid) {
 
-    const User = ß.User;
-
-    const szamlazzClient = new szamlazz.Client(ß.szamlazz_config.client);
-    const seller = new szamlazz.Seller(ß.szamlazz_config.seller);
     // TODO@LAB ha nincs kitöltve Billing, akkor elektronikus nyugtát kellene adni!
 
-    User.findById(userid, function(err, user) {
+    ß.User.findById(userid, function(err, user) {
         if (err) return console.log("ERROR in payment ", userid, paymentid, err);
         if (!user) return console.log("ERROR szamlazz USER not found", userid);
 
         var payment = user.getPayment(paymentid);
         if (!payment.items) return console.log("NO payment items");
+
+        // pass payment as argument, it may have infos about how to configure the client/seller
+        const szamlazzClient = ß.lib.szamlazz.get_client(payment);
+        const seller = ß.lib.szamlazz.get_seller(payment);
 
         let buyer = new szamlazz.Buyer(convertBuyer(user));
 
@@ -103,6 +103,11 @@ module.exports = function(userid, paymentid) {
                         if (err) throw err;
                         console.log("The invoice has been saved to " + file);
                         //console.log("https://" + HOSTNAME + '/' + userid + '-' + paymentid + '.pdf');
+                        ß.run_hooks('invoice_created', {
+                            userid: userid,
+                            paymentid: paymentid,
+                            file: file
+                        });
 
                     });
                 });

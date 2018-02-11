@@ -24,9 +24,15 @@ function acquire_module_dir(m, dir) {
 // load is basicallay an acquire for all files
 
 ß.load = function(dir) {
-    
+
     for (var i = 0; i < ß.modules.length; i++) {
         acquire_module_dir(ß.modules[i], dir);
     }
-    console.log('Load', dir, 'complete');
+
+    if (fs.existsSync(ß.CWD + '/' + dir)) {
+        var files = fs.readdirSync(ß.CWD + '/' + dir);
+        for (var j = 0; j < files.length; j++) require(ß.CWD + '/' + dir + '/' + files[j]);
+    }
+
+    console.log('- Load', dir, 'complete');
 };

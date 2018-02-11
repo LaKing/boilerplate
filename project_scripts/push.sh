@@ -17,6 +17,9 @@ NOW=$(date +%Y.%m.%d-%H:%M:%S)
 ## enforce codepad user
 if [[ $USER != codepad ]]
 then
+    
+    setcap cap_net_bind_service=+ep /usr/bin/node
+
     su codepad -s /bin/bash -c "$0"
     exit
 fi

@@ -36,3 +36,5 @@
     }]);
 
 })();
+
+//##&-- socket.on("session-data", function(data) ... defined in angular module##

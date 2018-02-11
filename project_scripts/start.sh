@@ -17,6 +17,9 @@ pid=/var/codepad/project.pid
 kill "$(cat "$pid")"
 rm -fr "$pid"
 
+echo "running instances of server.js"
+ps aux | grep 'node server.js'
+
 echo "START running the node loop as $USER"
 while true
 do

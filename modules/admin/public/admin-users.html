@@ -75,7 +75,8 @@
             <div smart-form definition="forms" response="user" onsave="save_user_profile"></div>
 
         </div>
-        <div ng-if="editor" ng-jsoneditor ng-model="user" options="jsoneditoroptions" style="height: 600px;"></div>
+        <div ng-if="editor" ng-jsoneditor ng-model="edit.user" options="jsoneditoroptions" style="height: 600px;"></div>
+        <button ng-if="editor" type="button" class="btn btn-danger" ng-click="save_user(edit.user)"><i class="fa fa-hand-o-op"></i> ##&en Save ##&hu mentés ##</button></td>
         <pre ng-if="view">{{user | json}}</pre>
     </div>
 

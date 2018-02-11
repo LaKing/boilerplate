@@ -3,7 +3,8 @@
 // provides two log functions and a stack trace
 
 
-if (ß.CWD.split('/')[2] === 'codepad-project') ß.codepadlog = true;
+if (process.env.USER === 'codepad') ß.codepadlog = true;
+if (ß.codepadlog) console.log("- Using codepad HTML-format logging");
 
 function link_html(str) {
     var ix = str.indexOf('/');
@@ -67,4 +68,4 @@ if (ß.codepadlog)
 //    console.error = Ł;
 //}
 
-logger.log("Logging functions ł and Ł are available.");
+logger.log("- Logging functions ł and Ł are available.");

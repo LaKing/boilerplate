@@ -23,5 +23,5 @@ module.exports = function(name) {
     ß.load(name_model + '/methods');
 
     ß[Name] = mongoose.model(name, ß[nameSchema]);
-
+    
 };

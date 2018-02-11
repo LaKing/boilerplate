@@ -1,6 +1,7 @@
 /*jshint esnext: true */
 
 const fs = ß.fs;
+const lang_dir = ß.CWD + '/local';
 
 
 function process_data(lang, data) {
@@ -29,13 +30,12 @@ function process_data(lang, data) {
 
 // for a given language, we need to process a given sourcefile
 module.exports = function(lang, file) {
-    const lang_dir = ß.CWD + '/local';
 
     //var f = ß.BPD + '/' + dir + '/' + file;
     //if (fs.existsSync(ß.CWD + '/' + dir + '/' + file)) f = ß.CWD + '/' + dir + '/' + file;
 
     fs.readFile(file, 'utf8', function(err, data) {
-        if (err) return console.log(err);
+        if (err) return console.log(file, err);
 
         var filename = file.split('/').pop();
 

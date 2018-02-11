@@ -18,7 +18,7 @@ dnf -y install mongoose
 echo "start mongodb"
 systemctl enable mongod
 systemctl start mongod
-systemctl status mongod
+systemctl status mongod --no-pager
 
 echo "Disabling httpd apache webserver"
 systemctl disable httpd

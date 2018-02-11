@@ -5,3 +5,4 @@ npm install connect-mongo
 npm install socket.io
 npm install express-socket.io-session
 npm install ejs
+npm install socket.io-stream

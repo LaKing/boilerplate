@@ -14,11 +14,13 @@
 
         $scope.users = {};
         $scope.user = {};
+        $scope.edit = {};
 
 
         socket.on("users", function(users) {
             $scope.users = users;
         });
+        $scope.jsoneditordata = {};
         $scope.jsoneditoroptions = {};
         $scope.jsoneditoroptions.mode = 'tree';
         $scope.toggle_jsoneditor = function() {
@@ -27,6 +29,7 @@
         };
         $scope.set = function(user) {
             $scope.user = user;
+            $scope.edit.user = user;
             $scope.list = false;
         };
 
@@ -40,8 +43,13 @@
         $scope.initView();
 
         $scope.save_user_profile = function() {
-            console.log('admin-save-user', $scope.user);
-            socket.emit('admin-save-user', $scope.user);
+            console.log('admin-save-user-profile', $scope.user);
+            socket.emit('admin-save-user-profile', $scope.user);
+        };
+
+        $scope.save_user = function(data) {
+            console.log('admin-save-user', data);
+            socket.emit('admin-save-user', data);
         };
 
         $scope.delete_user = function() {

@@ -1,10 +1,10 @@
 /*jshint esnext: true */
 
 const fs = require('fs-extra');
+//const recursive_readdirSync = require('recursive-readdir-sync');
 
-
-// base ist most likely ß.CWD or ßBPD
-// dir is a directory in the modules or in th eproject itself
+// base ist most likely ß.CWD or ß.BPD
+// dir is a directory in the modules or in the project itself -it is not recursive by default!
 if (!ß.get_files_array)
     ß.get_files_array = function(base, dir) {
 
@@ -18,7 +18,6 @@ if (!ß.get_files_array)
             if (fs.existsSync(path)) mfiles = fs.readdirSync(path);
             files = [...new Set([...files, ...mfiles])];
         }
-
         return files;
     };
 

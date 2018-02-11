@@ -7,23 +7,36 @@ module.exports = function(socket) {
 
     socket.on("admin-save-user", function(data) {
         //var name = data.Name;
-        console.log("admin-save-user", data);
         User.findById(data._id, function(err, user) {
-            if (err) return console.log(err);
-            if (!user) return console.log("Error. user could not be located for ", data._id);
+            if (err) {
+                socket.emit("danger", "ERROR");
+                return console.log(err);
+            }
+            if (!user) {
+                socket.emit("danger", "ERROR");
+                return console.log("Error. user could not be located for ", data._id);
+            }
 
-            user.profile = data.profile;
-            user.billing = data.billing;
-            user.shipping = data.shipping;
+            Object.keys(data).forEach(function(key) {
+                user[key] = data[key];
+            });
 
             user.save(function(err) {
-                if (err) return console.log(err);
-                console.log("@admin save-user:", user);
-                user.updateLocal(data.profile.email, data.profile.password);
+                if (err) {
+                    socket.emit("danger", "ERROR");
+                    return console.log(err);
+                }
+                console.log("@admin save-user OK ", user._id);
+                //user.updateLocal(data.profile.email, data.profile.password);
                 socket.emit("success", "OK");
+
+                // TODO @ LAB analize this
+                // a user socketjeit, és az admin socketjeit kellene frissíteni
+                User.find({}, function(err, data) {
+                    socket.emit("users", data);
+                });
             });
         });
     });
-    
-};
 
+};

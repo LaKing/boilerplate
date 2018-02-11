@@ -6,12 +6,13 @@ const fs = require('fs');
 
 function get_socket_user(socket) {
 
-    if (socket && socket.handshake && socket.handshake.session && socket.handshake.session.passport && socket.handshake.session.passport.user)
-        return socket.handshake.session.passport.user;
-    else {
-        console.log("ERROR @ app/socket.io get_socket_user socket.handshake.session.passport", socket.handshake.session.passport);
-        return undefined;
-    }
+    if (!socket) return console.log('? socket?');
+    if (!socket.handshake) return console.log('? handshake?');
+    if (!socket.handshake.session) return console.log('? session?');
+    if (!socket.handshake.session.passport) return console.log('? passport?');
+    if (!socket.handshake.session.passport.user) return console.log('? user?');
+
+    return true;
 }
 
 const app = ß.app;
@@ -25,37 +26,57 @@ const lib = ß.lib;
 //const promo = require('./promo.js')(app, io);
 
 io.on('connection', function(socket) {
-    console.log('connection');
+
+    if (get_socket_user(socket) !== true) return console.log("BUG!", socket.handshake.session);
 
     var dir = socket.handshake.headers.referer.split('/')[3];
     var ip = socket.handshake.headers['x-forwarded-for'];
-    var id = get_socket_user(socket);
 
-    if (id === undefined) return console.log("ERROR @ app/socket.io connect - id undefined");
+    const id = socket.handshake.session.passport.user;
 
-    if (socket.handshake.session.is_admin) {
-        console.log('app io admin-connected (id ' + id + ') ip:' + ip + ' ' + JSON.stringify(socket.handshake.headers.referer, null, 2));
-        //socket.emit("is_admin", true);
-    } else console.log('app io user-connected (id ' + id + ') ip:' + ip + ' ' + JSON.stringify(socket.handshake.headers.referer, null, 2));
+    if (id === undefined) return console.log("! ERROR @ server/start/socketio.js connect - ID UNDEFINED", ip);
     User.findById(id, function(err, user) {
         if (err) return console.log(err);
-        if (!user) return console.log("Error. user could not be located for ", id);
-        lib.session.update_user(socket.handshake.session, user);
-        socket.emit('session-data', socket.handshake.session);
+        if (!user) return console.log("ERROR user could not be located for ", id);
 
-        socket.user = user;
+        var email = "unknown";
+        if (user.local.email) email = user.local.email;
+        //if (socket.handshake.session.user.profile.email) email = socket.handshake.session.user.profile.email;
+
+        if (socket.handshake.session.is_admin) {
+            console.log('+ admin-connected ', email, ' (id ' + id + ') ip:' + ip + ' ', socket.handshake.headers.referer);
+            //socket.emit("is_admin", true);
+        } else console.log('+ user-connected ', email, ' (id ' + id + ') ip:' + ip + ' ', socket.handshake.headers.referer);
+
+        //lib.session.update_user(socket.handshake.session, user);
+        //Ł();
+        //socket.emit('session-data', socket.handshake.session);
+
+        socket.user_id = id;
+
+        socket.get_user = function(callback) {
+            ß.User.findById(id, function(err, user) {
+                if (err) console.log("ERROR in get_user.", err);
+                if (!user) console.log("ERROR get_user could not locate user for ", id);
+                callback(err, user);
+            });
+        };
+
 
         socket.on('log', function(msg) {
             console.log(msg);
         });
 
+        socket.on('Ł', function(msg) {
+            Ł(msg);
+        });
+
         ß.run_hooks('socket', socket);
 
         if (!socket.handshake.session.is_admin) return;
-        
+
         ß.run_hooks('adminsocket', socket);
 
     });
 
 });
-

@@ -1,9 +1,8 @@
 /*jshint esnext: true */
 
-const HOSTNAME = require('os').hostname();
 const crypto = require('crypto');
 
 module.exports = function(str) {
-    var secret = "@" + HOSTNAME;
+    var secret = "@" + ß.HOSTNAME;
     return crypto.createHash('md5').update(str + secret).digest("hex");
 };

@@ -16,6 +16,5 @@ module.exports = function(p) {
         r[i].UnitPrice = paymentlib.get_item_brutto_unitprice(p.items[i]);
         r[i].ItemTotal = paymentlib.get_item_brutto_sum(p.items[i]);
     }
-    console.log(r);
     return r;
 };

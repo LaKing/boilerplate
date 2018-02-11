@@ -13,6 +13,8 @@ module.exports = function(id) {
 
         link = "https://" + HOSTNAME + "/hash/" + user.local.email + "/" + id + '/' + lib.passport_hash.hash(user.local.email);
 
+        if (user.local.email.indexOf('@') < 0) return console.log("Invali email address ", user.local.email);
+
         let mailOptions = {
             from: 'webmaster@' + HOSTNAME,
             to: user.local.email, // list of receivers

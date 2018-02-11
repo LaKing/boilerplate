@@ -16,7 +16,10 @@ module.exports = function(socket) {
         }
 
         User.findByIdAndRemove(id, function(err) {
-            if (err) return console.log(err);
+            if (err) {
+                socket.emit("danger", "ERROR");
+                return console.log(err);
+            }
             socket.emit("success", "OK");
             User.find({}, function(err, data) {
                 socket.emit("users", data);

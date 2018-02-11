@@ -9,5 +9,4 @@ require('./global');
 ß.load('start');
 
 // application started.
-
-console.log(new Date());
+ß.load('debug');

@@ -1,6 +1,7 @@
 /*jshint esnext: true */
 
 ß.app.post('/post-login', function(req, res, next) {
+
     ß.passport.authenticate('local-login', function(err, user, info) {
         if (err) {
             return res.send('Passport err:' + JSON.stringify(err));
@@ -16,7 +17,7 @@
             if (err) {
                 return next(err);
             }
-            return res.send('OK');
+            res.send('OK');
         });
     })(req, res, next);
 });

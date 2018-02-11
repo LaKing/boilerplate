@@ -4,6 +4,6 @@
 const app = ß.app;
 
  app.all("/barion-return", function(req, res) {
-        console.log("barion-return", req.query);
+        //console.log("barion-return", req.query);
         res.redirect("/");
     });

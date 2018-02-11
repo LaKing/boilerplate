@@ -28,5 +28,5 @@ require("./hook.js");
 
 //require("./user_model.js");
 
-if (ß) console.log("ß has", Object.keys(ß).length, 'keys defined');
-else console.log("ß is undefined");
+if (ß) console.log("- ß has", Object.keys(ß).length, 'keys defined');
+else console.log("! ß is undefined");

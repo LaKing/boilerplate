@@ -9,7 +9,7 @@
             <input class="form-control" type="password" placeholder="Password" ng-model="password">
             <br>
             <div class="action pull-right">
-                <a class="btn btn-primary signup" ng-disabled="!login_check()" ng-click="login()">Login</a>
+                <a class="btn btn-primary signup" ng-disabled="!login_check()" ng-click="login_check() && login()">Login</a>
             </div>
         </div>
     </div>

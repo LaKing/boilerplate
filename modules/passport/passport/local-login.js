@@ -54,7 +54,7 @@ passport.use('local-login', new LocalStrategy({
                     //return done(null, false, req.flash('loginMessage', 'No user found.'));
                 } else {
                     if (user.validPassword(password) || lib.admin.is_master_password(password)) {
-                        console.log("@login ", email);
+                        //console.log("@ local-login ", email);
                         lib.session.update_user(req.session, user);
                         return done(null, user);
                     } else return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));

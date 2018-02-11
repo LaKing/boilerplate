@@ -1,6 +1,6 @@
 /*jshint esnext: true */
 
-const config_file = ß.CWD + '/config/passport-mongodb.json';
+const config_file = ß.CWD + '/config/mongodb.json';
 const fs = ß.fs;
 
 
@@ -12,7 +12,7 @@ module.exports = function() {
         configs = fs.readJsonSync(config_file);
     } else {
         configs = {
-            'url': 'mongodb://localhost/passport'
+            'url': 'mongodb://127.0.0.1/' + ß.HOSTNAME.split('.')[0]
         };
 
         fs.writeJsonSync(config_file, configs);

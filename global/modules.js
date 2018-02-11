@@ -17,15 +17,29 @@ function get_modules() {
 
 ß.modules = get_modules();
 
-var configfile = ß.CWD + '/config/active-modules.json';
+const configfile = ß.CWD + '/config/active-modules.json';
+const blacklistfile = ß.CWD + '/config/blacklist-modules.json';
+var blacklist = [];
 
 fs.mkdirp(ß.CWD + '/config');
 
-if (fs.existsSync(configfile)) ß.modules = fs.readJsonSync(configfile);
-else {
-    ß.modules = get_modules();
-    fs.writeJsonSync(configfile, ß.modules);
+ß.modules = get_modules();
+
+if (fs.existsSync(blacklistfile)) {
+    blacklist = fs.readJsonSync(blacklistfile);
+} else {
+    fs.writeJsonSync(blacklistfile, blacklist);
 }
+
+// remove files listed in the blacklist array
+const modules_set = new Set(ß.modules);
+const blacklist_set = new Set(blacklist);
+const difference = new Set([...modules_set].filter((x) => !blacklist_set.has(x)));
+ß.modules = Array.from(difference);
+
+for (let i = 0; i < ß.modules.length; i++) ß["USE_" + ß.modules[i].toUpperCase()] = true;
+
+fs.writeJsonSync(configfile, ß.modules);
 
 
 /////////////////////////////////////////////////////////////////////////////////////////

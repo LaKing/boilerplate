@@ -7,8 +7,9 @@ function express_localized_file_handler(file) {
     const app = ß.app;
     const language = ß.language;
     const lang_dir = ß.CWD + '/local';
-
+    //console.log("register-request:", file);
     app.get('/' + file, function(req, res) {
+        //console.log("request:", file);
         var lang = lib.language.get_by_req(req);
         res.sendFile(lang_dir + '/' + lang + '/' + file, function(err) {
             if (err) {
