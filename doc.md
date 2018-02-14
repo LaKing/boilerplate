@@ -1,4 +1,3 @@
-____________________ Automatically generated DOC _________________
 # The global ßoiler mechanism
 
 ## THE ß-variable
@@ -40,16 +39,6 @@ This is the primary global variable, visible in the global scope.
     ß.lib.googleapis.calendar_list_events(calendarId, callback);
     ß.lib.googleapis.calendar_update_event(calendarId, eventId, resource, callback);
     ß.lib.googleapis.spreadsheets_list(spreadsheetId, range, callback);
-```
-
-## boilerplate module google_calendar
-  boiler-lib-functions: ```javascript
-    ß.lib.google_calendar.list_events(calendarId, callback);
-    ß.lib.google_calendar.update_event(calendarId, eventId, resource, callback);
-```
-
-## boilerplate module google_spreadsheets
-  boiler-lib-functions: ```javascript
 ```
 
 ## boilerplate module jquery
