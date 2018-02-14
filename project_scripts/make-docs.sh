@@ -1,5 +1,12 @@
 #!/bin/bash
 
+md=false
+
+if [[ $1 == md ]]
+then
+    md=true
+fi
+
 module_exports_prefix="module.exports = function"
 
 function process() {
@@ -14,7 +21,8 @@ function process() {
     
     if [[ -d "$f/lib" ]]
     then
-        echo '  boiler-lib-functions: ```javascript'
+        echo '  boiler-lib-functions:'
+        [[ $md == true ]] && echo '```javascript' || echo ''
         cd "$f/lib"
         for i in $f/lib/*
         do  
@@ -26,12 +34,13 @@ function process() {
                 echo "    ß.lib.$m.${fn:0: -3}${args// {};"
             fi
         done
-        echo '```'
+        [[ $md == true ]] && echo '```'
     fi
     
     if [[ -d "$f/hooks" ]]
     then
-        echo '  hook.functions: ```javascript'
+        echo '  hook.functions:'
+        [[ $md == true ]] && echo '```javascript' || echo ''
         cd "$f/hooks"
         for i in $f/hooks/*
         do  
@@ -43,18 +52,19 @@ function process() {
                 echo "    ${fn:0: -3}${args// {};"
             fi
         done
-        echo '```'
+        [[ $md == true ]] && echo '```' || echo ''
     fi
     
     cd $f
     if [[ ! -z "$(find . | grep -hir 'ß.run_hook' | xargs)" ]]
     then
-        echo '  calling hooks: ```javascript'
+        echo '  calling hooks:'
+        [[ $md == true ]] && echo '```javascript' || echo ''
         for t in "$(find . | grep -hir 'ß.run_hook' | tr -d ' ')"
         do
             echo "    $t"
         done
-        echo '```'
+        [[ $md == true ]] && echo '```' || echo ''
     fi
     
     cd "$f"
