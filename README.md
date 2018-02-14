@@ -74,6 +74,12 @@ This is the primary global variable, visible in the global scope.
 # The global ßoilerplate modules
 
 ## admin - boilerplate module
+
+- uses npm packages.
+- contains multilingual public frontend files.
+- contains static frontend assets.
+- contains route definitions for the frontend.
+
   boiler-lib-functions:
 ```javascript
     ß.lib.admin.check_if_admin(id);
@@ -89,11 +95,28 @@ This is the primary global variable, visible in the global scope.
 
 ## angularjs - boilerplate module
 
+- uses npm packages.
+- contains multilingual public frontend files.
+- contains static frontend assets.
+- contains route definitions for the frontend.
+
+
 ## animate - boilerplate module
+
+- uses npm packages.
+- contains route definitions for the frontend.
+
 
 ## bootstrap3 - boilerplate module
 
+- uses npm packages.
+- contains static frontend assets.
+- contains route definitions for the frontend.
+
+
 ## debug - boilerplate module
+
+
   hook.functions:
 ```javascript
     socket.test(socket);
@@ -101,11 +124,34 @@ This is the primary global variable, visible in the global scope.
 
 ## favicon - boilerplate module
 
+- uses npm packages.
+- contains static frontend assets.
+- backend start process functions.
+
+
 ## fontawesome4 - boilerplate module
+
+- uses npm packages.
+- contains route definitions for the frontend.
+
 
 ## frontend - boilerplate module
 
+- contains multilingual public frontend files.
+- contains route definitions for the frontend.
+
+
 ## googleapis - boilerplate module
+
+- activation based on a condition.
+- uses npm packages.
+
+  exposes into the global ß scope:
+```javascript
+    ß.google
+const
+ß.jwtClient
+```
   boiler-lib-functions:
 ```javascript
     ß.lib.googleapis.calendar_list_events(calendarId, callback);
@@ -115,7 +161,16 @@ This is the primary global variable, visible in the global scope.
 
 ## jquery - boilerplate module
 
+- uses npm packages.
+- contains route definitions for the frontend.
+
+
 ## language - boilerplate module
+
+- backend init process functions.
+- backend server process functions.
+- backend start process functions.
+
   boiler-lib-functions:
 ```javascript
     ß.lib.language.change_handler();
@@ -128,9 +183,28 @@ This is the primary global variable, visible in the global scope.
 
 ## logging - boilerplate module
 
+- uses npm packages.
+- backend start process functions.
+
+
 ## moment - boilerplate module
 
+- uses npm packages.
+
+  exposes into the global ß scope:
+```javascript
+    ß.moment
+```
+
 ## mongoose - boilerplate module
+
+- uses npm packages.
+- backend init process functions.
+
+  exposes into the global ß scope:
+```javascript
+    ß.mongoose
+```
   boiler-lib-functions:
 ```javascript
     ß.lib.mongoose.config_mongodb();
@@ -142,27 +216,60 @@ This is the primary global variable, visible in the global scope.
 
 ## nodemailer - boilerplate module
 
+- uses npm packages.
+- backend init process functions.
+
+
 ## offline - boilerplate module
 
+- contains static frontend assets.
+
+
 ## passport - boilerplate module
+
+- uses npm packages.
+- defines keys the user model.
+- defines methods for the user model.
+- contains multilingual public frontend files.
+- contains route definitions for the frontend.
+- backend init process functions.
+
+  exposes into the global ß scope:
+```javascript
+    ß.passport
+```
   boiler-lib-functions:
 ```javascript
     ß.lib.passport.isLoggedIn(req, res, next);
 ```
 
 ## passport_facebook - boilerplate module
+
+- uses npm packages.
+- defines keys the user model.
+- contains route definitions for the frontend.
+
   boiler-lib-functions:
 ```javascript
     ß.lib.passport_facebook.config_auth();
 ```
 
 ## passport_google - boilerplate module
+
+- uses npm packages.
+- defines keys the user model.
+- contains route definitions for the frontend.
+
   boiler-lib-functions:
 ```javascript
     ß.lib.passport_google.config_auth();
 ```
 
 ## passport_hash - boilerplate module
+
+- uses npm packages.
+- contains route definitions for the frontend.
+
   boiler-lib-functions:
 ```javascript
     ß.lib.passport_hash.hash(str);
@@ -171,6 +278,15 @@ This is the primary global variable, visible in the global scope.
 ```
 
 ## payment - boilerplate module
+
+- defines keys the user model.
+- defines methods for the user model.
+- contains multilingual public frontend files.
+- contains static frontend assets.
+- contains route definitions for the frontend.
+- backend init process functions.
+- backend start process functions.
+
   boiler-lib-functions:
 ```javascript
     ß.lib.payment.calculate_parameters(session, q);
@@ -186,6 +302,12 @@ This is the primary global variable, visible in the global scope.
 ```
 
 ## payment_barion - boilerplate module
+
+- uses npm packages.
+- contains multilingual public frontend files.
+- contains route definitions for the frontend.
+- backend init process functions.
+
   boiler-lib-functions:
 ```javascript
     ß.lib.payment_barion.get_payment_items(p);
@@ -194,6 +316,17 @@ This is the primary global variable, visible in the global scope.
 ```
 
 ## payment_braintree - boilerplate module
+
+- uses npm packages.
+- contains multilingual public frontend files.
+- contains static frontend assets.
+- contains route definitions for the frontend.
+- backend init process functions.
+
+  exposes into the global ß scope:
+```javascript
+    ß.braintree
+```
   boiler-lib-functions:
 ```javascript
     ß.lib.payment_braintree.prepare_token(req, res, next, callback);
@@ -201,6 +334,11 @@ This is the primary global variable, visible in the global scope.
 ```
 
 ## payment_simplepay - boilerplate module
+
+- contains multilingual public frontend files.
+- contains route definitions for the frontend.
+- backend init process functions.
+
   boiler-lib-functions:
 ```javascript
     ß.lib.payment_simplepay.check_ipn_validation(data);
@@ -210,18 +348,39 @@ This is the primary global variable, visible in the global scope.
 ```
 
 ## profile - boilerplate module
+
+- defines keys the user model.
+- contains multilingual public frontend files.
+
   hook.functions:
 ```javascript
     socket.save-profile(socket);
 ```
 
 ## promo - boilerplate module
+
+- uses npm packages.
+- contains multilingual public frontend files.
+- contains route definitions for the frontend.
+
   hook.functions:
 ```javascript
     adminsocket.add_handler(socket);
 ```
 
 ## server - boilerplate module
+
+- uses npm packages.
+- contains route definitions for the frontend.
+- backend init process functions.
+- backend server process functions.
+- backend start process functions.
+
+  exposes into the global ß scope:
+```javascript
+    ß.express
+    ß.socketiostream
+```
   boiler-lib-functions:
 ```javascript
     ß.lib.server.config_mongodb();
@@ -237,6 +396,15 @@ This is the primary global variable, visible in the global scope.
 ```
 
 ## session - boilerplate module
+
+- uses npm packages.
+- contains multilingual public frontend files.
+- contains route definitions for the frontend.
+
+  exposes into the global ß scope:
+```javascript
+    ß.session
+```
   boiler-lib-functions:
 ```javascript
     ß.lib.session.update_user(session, user);
@@ -251,6 +419,9 @@ This is the primary global variable, visible in the global scope.
 ```
 
 ## settings - boilerplate module
+
+- backend init process functions.
+
   boiler-lib-functions:
 ```javascript
     ß.lib.settings.readSync();
@@ -262,12 +433,28 @@ This is the primary global variable, visible in the global scope.
 ```
 
 ## smartforms - boilerplate module
+
+- uses npm packages.
+- contains multilingual public frontend files.
+- contains static frontend assets.
+- contains route definitions for the frontend.
+- backend start process functions.
+
   boiler-lib-functions:
 ```javascript
     ß.lib.smartforms.get_smartform_schema(file);
 ```
 
 ## szamlazz - boilerplate module
+
+- uses npm packages.
+- contains route definitions for the frontend.
+- backend init process functions.
+
+  exposes into the global ß scope:
+```javascript
+    ß.szamlazz
+```
   boiler-lib-functions:
 ```javascript
     ß.lib.szamlazz.get_client(payment);
@@ -284,11 +471,11 @@ This is the primary global variable, visible in the global scope.
 ```
 
 ## verify - boilerplate module
+
+- uses npm packages.
+
   boiler-lib-functions:
 ```javascript
     ß.lib.verify.email(address, callback);
 ```
-
-
-# The local project modules
 

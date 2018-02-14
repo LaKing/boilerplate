@@ -11,10 +11,43 @@ module_exports_prefix="module.exports = function"
 
 function process() {
     local g f m
+    ## global-scope
     g="$1"
-    f="$2"    
+    ## folder
+    f="$2"
+    ## module 
     m="$( basename "$f")" 
     echo "## $m - $g module"
+    echo ''
+    
+    [[ -f "$f/module-condition.js" ]] && echo "- activation based on a condition."
+    [[ -f "$f/npm.sh" ]] && echo "- uses npm packages."
+    [[ -d "$f/user_model/keys" ]] && echo "- defines keys the user model."
+    [[ -d "$f/user_model/methods" ]] && echo "- defines methods for the user model."
+    [[ -d "$f/public" ]] && echo "- contains multilingual public frontend files."
+    [[ -d "$f/static" ]] && echo "- contains static frontend assets."
+    [[ -d "$f/routes" ]] && echo "- contains route definitions for the frontend."
+    [[ -d "$f/init" ]] && echo "- backend init process functions."
+    [[ -d "$f/server" ]] && echo "- backend server process functions."
+    [[ -d "$f/start" ]] && echo "- backend start process functions."
+    [[ -d "$f/debug" ]] && echo "- backend debug process functions."
+
+    echo ''
+
+    if [[ -d "$f/global" ]]
+    then
+        echo '  exposes into the global ß scope:'
+        [[ $md == true ]] && echo '```javascript' || echo ''
+        for i in $f/global/*
+        do  
+            if [[ -f $i ]]
+            then
+                echo "    $(cat "$i" | grep 'ß' | grep '=' | awk '{print $1;}')"
+            fi
+        done
+        [[ $md == true ]] && echo '```' || echo ''
+    fi
+    
     
     cd "$f" 
     find . | grep -hir '// @DOC' | cut -c 9- > doc.md
@@ -34,7 +67,7 @@ function process() {
                 echo "    ß.lib.$m.${fn:0: -3}${args// {};"
             fi
         done
-        [[ $md == true ]] && echo '```'
+        [[ $md == true ]] && echo '```' || echo ''
     fi
     
     if [[ -d "$f/hooks" ]]
@@ -97,15 +130,19 @@ then
     done
 fi
 
-echo ''
-echo "# The local project modules"
-echo ''
-
-if [[ -w $CWD/modules ]]
+if [[ -d  $CWD/modules ]]
 then
-    for f in "$CWD"/modules/*
-    do
-        process project "$f" 
-    done
-fi
 
+    echo ''
+    echo "# The local project modules"
+    echo ''
+
+    if [[ -w $CWD/modules ]]
+    then
+        for f in "$CWD"/modules/*
+        do
+            process project "$f" 
+        done
+    fi
+
+fi
