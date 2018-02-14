@@ -1,9 +1,6 @@
 #!/bin/bash
 
-echo '____________________ Automatically generated DOC _________________'
-
 module_exports_prefix="module.exports = function"
-
 
 function process() {
     local g f m
