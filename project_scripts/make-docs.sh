@@ -14,7 +14,7 @@ function process() {
     g="$1"
     f="$2"    
     m="$( basename "$f")" 
-    echo "## $g module $m"
+    echo "## $m - $g module"
     
     cd "$f" 
     find . | grep -hir '// @DOC' | cut -c 9- > doc.md

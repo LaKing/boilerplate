@@ -73,7 +73,7 @@ This is the primary global variable, visible in the global scope.
 
 # The global ßoilerplate modules
 
-## boilerplate module admin
+## admin - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.admin.check_if_admin(id);
@@ -87,25 +87,25 @@ This is the primary global variable, visible in the global scope.
     adminsocket.save-user-profile(socket);
 ```
 
-## boilerplate module angularjs
+## angularjs - boilerplate module
 
-## boilerplate module animate
+## animate - boilerplate module
 
-## boilerplate module bootstrap3
+## bootstrap3 - boilerplate module
 
-## boilerplate module debug
+## debug - boilerplate module
   hook.functions:
 ```javascript
     socket.test(socket);
 ```
 
-## boilerplate module favicon
+## favicon - boilerplate module
 
-## boilerplate module fontawesome4
+## fontawesome4 - boilerplate module
 
-## boilerplate module frontend
+## frontend - boilerplate module
 
-## boilerplate module googleapis
+## googleapis - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.googleapis.calendar_list_events(calendarId, callback);
@@ -113,9 +113,9 @@ This is the primary global variable, visible in the global scope.
     ß.lib.googleapis.spreadsheets_list(spreadsheetId, range, callback);
 ```
 
-## boilerplate module jquery
+## jquery - boilerplate module
 
-## boilerplate module language
+## language - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.language.change_handler();
@@ -126,11 +126,11 @@ This is the primary global variable, visible in the global scope.
     ß.lib.language.transpile(folder);
 ```
 
-## boilerplate module logging
+## logging - boilerplate module
 
-## boilerplate module moment
+## moment - boilerplate module
 
-## boilerplate module mongoose
+## mongoose - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.mongoose.config_mongodb();
@@ -140,29 +140,29 @@ This is the primary global variable, visible in the global scope.
 ```javascript
 ```
 
-## boilerplate module nodemailer
+## nodemailer - boilerplate module
 
-## boilerplate module offline
+## offline - boilerplate module
 
-## boilerplate module passport
+## passport - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.passport.isLoggedIn(req, res, next);
 ```
 
-## boilerplate module passport_facebook
+## passport_facebook - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.passport_facebook.config_auth();
 ```
 
-## boilerplate module passport_google
+## passport_google - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.passport_google.config_auth();
 ```
 
-## boilerplate module passport_hash
+## passport_hash - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.passport_hash.hash(str);
@@ -170,7 +170,7 @@ This is the primary global variable, visible in the global scope.
     ß.lib.passport_hash.verify(req, res, callback);
 ```
 
-## boilerplate module payment
+## payment - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.payment.calculate_parameters(session, q);
@@ -185,7 +185,7 @@ This is the primary global variable, visible in the global scope.
     ß.run_hooks('payment_success',ref);
 ```
 
-## boilerplate module payment_barion
+## payment_barion - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.payment_barion.get_payment_items(p);
@@ -193,14 +193,14 @@ This is the primary global variable, visible in the global scope.
     ß.lib.payment_barion.render_page(req, res, next);
 ```
 
-## boilerplate module payment_braintree
+## payment_braintree - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.payment_braintree.prepare_token(req, res, next, callback);
     ß.lib.payment_braintree.render_page(req, res, next);
 ```
 
-## boilerplate module payment_simplepay
+## payment_simplepay - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.payment_simplepay.check_ipn_validation(data);
@@ -209,19 +209,19 @@ This is the primary global variable, visible in the global scope.
     ß.lib.payment_simplepay.render_page(req, res, next);
 ```
 
-## boilerplate module profile
+## profile - boilerplate module
   hook.functions:
 ```javascript
     socket.save-profile(socket);
 ```
 
-## boilerplate module promo
+## promo - boilerplate module
   hook.functions:
 ```javascript
     adminsocket.add_handler(socket);
 ```
 
-## boilerplate module server
+## server - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.server.config_mongodb();
@@ -236,7 +236,7 @@ This is the primary global variable, visible in the global scope.
 ß.run_hooks('adminsocket',socket);
 ```
 
-## boilerplate module session
+## session - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.session.update_user(session, user);
@@ -250,7 +250,7 @@ This is the primary global variable, visible in the global scope.
     ß.run_hooks("session_update_user",session,user);
 ```
 
-## boilerplate module settings
+## settings - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.settings.readSync();
@@ -261,13 +261,13 @@ This is the primary global variable, visible in the global scope.
     adminsocket.save-settings(socket);
 ```
 
-## boilerplate module smartforms
+## smartforms - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.smartforms.get_smartform_schema(file);
 ```
 
-## boilerplate module szamlazz
+## szamlazz - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.szamlazz.get_client(payment);
@@ -283,7 +283,7 @@ This is the primary global variable, visible in the global scope.
     ß.run_hooks('invoice_created',{
 ```
 
-## boilerplate module verify
+## verify - boilerplate module
   boiler-lib-functions:
 ```javascript
     ß.lib.verify.email(address, callback);
