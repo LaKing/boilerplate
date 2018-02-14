@@ -13,10 +13,6 @@ function get_modules() {
     return [...new Set([...bpmodules, ...cpmodules])];
 }
 
-
-
-ß.modules = get_modules();
-
 const configfile = ß.CWD + '/config/active-modules.json';
 const blacklistfile = ß.CWD + '/config/blacklist-modules.json';
 var blacklist = [];
@@ -37,7 +33,15 @@ const blacklist_set = new Set(blacklist);
 const difference = new Set([...modules_set].filter((x) => !blacklist_set.has(x)));
 ß.modules = Array.from(difference);
 
+for (let i = 0; i < ß.modules.length; i++) {
+    let condition_file = ß.BPD + '/modules/' + ß.modules[i] + '/module-condition.js';
+    if (fs.existsSync(condition_file))
+        if (require(condition_file)() !== true) ß.modules.splice(i, 1);
+}
+
 for (let i = 0; i < ß.modules.length; i++) ß["USE_" + ß.modules[i].toUpperCase()] = true;
+
+// for (let i = 0; i < ß.modules.length; i++) console.log("- USE_" + ß.modules[i].toUpperCase());
 
 fs.writeJsonSync(configfile, ß.modules);
 

@@ -1,5 +1,9 @@
 /*jshint esnext: true */
 
+// @DOC ## THE ß-variable
+// @DOC This is the primary global variable, visible in the global scope. 
+
+
 // BOILERPLATE FRAMEWORK INITIALIZATION
 const fs = require('fs-extra');
 
