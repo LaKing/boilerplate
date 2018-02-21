@@ -70,6 +70,8 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## THE ß-variable
 This is the primary global variable, visible in the global scope. 
+Frequently used node_modules can be attached directly.
+for example ß.fs is reference to the fs-extra
 
 # The global ßoilerplate modules
 
@@ -89,8 +91,8 @@ This is the primary global variable, visible in the global scope.
 ```javascript
     adminsocket.delete-user(socket);
     adminsocket.get-users(socket);
-    adminsocket.save-user(socket);
     adminsocket.save-user-profile(socket);
+    adminsocket.save-user(socket);
 ```
 
 ## angularjs - boilerplate module
@@ -150,6 +152,7 @@ This is the primary global variable, visible in the global scope.
 ```javascript
     ß.google
 const
+if
 ß.jwtClient
 ```
   boiler-lib-functions:
@@ -291,8 +294,8 @@ const
 ```javascript
     ß.lib.payment.calculate_parameters(session, q);
     ß.lib.payment.initialize_payment(session, callback);
-    ß.lib.payment.paymentlibmodule.exports = that;;
     ß.lib.payment.payment_success(ref);
+    ß.lib.payment.paymentlibmodule.exports = that;;
     ß.lib.payment.purge(user);
     ß.lib.payment.render_page(req, res, next);
 ```

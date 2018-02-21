@@ -2,7 +2,8 @@
 
 // @DOC ## THE ß-variable
 // @DOC This is the primary global variable, visible in the global scope. 
-
+// @DOC Frequently used node_modules can be attached directly.
+// @DOC for example ß.fs is reference to the fs-extra
 
 // BOILERPLATE FRAMEWORK INITIALIZATION
 const fs = require('fs-extra');
@@ -43,7 +44,7 @@ if (!ß.acquire) ß.acquire = function(dir) {
     var files = [...new Set([...bpfiles, ...cpfiles])];
 
     for (var i = 0; i < files.length; i++) {
-        if (files[i] !== 'index.js') {
+        if (files[i] !== 'index.js' && files[i].split('.').reverse()[0] === 'js') {
             if (cpfiles.indexOf(files[i]) >= 0) require(ß.CWD + '/' + dir + '/' + files[i]);
             else
             if (bpfiles.indexOf(files[i]) >= 0) require(ß.BPD + '/' + dir + '/' + files[i]);

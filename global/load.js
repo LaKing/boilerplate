@@ -31,7 +31,10 @@ function acquire_module_dir(m, dir) {
 
     if (fs.existsSync(ß.CWD + '/' + dir)) {
         var files = fs.readdirSync(ß.CWD + '/' + dir);
-        for (var j = 0; j < files.length; j++) require(ß.CWD + '/' + dir + '/' + files[j]);
+        for (var j = 0; j < files.length; j++) {
+            if (files[j].split('.').reverse()[0] === 'js')
+                require(ß.CWD + '/' + dir + '/' + files[j]);
+        }
     }
 
     console.log('- Load', dir, 'complete');

@@ -62,10 +62,9 @@ if (ß.codepadlog)
         logger.log('┗━━━━');
 
     };
-
-//if (ß.codepadlog) {
-//    console.log = ł;
-//    console.error = Ł;
-//}
+else
+    global.Ł = function() {
+        logger.log(...arguments);
+    };
 
 logger.log("- Logging functions ł and Ł are available.");

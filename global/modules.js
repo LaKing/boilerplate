@@ -40,12 +40,34 @@ for (let i = 0; i < ß.modules.length; i++) {
 }
 
 for (let i = 0; i < ß.modules.length; i++) ß["USE_" + ß.modules[i].toUpperCase()] = true;
-
-// for (let i = 0; i < ß.modules.length; i++) console.log("- USE_" + ß.modules[i].toUpperCase());
+//for (let i = 0; i < ß.modules.length; i++) console.log("- USE_" + ß.modules[i].toUpperCase());
 
 fs.writeJsonSync(configfile, ß.modules);
 
 
-/////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////CLI/////////////////////////////////////////////////
+
+ß.cli_commands.push('blacklist MODULE');
+if (ß.CMD === 'blacklist') {
+     if (ß.fs.existsSync(ß.BPD + "/modules/" + ß.ARG) || ß.fs.existsSync(ß.CWD + "/modules/" + ß.ARG)) {
+        blacklist.push(ß.ARG.toLowerCase());
+        fs.writeJsonSync(blacklistfile, blacklist);
+        ß.msg('OK');
+        process.exit();
+     }
+}
+
+ß.cli_commands.push('whitelist MODULE');
+if (ß.CMD === 'whitelist') {
+     if (ß.fs.existsSync(ß.BPD + "/modules/" + ß.ARG) || ß.fs.existsSync(ß.CWD + "/modules/" + ß.ARG)) {
+        blacklist.splice(blacklist.indexOf(ß.ARG.toLowerCase()), 1);
+        fs.writeJsonSync(blacklistfile, blacklist);
+        ß.msg('OK');
+        process.exit();
+     }
+}
+
 
 //console.log("ß.modules:", ß.modules);
+
+

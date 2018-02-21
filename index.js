@@ -9,4 +9,4 @@ require('./global');
 ß.load('start');
 
 // application started.
-ß.load('debug');
+if (ß.debug_on) ß.load('debug');
