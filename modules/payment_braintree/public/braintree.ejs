@@ -1,5 +1,5 @@
 <div class="container content-box-large">
-    <h1>##&en PAYMENT ##&hu FIZETÉS ##</h1>
+    <h1>##&en PAYMENT-BRAINTREE ##&hu FIZETÉS-BRAINTREE ##</h1>
     <div class="panel-heading">
         <div class="panel-title"></div>
     </div>
@@ -73,6 +73,8 @@
     <div id="checkout-message"></div>
 
     <div class="panel-body">
+        <script src="https://js.braintreegateway.com/web/dropin/1.9.4/js/dropin.min.js"></script>
+
         <div id="dropin-container"></div>
         // 4111111111111111, 09/20, 400
         <br>
@@ -183,6 +185,8 @@
                                         } else {
                                             // Remove the accordion
                                             $('#payment-accordion').remove();
+                                            $('#braintree-submit').remove();
+                                            window.location.hash = '#invoices';
                                         }
                                     });
                                 } else {

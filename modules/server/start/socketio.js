@@ -6,11 +6,11 @@ const fs = require('fs');
 
 function get_socket_user(socket) {
 
-    if (!socket) return console.log('? socket?');
-    if (!socket.handshake) return console.log('? handshake?');
-    if (!socket.handshake.session) return console.log('? session?');
-    if (!socket.handshake.session.passport) return console.log('? passport?');
-    if (!socket.handshake.session.passport.user) return console.log('? user?');
+    if (!socket) return console.log('Missing socket?');
+    if (!socket.handshake) return console.log('Mising handshake?');
+    if (!socket.handshake.session) return console.log('Missing session?');
+    if (!socket.handshake.session.passport) return console.log('Missing session.passport.');
+    if (!socket.handshake.session.passport.user) return console.log('Missing session.passport.user?');
 
     return true;
 }
@@ -27,7 +27,7 @@ const lib = ß.lib;
 
 io.on('connection', function(socket) {
 
-    if (get_socket_user(socket) !== true) return console.log("BUG!", socket.handshake.session);
+    if (get_socket_user(socket) !== true) return console.log("@server.start.socket - abort at connection");
 
     var dir = socket.handshake.headers.referer.split('/')[3];
     var ip = socket.handshake.headers['x-forwarded-for'];
@@ -56,9 +56,15 @@ io.on('connection', function(socket) {
 
         socket.get_user = function(callback) {
             ß.User.findById(id, function(err, user) {
-                if (err) console.log("ERROR in get_user.", err);
-                if (!user) console.log("ERROR get_user could not locate user for ", id);
-                callback(err, user);
+                if (err) {
+                    socket.emit("danger", "ERROR");
+                    return console.log("ERROR in get_user.", err);
+                }
+                if (!user) {
+                    socket.emit("danger", "ERROR");
+                    return console.log("ERROR get_user could not locate user for ", id);
+                }
+                callback(user);
             });
         };
 

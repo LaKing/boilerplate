@@ -172,6 +172,7 @@ if
   exposes into the global ß scope:
 ```javascript
     ß.passport
+ß.bcrypt
 ```
   boiler-lib-functions:
 ```javascript

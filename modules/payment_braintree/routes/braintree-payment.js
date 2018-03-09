@@ -5,7 +5,7 @@ const app = ß.app;
 app.post("/braintree-payment", function(req, res) {
     var nonceFromTheClient = req.body.paymentMethodNonce;
     console.log("nonce:", nonceFromTheClient);
-    braintree_gateway.transaction.sale({
+    ß.braintree_gateway.transaction.sale({
         amount: req.session.payment.brutto,
         paymentMethodNonce: nonceFromTheClient,
         options: {
@@ -21,7 +21,7 @@ app.post("/braintree-payment", function(req, res) {
             console.log("success", result.transaction.id + ' ' + result.transaction.status + ' OK');
             req.session.payment.status = "paid with Braintree " + result.transaction.id;
 
-            require("./payment-success.js")(req.session.payment.ref);
+            ß.lib.payment.payment_success(req.session.payment.ref);
 
         } else {
             console.log("braintree-error", result);

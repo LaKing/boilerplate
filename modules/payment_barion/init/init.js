@@ -23,3 +23,5 @@ else
     ß.barion = new(require('barion-nodejs'))();
 
 ß.barion_config = config;
+
+// Tesztkártyák / test cards 4444 8888 8888 5559, 2/20, 200 | 4444 8888 8888 4446

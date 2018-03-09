@@ -1,7 +1,6 @@
 /*jshint esnext: true */
 
 module.exports = function(req, res, next) {
-    Ł(ß.modules);
 
     const User = ß.User;
     const HOSTNAME = ß.HOSTNAME;
@@ -10,7 +9,8 @@ module.exports = function(req, res, next) {
 
     // if we use braintree, we need to pass the token as well
     if (req.session.braintree_token === undefined) {
-        prepare_token(req, res, next, ß.lib.payment.render_page);
+        if (ß.USE_PAYMENT_BARION && ß.USE_PAYMENT_BRAINTREE && ß.USE_PAYMENT_SIMPLEPAY) prepare_token(req, res, next, ß.lib.payment.render_page);
+        else if (ß.USE_PAYMENT_BRAINTREE) prepare_token(req, res, next, ß.lib.payment_braintree.render_page);
         return console.log("need braintree token");
     }
 
@@ -35,7 +35,7 @@ module.exports = function(req, res, next) {
         }
 
         var p = ß.lib.payment.calculate_parameters(req.session, user.payments[user.payments.length - 1]);
-
+        res.status(200);
         res.render(ejsfile, {
             lang: req.session.lang.toUpperCase(),
             host: HOSTNAME,

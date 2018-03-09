@@ -10,7 +10,8 @@
 
                 var alert = {
                     type: type,
-                    msg: '#' + alertCounter + ' ' + msg,
+                    //msg: '#' + alertCounter + ' ' + msg,
+                    msg: msg,
                     anim: ''
                 };
 

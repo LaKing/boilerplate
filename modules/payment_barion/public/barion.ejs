@@ -74,13 +74,15 @@
 
 
     <div>
-        // Tesztkártyák 4444 8888 8888 5559, 2/20, 200 | 4444 8888 8888 4446
+        ##&en Barion is an offsite payment method, it will redirect to the barion website to enter creditcard details. ##&hu A barion offsite fizetési megoldásával oldalára irányítva fizethet bankártyával vagy barion tálcával ##
         <img class="pull-right" src="/images/barion-card-payment-mark-2017.svg"></img><br>
         <button id="barion-submit" class="btn btn-primary">##&en Payment via creditcard or with a Barion wallet. ##&hu Fizetés bankkártyával vagy a Barion tálcával. ##</button>
         <script>
             var barion_submit = document.querySelector('#barion-submit');
-
             barion_submit.addEventListener('click', function() {
+                $('#barion-submit').remove();
+                $('#checkout-message').html('<h2>##&en Please wait ##&hu kérem várjon ##</h2><p>##&en redirecting ##&hu átirányítás ##</p>');
+
                 $.ajax({
                     type: 'POST',
                     url: '/barion-payment',

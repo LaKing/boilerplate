@@ -4,22 +4,21 @@
 
         session.load();
 
-        $scope.action = function() {
+        $scope.session_save = function() {
             session.save();
-            alertService.add('success', 'Saved in action.');
+            alertService.add('success', 'Saved session.');
         };
-
-        $scope.termekek = {};
-        $scope.rendeles = {};
+        
+        $scope.maindata = {};
 
         // json betöltés socket.io nélkül, sima get requestként
-        $http.get('/valami.json')
+        $http.get('/maindata.json')
             .then(function(res) {
-                $scope.termekek = res.data;
-                console.log("valami:", $scope.termekek);
+                $scope.maindata = res.data;
+                console.log("maindata:", $scope.maindata);
             }, function errorCallback(response) {
                 console.log("error", response);
-                alert("Hálózati hiba! ?");
+                alert("##&en Network error (main) ##&hu Hálózati hiba! (main) ##");
             });
 
     }]);

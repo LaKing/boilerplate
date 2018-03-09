@@ -29,7 +29,7 @@ module.exports = function(req, res, next) {
         }
 
         var p = ß.lib.payment.calculate_parameters(req.session, user.payments[user.payments.length - 1]);
-
+        res.status(200);
         res.render(ejsfile, {
             lang: req.session.lang.toUpperCase(),
             host: HOSTNAME,

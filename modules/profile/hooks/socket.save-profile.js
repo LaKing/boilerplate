@@ -5,7 +5,7 @@ const fs = require('fs');
 module.exports = function(socket) {
 
     socket.on("save-profile", function(data) {
-        socket.get_user(function(err, user) {
+        socket.get_user(function(user) {
 
             if (data.profile)
                 user.profile = data.profile;

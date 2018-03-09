@@ -34,10 +34,9 @@
                     console.log("redirect", url);
                     $window.location.href = url;
                 });
-
             },
             on: function(eventName, callback) {
-                if (!connected) return console.log("socket not connected");
+                if (!connected) return console.log("socket not connected - ", eventName);
                 socket.on(eventName, function() {
                     var args = arguments;
                     $rootScope.$apply(function() {
@@ -46,7 +45,7 @@
                 });
             },
             emit: function(eventName, data, callback) {
-                if (!connected) return console.log("socket not connected");
+                if (!connected) return console.log("socket not connected - ", eventName);
                 socket.emit(eventName, data, function() {
                     var args = arguments;
                     $rootScope.$apply(function() {

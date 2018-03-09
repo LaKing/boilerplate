@@ -12,6 +12,9 @@
             data.shipping = $rootScope.session.user.shipping;
             console.log('save-profile', data);
             socket.emit('save-profile', data);
+            
+            // go to next page?
+            $rootScope.go2next();
         };
 
         // load forms 
@@ -20,7 +23,7 @@
                 $scope.forms = res.data;
             }, function errorCallback(response) {
                 console.log("error", response);
-                alert("Hálózati hiba! ?");
+                alert("##&en Network failure ##&hu Hálózati hiba! ##");
             });
 
 

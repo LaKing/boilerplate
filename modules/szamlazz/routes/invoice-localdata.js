@@ -1,3 +1,3 @@
 /*jshint esnext: true */
 
-ß.app.use(ß.express.static('invoice'));
+ß.app.use(ß.express.static(ß.CWD + '/user'));

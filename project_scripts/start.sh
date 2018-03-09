@@ -17,6 +17,9 @@ pid=/var/codepad/project.pid
 kill "$(cat "$pid")"
 rm -fr "$pid"
 
+(echo >/dev/tcp/localhost/80) &>/dev/null && echo "TCP port 80 opened by an application" || echo "TCP port 80 available"
+(echo >/dev/tcp/localhost/443) &>/dev/null && echo "TCP port 443 opened by an application" || echo "TCP port 443 available"
+
 echo "running instances of server.js"
 ps aux | grep 'node server.js'
 

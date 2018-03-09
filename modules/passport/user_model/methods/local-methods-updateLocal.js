@@ -1,7 +1,5 @@
 /*jshint esnext: true */
 
-const lib = ß.lib;
-
 ß.userSchema.methods.updateLocal = function(email, password) {
     var mail_modified = false;
     var modified = true;
@@ -17,7 +15,7 @@ const lib = ß.lib;
     }
     if (password) {
         modified = true;
-        this.local.password = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+        this.local.password = ß.bcrypt.hashSync(password, ß.bcrypt.genSaltSync(8), null);
         console.log("local password update", email, id);
     }
 
@@ -25,7 +23,7 @@ const lib = ß.lib;
         this.markModified("local");
         this.save(function(err) {
             if (err) console.log(err);
-            if (mail_modified) lib.passport_hash.send(id);
+            if (mail_modified) ß.lib.passport_hash.send(id);
         });
     }
 

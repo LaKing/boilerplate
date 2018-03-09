@@ -55,7 +55,7 @@
                             }
                             if (res.data == "BADFORMAT") {
                                 alertService.add('danger', '##&en Invalid address ##&hu Érvénytelen cím ##');
-                                scope.login_message = "##&en Enter your e-mail address ##&hu Adja meg e-mail címét ##, " + email + " ##&en is invalid. ##&hu érvénytelen. ##";
+                                scope.login_message = "##&en Enter your e-mail address ##&hu Adja meg e-mail címét ##, " + scope.email + " ##&en is invalid. ##&hu érvénytelen. ##";
                                 console.log("REG_B", $scope.reg_b);
                             }
                             if (res.data == "GOODFORMAT") {
@@ -87,7 +87,7 @@
                                 scope.login_message = "##&en Logged in. ##&hu bejelentkezett. ##";
 
                                 socket.connect();
-                                $rootScope.go2('main');
+                                $rootScope.go2next();
 
                             } else {
                                 alertService.add('danger', res.data);

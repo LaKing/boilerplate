@@ -1,1 +1,23 @@
-{"client":{"user":"user@example.com","password":"123456","eInvoice":false,"passpharase":"","requestInvoiceDownload":true,"downloadedInvoiceCount":1,"responseVersion":1},"seller":{"bank":{"name":"Test Bank <name>","accountNumber":"11111111-11111111-11111111"},"email":{"replyToAddress":"info@boiler-one.d250.hu","subject":"Invocie email subject","message":"This is an email message"},"issuerName":""}}
+{
+    "client": {
+        "user": "user@example.com",
+        "password": "123456",
+        "eInvoice": false,
+        "passpharase": "",
+        "requestInvoiceDownload": true,
+        "downloadedInvoiceCount": 1,
+        "responseVersion": 1
+    },
+    "seller": {
+        "bank": {
+            "name": "Test Bank <name>",
+            "accountNumber": "11111111-11111111-11111111"
+        },
+        "email": {
+            "replyToAddress": "info@boiler-one.d250.hu",
+            "subject": "Invocie email subject",
+            "message": "This is an email message"
+        },
+        "issuerName": ""
+    }
+}

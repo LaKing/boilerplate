@@ -1,1 +1,5 @@
-{"POSKey":"qwertzuiopasdfghjklyxcvbnm123456789","payee":"payee@example.com","test":true}
+{
+    "POSKey": "cf44edb114814e668fd94235b538233f",
+    "payee": "LaKing@D250.hu",
+    "test": false
+}
