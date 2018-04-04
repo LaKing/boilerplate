@@ -33,10 +33,11 @@ app.get('/session', function(req, res, next) {
         res.send(JSON.stringify(req.session));
     });
 });
+
 app.post('/session-data', function(req, res, next) {
     console.log('POST', req.body);
     req.session.data = req.body;
     //req.session.save();
     res.send('OK');
-    Ł(req.body, req.session);
+    //Ł(req.body, req.session);
 });

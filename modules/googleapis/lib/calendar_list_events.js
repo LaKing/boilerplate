@@ -7,7 +7,7 @@ module.exports = function(calendarId, callback) {
     //authenticate request
     ß.jwtClient.authorize(function(err, tokens) {
         if (err) {
-            console.log("ERROR Google calendar connection failed!", err);
+            console.log("ERROR Google jwtClient.authorize calendar connection failed!", err);
             return callback(err, null);
         } else {
             //console.log("Google calendar - Successfully connected!", calendarId);
@@ -19,7 +19,7 @@ module.exports = function(calendarId, callback) {
                 maxResults: 100,
                 timeMin: (new Date()).toISOString()
             }, function(err, response) {
-                if (err) return console.log("ERROR google_calendar.list_events FAILED", calendarId);
+                if (err) return console.log("ERROR calendar.events.list FAILED", calendarId);
                 console.log("google_calendar.list_events fetched", response.data.items.length, "from", calendarId);
                 return callback(err, response.data);
             });

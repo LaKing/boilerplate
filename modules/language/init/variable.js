@@ -1,8 +1,11 @@
 /*jshint esnext: true */
 
+var config_file = ß.CWD + '/config/language.json';
+var debug_file = ß.CWD + '/config/language.debug.json';
+
 const fs = ß.fs;
 
-var config_file = ß.CWD + '/config/language.json';
+if (ß.DEBUG && fs.existsSync(debug_file)) config_file = debug_file;
 
 var configs = {};
 

@@ -43,10 +43,8 @@ io.on('connection', function(socket) {
         if (user.local.email) email = user.local.email;
         //if (socket.handshake.session.user.profile.email) email = socket.handshake.session.user.profile.email;
 
-        if (socket.handshake.session.is_admin) {
-            console.log('+ admin-connected ', email, ' (id ' + id + ') ip:' + ip + ' ', socket.handshake.headers.referer);
-            //socket.emit("is_admin", true);
-        } else console.log('+ user-connected ', email, ' (id ' + id + ') ip:' + ip + ' ', socket.handshake.headers.referer);
+        if (socket.handshake.session.is_admin) console.log('+ admin-connected ', email, ' (id ' + id + ') ip:' + ip + ' ', socket.handshake.headers.referer);
+        else console.log('+ user-connected ', email, ' (id ' + id + ') ip:' + ip + ' ', socket.handshake.headers.referer);
 
         //lib.session.update_user(socket.handshake.session, user);
         //Ł();

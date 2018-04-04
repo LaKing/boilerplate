@@ -4,7 +4,7 @@ module.exports = function(calendarId, eventId, resource, callback) {
 
     ß.jwtClient.authorize(function(err, tokens) {
         if (err) {
-            console.log(err);
+            console.log("ERROR Google jwtClient.authorize calendar connection failed!", err);
             return callback(err, null);
         } else {
             console.log("Google calendar - Successfully connected!", calendarId);

@@ -24,17 +24,17 @@ function toUri(input) {
 
 
 module.exports = function(socket) {
-    console.log("PROMO adminsocket.add_handler");
+
     var img = '/tmp/' + socket.handshake.session.passport.user + '-promo-image-file.jpg';
 
     ß.socketiostream(socket).on('upload-promo-image', function(stream) {
         console.log("upload-promo-image");
         stream.pipe(fs.createWriteStream(img));
-        console.log("socket1:", socket.id);
+        console.log("socket-stream id:", socket.id);
     });
 
     socket.on("save-promo", function(data) {
-        console.log("socket2:", socket.id);
+        console.log("socket-stream-id:", socket.id);
         var uri = toUri(data.promo.name);
         var path = ß.CWD + '/promo/' + uri;
         console.log("SAVE-PROMO", uri, data);

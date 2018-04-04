@@ -4,7 +4,7 @@ var sheets = ß.google.sheets('v4');
 module.exports = function(spreadsheetId, range, callback) {
     ß.jwtClient.authorize(function(err, tokens) {
         if (err) {
-            console.log("ERROR in google_spreadsheet", err);
+            console.log("ERROR in google jwtClientAuth", err);
             return callback(err, null);
         } else {
             var request = {
@@ -15,7 +15,7 @@ module.exports = function(spreadsheetId, range, callback) {
 
             sheets.spreadsheets.values.get(request, function(err, response) {
                 if (err) {
-                    console.error("ERROR in google_spreadsheet", err);
+                    console.error("ERROR in googleapis spreadsheet.values.get", err);
                     return callback(err, null);
                 }
 

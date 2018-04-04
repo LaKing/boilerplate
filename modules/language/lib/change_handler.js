@@ -10,7 +10,14 @@ function express_language_change_handler(lang) {
     app.get('/' + lang, function(req, res) {
         if (!req.session) console.log("ERROR req.session is undefined");
         else req.session.lang = lang;
+        ß.lib.language.update_user_lang(req.session);
         res.redirect('/');
+    });
+
+    app.post('/' + lang, function(req, res) {
+        if (!req.session) console.log("ERROR req.session is undefined");
+        else req.session.lang = lang;
+        ß.lib.language.update_user_lang(req.session);
     });
 
 }

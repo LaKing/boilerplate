@@ -82,6 +82,42 @@ io.use(sharedsession(sessionMiddleware, {
 
 ß.load('routes');
 
-httpsServer.listen(443, function() {
-    console.log('- Server is started on port 443, pid:', process.pid, "user:", process.env.USER);
+httpsServer.listen(443, function(err) {
+    if (err) ß.err("Server failed to start on the HTTPS port.");
+    console.log('- Server is started on port 443, mem usage:', process.memoryUsage().rss);
+    if (ß.DEBUG) ß.ntc("Server (re)start DEBUG");
+    else ß.ntc("Server (re)start");
+});
+
+process.on('SIGTERM', function() {
+    if (ß.io)
+        Object.keys(ß.io.sockets.sockets).forEach(function(s) {
+            var socket = ß.io.sockets.sockets[s];
+            socket.get_user(function(user) {
+                console.log("-- disconnecting socket", user._id);
+            });
+            socket.disconnect(true);
+        });
+    
+    
+    httpsServer.close(function() {
+        console.log("Server closed via SIGTERM");
+        process.exit(0);
+    });
+});
+
+process.on('SIGUSR1', function() {
+    if (ß.io)
+        Object.keys(ß.io.sockets.sockets).forEach(function(s) {
+            var socket = ß.io.sockets.sockets[s];
+            socket.get_user(function(user) {
+                console.log("-- disconnecting socket", user._id);
+            });
+            socket.disconnect(true);
+        });
+    
+    httpsServer.close(function() {
+        console.log("Server closed via SIGUSR1");
+        process.exit(0);
+    });
 });

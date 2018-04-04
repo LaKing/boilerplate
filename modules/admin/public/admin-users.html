@@ -18,16 +18,16 @@
                         <th>#</th>
                         <th>##&en Profile-Name ##&hu Profil-Név ##</th>
                         <th>E-mail</th>
-                        <th>##&en Verification ##&hu Ellenőrzés ##</th>
+                        <th>##&en Login-strategy ##&hu Login-tipus ##</th>
                         <th>ID</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="u in users">
                         <td>{{ $index }}</td>
-                        <td>{{ u.profile.name || '-' }}</td>
-                        <td>{{ u.profile.email || '-' }}</td>
-                        <td>{{ u.local.verified && 'OK' || '' }}</td>
+                        <td>{{ u.profile.name || '' }} {{ u.facebook.name || '' }} {{ u.google.name || '' }}</td>
+                        <td>{{ u.profile.email || '' }} {{ u.local.email || '' }} {{ u.facebook.email || '' }} {{ u.google.email || '' }}</td>
+                        <td>{{ u.local && 'EMAIL' }} {{ u.local.verified && 'CONFIRMED' || '' }} {{ u.facebook && 'Facebook' }} {{ u.google && 'Google' }}</td>
                         <td><button type="button" class="btn btn-primary" ng-click="set(u)">{{u._id}}</button></td>
                     </tr>
                 </tbody>

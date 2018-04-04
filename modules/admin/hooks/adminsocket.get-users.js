@@ -1,7 +1,5 @@
 /*jshint esnext: true */
 
-/*jshint esnext: true */
-
 const fs = ß.fs;
 
 module.exports = function(socket) {

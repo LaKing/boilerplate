@@ -9,13 +9,13 @@ lib-cov
 
 npm-debug.log
 node_modules
+package-lock.json
 
-pids
 logs
 local
 config
 promo
 invoice
 boilerplate/extras
-
+user
 static

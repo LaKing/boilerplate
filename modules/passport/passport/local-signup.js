@@ -38,14 +38,14 @@ passport.use('local-signup', new LocalStrategy({
                             // create the user
                             var newUser = new User();
 
+                            newUser.lang = req.session.lang;
                             newUser.local.email = email;
                             newUser.local.password = newUser.generateHash(password);
                             //newUser.profile.email = email;
 
                             newUser.save(function(err) {
                                 if (err) return done(err);
-                                lib.passport_hash.send(newUser._id);
-
+                                ß.run_hooks("user_registration", newUser);
                                 return done(null, newUser);
                             });
 
@@ -67,14 +67,14 @@ passport.use('local-signup', new LocalStrategy({
                         return done(null, false, req.flash('loginMessage', 'That email is already taken.'));
                         // Using 'loginMessage instead of signupMessage because it's used by /connect/local'
                     } else {
-                        console.log("user", user, "luser", req.user);
+                        console.log("local-signup user", user, "luser", req.user);
                         var luser = req.user;
+                        luser.lang = req.session.lang;
                         luser.local.email = email;
                         luser.local.password = luser.generateHash(password);
                         luser.save(function(err) {
-                            if (err)
-                                return done(err);
-
+                            if (err) return done(err);
+                            ß.run_hooks("user_registration", luser);
                             return done(null, luser);
                         });
                     }

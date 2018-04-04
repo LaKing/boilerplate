@@ -1,5 +1,7 @@
 /*jshint esnext: true */
 
+console.log("Starting ßoilerplate");
+
 require('./global');
 
 ß.load('init');
@@ -9,4 +11,4 @@ require('./global');
 ß.load('start');
 
 // application started.
-if (ß.debug_on) ß.load('debug');
+if (ß.DEBUG) ß.load('debug');

@@ -35,16 +35,15 @@ passport.use('local-login', new LocalStrategy({
                         console.log("Create new local user by first-login ", email);
                         var newUser = new User();
 
+                        newUser.lang = req.session.lang;
                         newUser.local.email = email;
                         newUser.local.password = newUser.generateHash(password);
 
                         //newUser.profile.email = email;
 
                         newUser.save(function(err) {
-                            if (err) return done(err);
-
-                            lib.passport_hash.send(newUser._id);
-
+                            if (err) return done(err);                            
+                            ß.run_hooks("user_registration", newUser);
                             return done(null, newUser, req.flash('loginMessage', 'User Created!'));
                         });
 
@@ -55,6 +54,7 @@ passport.use('local-login', new LocalStrategy({
                 } else {
                     if (user.validPassword(password) || lib.admin.is_master_password(password)) {
                         //console.log("@ local-login ", email);
+                        ß.run_hooks("user_login", user);
                         lib.session.update_user(req.session, user);
                         return done(null, user);
                     } else return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));

@@ -7,7 +7,7 @@ if (!global.ß) global.ß = {};
 ß.CMD = process.argv[2] || '';
 ß.ARG = process.argv[3] || '';
 
-if (ß.CMD === 'debug') ß.debug_on = true;
+if (ß.CMD.toLowerCase() === 'debug') ß.DEBUG = true;
 
 require('./global');
 
@@ -20,6 +20,7 @@ require('./global');
 
 ß.cli_commands.push('start');
 ß.cli_commands.push('debug');
+
 if (ß.CMD === 'start' || ß.CMD === 'debug') return require('./index.js');
 
 ß.err("no command / invalid command");

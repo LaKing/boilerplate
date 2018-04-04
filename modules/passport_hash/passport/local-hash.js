@@ -14,8 +14,6 @@ passport.use('hash-login', new CustomStrategy(
         var id = req.params.id;
         var hash = req.params.hash;
 
-        Ł(email, id, hash);
-
         if (email) email = email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
         // asynchronous
         process.nextTick(function() {

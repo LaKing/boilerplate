@@ -4,10 +4,14 @@ if (!global.ß) global.ß = {};
 if (!ß.cli_commands) ß.cli_commands = [];
 
 // constants
-if (!ß.CWD) ß.CWD = process.env.PWD;
-if (!ß.BPD) ß.BPD = process.env.PWD + '/boilerplate';
+if (!ß.CWD) ß.CWD = process.cwd();
+if (!ß.BPD) ß.BPD = ß.CWD + '/boilerplate';
 
 if (!ß.HOSTNAME) ß.HOSTNAME = require('os').hostname();
+
+require("./node_modules.js");
+require("./now.js");
+require("./pid.js");
 
 require("./lablib.js");
 require("./codepad.js");
@@ -15,8 +19,6 @@ require("./process.js");
 
 require("./bp.js");
 require("./frontendlib.js");
-
-require("./node_modules.js");
 require("./modules.js");
 
 require("./lib.js");

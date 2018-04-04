@@ -1,8 +1,11 @@
 /*jshint esnext: true */
 
-const config_file = ß.CWD + '/config/payment_braintree.json';
+var config_file = ß.CWD + '/config/payment_braintree.json';
+var debug_file = ß.CWD + "/config/payment_braintree.debug.json";
 
 const fs = ß.fs;
+
+if (ß.DEBUG && fs.existsSync(debug_file)) config_file = debug_file;
 
 var config = {};
 

@@ -15,12 +15,30 @@ module.exports = function(id) {
 
         if (user.local.email.indexOf('@') < 0) return console.log("Invali email address ", user.local.email);
 
+        var subject = "Login to " + HOSTNAME;
+        var html = '';
+        var test = '';
+
+        var text = '';
+
+        if (user.local.verified == false) {
+            if (user.lang === 'hu') subject = "Regisztráció megerősítése, " + HOSTNAME;
+            else subject = "Confirm registration to " + HOSTNAME;
+        }
+
+        if (user.lang === 'hu') text += 'Kérjük lépjen be ennek a linknek s használatával: ';
+        else text += 'Please visit the following link, to log in: ';
+
+        html += '<h2>' + subject + '</h2><br><br><b>' + text + '</b><a href = "' + link + '">' + link + '</a><br><br>';
+
+        if (ß.mail_string) html += ß.mail_string;
+
         let mailOptions = {
             from: 'webmaster@' + HOSTNAME,
             to: user.local.email, // list of receivers
-            subject: "Confirm " + HOSTNAME, // Subject line
-            text: 'please visit this link: ' + link, // plain text body
-            html: '<b>Please visit </b><a href = "' + link + '">' + link + '</a>' // html body
+            subject: subject, // Subject line
+            html: html, // html body
+            text: text + ' ' + link, // plain text body
         };
 
         // send mail with defined transport object

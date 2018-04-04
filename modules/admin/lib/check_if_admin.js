@@ -1,7 +1,11 @@
 /*jshint esnext: true */
 
-const passport_file = ß.CWD + '/config/admin-passports.json';
+var passport_file = ß.CWD + '/config/admin-passports.json';
+var debug_file = ß.CWD + '/config/admin-passports.debug.json';
+
 const fs = ß.fs;
+
+if (ß.DEBUG && fs.existsSync(debug_file)) passports_file = debug_file;
 
 var passports = {};
 

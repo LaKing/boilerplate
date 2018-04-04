@@ -72,6 +72,11 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 This is the primary global variable, visible in the global scope. 
 Frequently used node_modules can be attached directly.
 for example ß.fs is reference to the fs-extra
+Instead of fs = require('fs') you can use ß.fs
+By default, ß.fs refers to the the fs-extra package, so that you can use mkdirp, and readJson functions. 
+you may specify your superglobal node_modules, like underscore, or async.js in the global-node_modules.js file in your project-root.
+A note on logging. According to https://stackoverflow.com/questions/41502564/journalctl-user-units-output-disappears
+user-services do not appear on unit logs. As a workaround use journalctl without unit definitions. For example jurnalctl -f
 
 # The global ßoilerplate modules
 
@@ -91,8 +96,8 @@ for example ß.fs is reference to the fs-extra
 ```javascript
     adminsocket.delete-user(socket);
     adminsocket.get-users(socket);
-    adminsocket.save-user-profile(socket);
     adminsocket.save-user(socket);
+    adminsocket.save-user-profile(socket);
 ```
 
 ## angularjs - boilerplate module
@@ -159,6 +164,7 @@ if
 ```javascript
     ß.lib.googleapis.calendar_list_events(calendarId, callback);
     ß.lib.googleapis.calendar_update_event(calendarId, eventId, resource, callback);
+    ß.lib.googleapis.drive_list(callback);
     ß.lib.googleapis.spreadsheets_list(spreadsheetId, range, callback);
 ```
 
@@ -170,6 +176,7 @@ if
 
 ## language - boilerplate module
 
+- defines keys the user model.
 - backend init process functions.
 - backend server process functions.
 - backend start process functions.
@@ -182,13 +189,24 @@ if
     ß.lib.language.render_file(lang, file);
     ß.lib.language.request_handler();
     ß.lib.language.transpile(folder);
+    ß.lib.language.update_user_lang(session, callback);
 ```
 
 ## logging - boilerplate module
 
 - uses npm packages.
+- contains multilingual public frontend files.
+- contains route definitions for the frontend.
 - backend start process functions.
 
+  boiler-lib-functions:
+```javascript
+    ß.lib.logging.get_logs_json(file, callback);
+```
+  hook.functions:
+```javascript
+    adminsocket_log.data(data);
+```
 
 ## moment - boilerplate module
 
@@ -246,6 +264,17 @@ if
 ```javascript
     ß.lib.passport.isLoggedIn(req, res, next);
 ```
+  hook.functions:
+```javascript
+    user_registration.send_hash(user);
+```
+  calling hooks:
+```javascript
+    ß.run_hooks("user_registration",newUser);
+ß.run_hooks("user_login",user);
+ß.run_hooks("user_registration",newUser);
+ß.run_hooks("user_registration",luser);
+```
 
 ## passport_facebook - boilerplate module
 
@@ -295,8 +324,8 @@ if
 ```javascript
     ß.lib.payment.calculate_parameters(session, q);
     ß.lib.payment.initialize_payment(session, callback);
-    ß.lib.payment.payment_success(ref);
     ß.lib.payment.paymentlibmodule.exports = that;;
+    ß.lib.payment.payment_success(ref);
     ß.lib.payment.purge(user);
     ß.lib.payment.render_page(req, res, next);
 ```
@@ -426,6 +455,10 @@ if
 
 - backend init process functions.
 
+  exposes into the global ß scope:
+```javascript
+    ß.settings_file
+```
   boiler-lib-functions:
 ```javascript
     ß.lib.settings.readSync();

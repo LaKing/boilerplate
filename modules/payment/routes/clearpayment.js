@@ -5,7 +5,7 @@ const User = ß.user;
 
 app.get('/clearpayment', function(req, res, next) {
 
-    if (ß.debug)
+    if (ß.DEBUG)
         User.findById(req.session.passport.user, function(err, user) {
             if (err) return console.log("ERROR payment ERR", err);
             if (!user) return console.log("ERROR payment-success process USER not found");
@@ -19,6 +19,6 @@ app.get('/clearpayment', function(req, res, next) {
             });
         });
 
-    if (!ß.debug) res.send("No. Debug mode is false, ..");
+    if (!ß.DEBUG) res.send("No. Debug mode is false, ..");
 
 });

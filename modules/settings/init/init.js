@@ -1,19 +1,19 @@
 /*jshint esnext: true */
 
-const settings_file = ß.CWD + '/config/settings.json';
 const fs = ß.fs;
 
 var settings = {};
 
-if (fs.existsSync(settings_file)) {
-    settings = fs.readJsonSync(settings_file);
+if (fs.existsSync(ß.settings_file)) {
+    settings = fs.readJsonSync(ß.settings_file);
 } else {
     settings.admins = ["5a15e5e8cc49250916238ae8"];
     settings.offline = false;
-    settings.debug = true;
+    settings.debug = false;
     settings.session_days = 365;
 
-    fs.writeJsonSync(settings_file, settings);
+    fs.writeJsonSync(ß.settings_file, settings);
 }
 
-ß.debug = settings.debug;
+ß.DEBUG = settings.debug;
+console.log("- ß.DEBUG", ß.DEBUG); 

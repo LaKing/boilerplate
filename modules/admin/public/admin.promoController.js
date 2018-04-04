@@ -18,7 +18,7 @@
                 $scope.forms = res.data;
             }, function errorCallback(response) {
                 console.log("error", response);
-                alert("Hálózati hiba! ?");
+                alert("##&en Network-error ##&hu Hálózati hiba! ##");
             });
 
     }]);
