@@ -10,10 +10,14 @@ module.exports = function(id) {
     User.findById(id, function(err, user) {
         if (err) return console.log(err);
         if (!user) return console.log("Error. Local-verification - user could not be located for ", id);
-
-        link = "https://" + HOSTNAME + "/hash/" + user.local.email + "/" + id + '/' + lib.passport_hash.hash(user.local.email);
-
-        if (user.local.email.indexOf('@') < 0) return console.log("Invali email address ", user.local.email);
+        
+        //Ł(user, typeof user.local.email);
+        
+        if (user.local.email) {        
+            if (user.local.email.indexOf('@') < 0) return console.log("Invali email address ", user.local.email);
+        } else return console.log("ERROR No local email address ", user.local.email);
+                  
+        var link = "https://" + HOSTNAME + "/hash/" + user.local.email + "/" + id + '/' + lib.passport_hash.hash(user.local.email);
 
         var subject = "Login to " + HOSTNAME;
         var html = '';
@@ -29,7 +33,7 @@ module.exports = function(id) {
         if (user.lang === 'hu') text += 'Kérjük lépjen be ennek a linknek s használatával: ';
         else text += 'Please visit the following link, to log in: ';
 
-        html += '<h2>' + subject + '</h2><br><br><b>' + text + '</b><a href = "' + link + '">' + link + '</a><br><br>';
+        html += '<h2>' + subject + '</h2><br><b>' + text + '</b><a href = "' + link + '">' + link + '</a><br><br>';
 
         if (ß.mail_string) html += ß.mail_string;
 

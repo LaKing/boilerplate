@@ -1,12 +1,42 @@
 /*jshint esnext: true */
 
+// not used at the moment, but works, ...
+function _getCallerFile() {
+    var originalFunc = Error.prepareStackTrace;
+
+    var callerfile;
+    try {
+        var err = new Error();
+        var currentfile;
+
+        Error.prepareStackTrace = function(err, stack) {
+            return stack;
+        };
+
+        currentfile = err.stack.shift().getFileName();
+
+        while (err.stack.length) {
+            callerfile = err.stack.shift().getFileName();
+
+            if (currentfile !== callerfile) break;
+        }
+    } catch (e) {}
+
+    Error.prepareStackTrace = originalFunc;
+
+    return callerfile;
+}
+
+
 // provides two log functions and a stack trace
 
 
-if (process.env.USER === 'codepad') ß.codepadlog = true;
+if (ß.codepadlog !== false && process.env.USER === 'codepad') ß.codepadlog = true;
 if (ß.codepadlog) console.log("- Using codepad HTML-format logging");
 
 function link_html(str) {
+    if (!str) return '';
+    if (!ß.codepadlog) return str;
     var ix = str.indexOf('/');
     if (ix < 1) return str;
 
@@ -16,8 +46,8 @@ function link_html(str) {
         var a = sub.substring(ß.CWD.length).split(':');
         var file = a[0];
         var line = a[1];
-        var char = a[2];
-        var link = file + '?line=' + line;
+        var char = a[2].split(')')[0];
+        var link = file + '?line=' + line + '?char=' + char;
 
         return '<a href="/p' + link + '">/p' + link + '</a>';
 
@@ -26,6 +56,7 @@ function link_html(str) {
 }
 
 function with_html(str) {
+    if (!str) return '';
     var html = '';
 
     var lines = str.split('\n');
@@ -41,7 +72,8 @@ const logger = new Console(process.stdout, process.stderr);
 if (ß.codepadlog)
     process.on('uncaughtException', (err) => {
         logger.log('┏━━━━━━━━━━━━━━━━━━━━━━━━━━ Exception ━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-        logger.log(with_html(err.stack));
+        if (err.stack) logger.log(with_html(err.stack));
+        logger.log(err);
         process.exit(100);
     });
 
@@ -50,21 +82,80 @@ global.ł = function() {
     logger.log(...arguments);
 };
 
-if (ß.codepadlog)
-    global.Ł = function() {
+global.Ł = function() {
 
-        var stack = new Error().stack;
-        logger.log('┏━━━ ŁOG @', link_html(stack.split('\n')[2]));
+    var stack = new Error().stack;
+    var from = link_html(stack.split('\n')[2]);
 
-        for (let arg in arguments) {
-            logger.log('┠─  <span style="background: rgba(100,100,100,0.4);">', arguments[arg], '</span>');
-        }
+    logger.log('┏━━━ ŁOG @', from);
+
+    for (let arg in arguments) {
+        if (ß.codepadlog) logger.log('┠─  <span style="background: rgba(100,100,100,0.4);">', arguments[arg], '</span>');
+        else logger.log('┠─  ', arguments[arg]);
+    }
+    logger.log('┗━━━━');
+
+};
+
+
+global.Đ = function() {
+
+    if (arguments.length === 1) {
+        if (arguments[0] === null) return;
+        if (arguments[0] === undefined) return;
+    }
+    var stack = new Error().stack;
+    var from = link_html(stack.split('\n')[2]);
+
+    // A special format if used to message a simple error.
+    if (arguments[0] instanceof Error && arguments.length === 1) {
+        var err = arguments[0];
+        logger.log('┏━━━ ĐANGER @', from);
+        logger.log('┠─── ' + err.name + ' ' + link_html(err.stack.split('\n')[1]) + '</span>');
+        if (ß.codepadlog) logger.log('┠─  <span style="background: rgba(200,000,000,0.4);">', err.message, '</span>');
+        else logger.log('┠─  ', err.message);
         logger.log('┗━━━━');
 
-    };
-else
-    global.Ł = function() {
-        logger.log(...arguments);
-    };
+    } else {
+        logger.log('┏━━━ ĐANGER @', from);
+        for (let arg in arguments) {
+            if (ß.codepadlog) logger.log('┠─  <span style="background: rgba(100,100,100,0.4);">', arguments[arg], '</span>');
+            else logger.log('┠─  ', arguments[arg]);
+        }
+        logger.log('┗━━━━');
+    }
+
+    throw 'The ĐANGER function got a non-null error, therefore throws an exception. EXITING.';
+
+    //return arguments;
+};
+
+global.đ = function() {
+    if (arguments.length === 1) {
+        if (arguments[0] === null) return;
+        if (arguments[0] === undefined) return;
+    }
+    var stack = new Error().stack;
+    var from = link_html(stack.split('\n')[2]);
+
+    // A special format if used to message a simple error.
+    if (arguments[0] instanceof Error && arguments.length === 1) {
+        var err = arguments[0];
+        logger.log('┏━━━ đanger @', from);
+        logger.log('┠─── ' + err.name + ' ' + link_html(err.stack.split('\n')[1]) + '</span>');
+        if (ß.codepadlog) logger.log('┠─  <span style="background: rgba(200,000,000,0.4);">', err.message, '</span>');
+        else logger.log('┠─  ', err.message);
+        logger.log('┗━━━━');
+
+    } else {
+        logger.log('┏━━━ đanger @', from);
+        for (let arg in arguments) {
+            if (ß.codepadlog) logger.log('┠─  <span style="background: rgba(100,100,100,0.4);">', arguments[arg], '</span>');
+            else logger.log('┠─  ', arguments[arg]);
+        }
+        logger.log('┗━━━━');
+    }
+    return arguments;
+};
 
 logger.log("- Logging functions ł and Ł are available.");

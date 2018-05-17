@@ -24,6 +24,7 @@ const cb = function() {
 
     if (req.session.is_admin) {
         res.render(ß.views(req, 'admin.ejs'), {
+            HOSTNAME: ß.HOSTNAME,
             lang: req.session.lang,
             styles: style_css_files + admin_style_css_files,
             scripts: script_js_files + admin_script_js_files

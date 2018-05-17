@@ -15,9 +15,11 @@ if (ß.fs.existsSync(keyfile)) {
         privatekey.private_key,
         ß.googleapis_scopes
     );
+    
+    console.log(' - Googleapis enabled', ß.googleapis_scopes.join(' '));
 
 } else {
-
+    // https://console.developers.google.com/apis/dashboard ?
     ß.err('ERROR - googleapis is enabled, but no JWT key found at ' + keyfile);
     ß.ntc('# Select your project or create a new one at https://cloud.google.com/console');
     ß.ntc('# go to APIs overwies, and enable APIS and services: ' + scope_modules);

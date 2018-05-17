@@ -5,9 +5,7 @@ const barion_locales = ["hu-HU", "en-US", "de-DE", "fr-FR", "es-ES", "sk-SK", "s
 const HOSTNAME = ß.HOSTNAME;
 
 app.post("/barion-payment", function(req, res) {
-
-    Ł(req.session);
-
+    
     var userId = req.session.passport.user;
     var language = req.session.lang;
 

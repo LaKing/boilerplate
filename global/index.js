@@ -2,7 +2,13 @@
 
 if (!global.ß) global.ß = {};
 if (!ß.cli_commands) ß.cli_commands = [];
-
+if (!ß.DEBUG) {
+    ß.DEBUG = false;
+    if (process.argv[2]) {
+        ß.DEBUG = true;
+        console.log('- ß.DEBUG');
+    }
+}
 // constants
 if (!ß.CWD) ß.CWD = process.cwd();
 if (!ß.BPD) ß.BPD = ß.CWD + '/boilerplate';

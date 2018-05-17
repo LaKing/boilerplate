@@ -6,16 +6,24 @@ const lib = ß.lib;
 function express_localized_file_handler(file) {
     const app = ß.app;
     const language = ß.language;
-    const lang_dir = ß.CWD + '/local';
+
     //console.log("register-request:", file);
     app.get('/' + file, function(req, res) {
-        //console.log("request:", file);
         var lang = lib.language.get_by_req(req);
-        res.sendFile(lang_dir + '/' + lang + '/' + file, function(err) {
+        var path = ß.CWD + '/local/' + lang;
+
+        // the admin editor is an exeption, we always give the admin the editable version
+        if (req.session.is_admin && file.split('.').pop() === 'html') path = ß.CWD + '/editor/' + lang;
+
+        fs.readFile(path + '/' + file, 'utf8', function(err, data) {
             if (err) {
-                console.log('ERROR could not serve', lang, file);
+                console.log('ERROR could not serve', path, file);
+                res.send('ERROR');
+                return;
             }
-            //console.log("serving:", lang_dir + '/' + lang + '/' + file);
+            
+            res.send(data);
+            
         });
     });
 }

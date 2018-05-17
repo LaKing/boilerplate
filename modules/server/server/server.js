@@ -16,8 +16,8 @@ const bodyParser = require('body-parser');
 const secret = os.networkInterfaces().host0[0].mac;
 
 // https certificate stuff
-const privateKey = fs.readFileSync('/etc/pki/tls/private/localhost.key', 'utf8');
-const certificate = fs.readFileSync('/etc/pki/tls/certs/localhost.crt', 'utf8');
+const privateKey = fs.readFileSync(ß.CWD + '/localhost.key', 'utf8');
+const certificate = fs.readFileSync(ß.CWD + '/localhost.crt', 'utf8');
 const credentials = {
     key: privateKey,
     cert: certificate
@@ -28,7 +28,7 @@ const app = express();
 ß.app = app;
 
 app.locals.settings = ß.lib.settings.readSync();
-
+  
 //const passportDB = lib.passport.config_mongodb(); //require('./app/database.js');
 const httpsServer = https.createServer(credentials, app);
 
@@ -98,8 +98,8 @@ process.on('SIGTERM', function() {
             });
             socket.disconnect(true);
         });
-    
-    
+
+
     httpsServer.close(function() {
         console.log("Server closed via SIGTERM");
         process.exit(0);
@@ -115,7 +115,7 @@ process.on('SIGUSR1', function() {
             });
             socket.disconnect(true);
         });
-    
+
     httpsServer.close(function() {
         console.log("Server closed via SIGUSR1");
         process.exit(0);

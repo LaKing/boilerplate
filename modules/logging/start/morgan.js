@@ -17,7 +17,7 @@ var dir = ß.DATE;
 var time = ß.TIME;
 
 fs.mkdirpSync(ß.CWD + '/log/' + dir);
-var accessLogStream = fs.createWriteStream(ß.CWD + '/log/' + dir + '/' + time + '.log', {
+ß.accessLogStream = fs.createWriteStream(ß.CWD + '/log/' + dir + '/' + time + '.log', {
     flags: 'a'
 });
 
@@ -25,5 +25,7 @@ console.log('- Morgan logging to ' + ß.CWD + '/log/' + dir + '/' + time + '.log
 
 // setup the logger
 app.use(morgan(format, {
-    stream: accessLogStream
+    stream: ß.accessLogStream
 }));
+
+

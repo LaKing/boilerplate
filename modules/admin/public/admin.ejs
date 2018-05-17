@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>ADMIN</title>
+    <title>ADMIN <%= HOSTNAME %> <%= lang %></title>
 
     <!-- static -->
 
@@ -52,10 +52,10 @@
         <div class="alertServiceAlert alert-{{alert.type}} animated {{alert.anim}}" ng-repeat="alert in alerts track by $index" type="alert.type">{{ alert.msg }}</div>
     </div>
 
-    <div ng-cloak ng-include="'/navigation.html'" class="navigation">
+    <div id="navigation" ng-cloak ng-include="'/navigation.html'" class="navigation">
     </div>
 
-    <div ng-cloak ng-include="pageuri" class="animated fadeIn {{page}}">
+    <div id="page" ng-cloak ng-include="pageuri" class="animated fadeIn {{page}}" ng-controller="editorController" contenteditable="true">
     </div>
 </body>
 

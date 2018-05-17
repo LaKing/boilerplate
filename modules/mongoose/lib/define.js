@@ -7,12 +7,12 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-module.exports = function(name) {
-
-    var nameModel = name.toLowerCase() + 'Model';
-    var nameSchema = name.toLowerCase() + 'Schema';
-    var name_model = name.toLowerCase() + '_model';
-    var Name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+module.exports = function(collection) {
+    name = collection.toLowerCase();
+    var nameModel = name + 'Model';
+    var nameSchema = name + 'Schema';
+    var name_model = name + '_model';
+    var Name = name.charAt(0).toUpperCase() + name.slice(1);
 
     ß[nameModel] = {};
 
@@ -22,6 +22,7 @@ module.exports = function(name) {
 
     ß.load(name_model + '/methods');
 
-    ß[Name] = mongoose.model(name, ß[nameSchema]);
-    
+    ß[Name] = mongoose.model(name, ß[nameSchema], name);
+
+    ß.mongoose_collections.push(name);
 };

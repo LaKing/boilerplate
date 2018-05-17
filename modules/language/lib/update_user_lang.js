@@ -4,9 +4,9 @@
 
 module.exports = function(session, callback) {
     if (!callback) callback = function() {};
-    if (!session) return console.error("ERROR in session (update_user_lang)");
-    if (!session.passport) return console.error("ERROR in session.passport (update_user_lang)");
-    if (!session.passport.user) return console.error("ERROR in session.passport.user (update_user_lang)");
+    if (!session) return; // console.error("ERROR in session (update_user_lang)");
+    if (!session.passport) return; // console.error("ERROR in session.passport (update_user_lang)");
+    if (!session.passport.user) return; // console.error("ERROR in session.passport.user (update_user_lang)");
     ß.User.findById(session.passport.user, function(err, user) {
         if (err) return console.error("ERROR in update_user_lang.", err);
         if (!user) return console.error("ERROR  update_user_lang could not locate user for ", session.user.passport);

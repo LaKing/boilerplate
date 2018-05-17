@@ -10,14 +10,15 @@ module.exports = function(user) {
             if (!user.payments[i].paid) {
                 // no date
                 if (!user.payments[i].date) user.payments.splice(i, 1);
-
-                let at = Number(user.payments[i].date);
-                let ex = at + expire_time;
-
-                if (now <= ex) console.log("Payment not expired", user.payments[i]._id);
                 else {
-                    console.log("Payment expired", user.payments[i]._id);
-                    user.payments.splice(i, 1);
+                    let at = Number(user.payments[i].date);
+                    let ex = at + expire_time;
+
+                    if (now <= ex) console.log("Payment not expired", user.payments[i]._id);
+                    else {
+                        console.log("Payment expired", user.payments[i]._id);
+                        user.payments.splice(i, 1);
+                    }
                 }
             }
         }

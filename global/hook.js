@@ -43,7 +43,7 @@ for (let i = 0; i < files.length; i++) {
     let hook = files[i].split('.')[0];
     let name = files[i].split('.')[1];
     let file = find_hook_file_path(files[i]);
-
+    ß.debug('@hook-definition', hook, name, file);
     if (!ß.hooks) ß.hooks = {};
     if (!ß.hooks[hook]) ß.hooks[hook] = {};
     if (!ß.hooks[hook][name]) ß.hooks[hook][name] = require(file);
@@ -54,7 +54,13 @@ for (let i = 0; i < files.length; i++) {
 ß.run_hook = function(hook, arg) {
     if (ß.hooks[hook])
         for (var h in ß.hooks[hook]) {
-            ß.hooks[hook][h](arg);
+            ß.debug('@hook', hook, h);
+            try {
+                ß.hooks[hook][h](arg);
+            } catch (error) {
+                Đ(error);
+                throw error;
+            }
         }
 };
 

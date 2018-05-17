@@ -96,6 +96,7 @@ user-services do not appear on unit logs. As a workaround use journalctl without
 ```javascript
     adminsocket.delete-user(socket);
     adminsocket.get-users(socket);
+    adminsocket.save-page(socket);
     adminsocket.save-user(socket);
     adminsocket.save-user-profile(socket);
 ```
@@ -186,6 +187,7 @@ if
     ß.lib.language.change_handler();
     ß.lib.language.development();
     ß.lib.language.get_by_req(req);
+    ß.lib.language.render_editor_file(lang, file);
     ß.lib.language.render_file(lang, file);
     ß.lib.language.request_handler();
     ß.lib.language.transpile(folder);
@@ -217,14 +219,27 @@ if
     ß.moment
 ```
 
+## mongo_express - boilerplate module
+
+- backend start process functions.
+
+  exposes into the global ß scope:
+```javascript
+    
+    ß.mongo_express
+ß.mongo_express_config
+```
+
 ## mongoose - boilerplate module
 
 - uses npm packages.
 - backend init process functions.
+- backend start process functions.
 
   exposes into the global ß scope:
 ```javascript
     ß.mongoose
+ß.mongoose_collections
 ```
   boiler-lib-functions:
 ```javascript
@@ -427,6 +442,8 @@ if
     ß.run_hooks('socket',socket);
 ß.run_hooks('adminsocket',socket);
 ```
+Static assets like css files can be placed in any module or the project root, in a /static folder
+Data representing assets like json files can be placed in any module or the project root, in a /data folder
 
 ## session - boilerplate module
 

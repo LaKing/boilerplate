@@ -103,8 +103,8 @@ function increment_version() {
 
 function make_docs() {
     log "make-docs"
-    /bin/bash /srv/codepad-project/make-docs.sh md > /srv/codepad-project/boilerplate/doc.md
-    cat /srv/codepad-project/boilerplate/README.EN.md /srv/codepad-project/boilerplate/doc.md > /srv/codepad-project/boilerplate/README.md
+    /bin/bash /srv/codepad-project/make-docs.sh md > /srv/codepad-project/doc.md
+    cat /srv/codepad-project/boilerplate/README.EN.md /srv/codepad-project/doc.md > /srv/codepad-project/README.md
 }
 
 
@@ -116,10 +116,11 @@ then
     chmod -R +X $wd 2> /dev/null
 
     setcap cap_net_bind_service=+ep /usr/bin/node
-    log "push-as-root, attempting to restart as service."
+    log "push-as-root"
 
-    send_sigusr
-    restart_service
+    ## in production you may want to restart the project as a service
+    # send_sigusr
+    # restart_service    
 fi
 
 if [[ $USER == codepad ]]
@@ -133,7 +134,7 @@ if [[ -f "$project_pid" ]] && ps -p "$(cat "$project_pid")" > /dev/null
 then
     log "Project appears to be running"
 else
-    log "Project appears to be in a failing state ..."
+    log "Project appears to be stopped"
     start_server
 fi
 

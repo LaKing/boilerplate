@@ -24,8 +24,9 @@ const $TAG = $BLUE + '[ ' + HOSTNAME.split('.')[0] + ' ]';
     }
 
     ß.fs.appendFile(logfile, logdata + '\n', function(err) {
+        //ß.debug(logdata);
         if (err) throw err;
-        ß.run_hooks('adminsocket_log', logdata);
+        //ß.run_hooks('adminsocket_log', logdata);
     });
 };
 
@@ -63,4 +64,3 @@ console.log('- lablib loaded: ß.msg() ß.ntc(), ß.err(), ß.debug()');
 
 // @DOC A note on logging. According to https://stackoverflow.com/questions/41502564/journalctl-user-units-output-disappears
 // @DOC user-services do not appear on unit logs. As a workaround use journalctl without unit definitions. For example jurnalctl -f
-

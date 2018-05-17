@@ -52,7 +52,7 @@ io.on('connection', function(socket) {
 
         socket.user_id = id;
 
-        socket.get_user = function(callback) {
+        socket.get_user = function get_user(callback) {
             ß.User.findById(id, function(err, user) {
                 if (err) {
                     socket.emit("danger", "ERROR");
@@ -62,7 +62,12 @@ io.on('connection', function(socket) {
                     socket.emit("danger", "ERROR");
                     return console.log("ERROR get_user could not locate user for ", id);
                 }
-                callback(user);
+                try {
+                    callback(user);
+                } catch (error) {
+                    Đ(error);
+                    throw error;
+                }
             });
         };
 

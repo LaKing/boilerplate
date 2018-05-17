@@ -6,6 +6,7 @@ const script_js_files = ß.to_script_html(ß.select_by_extension(frontend_files,
 
 ß.app.get('/', function(req, res, next) {
     res.render(ß.views(req, 'index.ejs'), {
+        HOSTNAME: ß.HOSTNAME,
         lang: ß.lib.language.get_by_req(req),
         styles: style_css_files,
         scripts: script_js_files

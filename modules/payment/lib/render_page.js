@@ -1,7 +1,6 @@
 /*jshint esnext: true */
 
 module.exports = function(req, res, next) {
-    Ł(ß.modules);
 
     const User = ß.User;
     const HOSTNAME = ß.HOSTNAME;
