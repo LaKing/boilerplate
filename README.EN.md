@@ -1,25 +1,28 @@
-# ßoilerplate
+# ßoilerplate.JS
 
-ßoiler is a modular framework for Javascript based projects, mainly NodeJS web applications
+A modular framework for Javascript based projects, mainly MEAN web applications.
 
 ## What is it good for? Why should I need this? Why am I reading this?
 
-Think of this as two things: ß and a boilerplate.
+Think of it as two things: 
+    ß - the modular mechanism.
+    Boilerplate - the stack you start with.
 
-### ß - I usually say "the boiler-variable", or it can be called Eszett (IPA: [ɛsˈtsɛt]) or "sharp S" - is a global variable and a directory structure.
+### ß - I usually say "the boiler-variable", or it can be called Eszett (IPA: [ɛsˈtsɛt]) or "sharp S" - is a global variable on the server side.
 
-Yes, yes, I know, global variables are bad, and pollute the scope. Yes, so we pollute the scope with this singe special character.
+Yes, yes, I know, global variables are bad, and pollute the scope. Yes, so we pollute the scope with this special character, propably never used anywhere else.
 We attach functions and some objects to that variable, and this will run a modular structure to build up our project(s).
 
 ### The boilerplate itself is a modular structure to start a project with. 
 
-The current default framework-project is a bit MEAN, but rather friendly. It uses MongoDB, Express, AngularJS, NodeJS, Passport, and many others. Take a look at the modules to get the idea. So once the whole thing is started you actually have something you can extend, override, and build further.
+The current default framework-project is a bit MEAN, but rather friendly. It uses MongoDB, Express, AngularJS, NodeJS, Passport, and many others. 
+Take a look at the modules to get the idea. So once the whole thing is started you actually have something you can extend, override, and build further.
 
 ## Getting Started
 
 Clone the repo into folder where you want to start your project. I usually use /srv/codepad-project, since we are workin with the etherpad based ep_codepad. 
 You can make, no you should make the boilerplate folder readonly, and create a modules folder to put your own modules and to override existing modules or parts of existing modules.
-Please do not modify the boilerplate content in your project! Any file that is present outside of the boilerplate folder, in the project folder will override.
+Please do not modify the boilerplate content in your project! Any file that is placed properly outside of the boilerplate folder in the project folder, will override the file while loading.
 So, an example of the structure would be:
 ```
 /srv/codepad-project  # the project folder
@@ -33,7 +36,7 @@ Take a look at the project_scripts, you may want to move it to the project, edit
 
 Well, I use red Hat based systems so if you know what DNF is, you can run the installer.
 You will need NodeJS and npm of course. There are some npm.sh files in the modules, these will install the node_modules of the modules.
-NOTE: modules are ßoilerplat modules, and node_modules are npm packaged modules. Unfortunatley npm has no standard for example for location of publicly visible files. Some npm modules use a /dist folder, some others some different folders, so we crate wrapper modules to define express routes. 
+NOTE: modules are ßoilerplat modules, and node_modules are npm packaged modules. Unfortunatley npm has no standard for example for location of publicly visible files in a web project. Some npm modules use a /dist folder, some others some different folders, so we need to crate wrapper modules to define express routes. 
 
 ### Other files to consider
 
@@ -52,14 +55,21 @@ Generally, all modules are used, except if they are blacklisted, or the module-c
 
 Sorry, I dont like camel case so much. My variables contain some underscores and are longer. My bad.
 
-## Others
+## Other special characters
 
 if you see this:
 ```
-ł(this);
-Ł(some_variable, or_two_variables);
+ł(some_vairable, or_tow_variables);
+Ł(some_variable, or_two_variables); // logs with info on where it happened
 ```
 Don't panik. These two are just logging functions, mainly used in development.
+
+```
+đ(err); // not so fatal, log and continiue
+Đ(error); // fatal error, log and throw
+```
+
+Don't panik either. These two are determinator functions, that handle errors.
 
 ## License
 

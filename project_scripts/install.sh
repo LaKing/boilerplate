@@ -44,7 +44,7 @@ function install_dependencies() {
 
    log "Install mongodb"
    dnf -y install mongodb mongodb-server
-
+   dnf -y install mongo-tools
 
    ## ez nem 100% hogy kell TODO kell?
    #dnf -y install mongoose

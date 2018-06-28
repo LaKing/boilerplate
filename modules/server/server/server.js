@@ -6,7 +6,9 @@ const express = ß.express;
 const mongoose = ß.mongoose;
 const passport = ß.passport;
 const session = ß.session;
+
 // Basic includes
+const util = require('util');
 const os = require('os');
 const https = require('https');
 const flash = require('connect-flash');
@@ -28,11 +30,11 @@ const app = express();
 ß.app = app;
 
 app.locals.settings = ß.lib.settings.readSync();
-  
+
 //const passportDB = lib.passport.config_mongodb(); //require('./app/database.js');
 const httpsServer = https.createServer(credentials, app);
 
-ß.load('passport');
+if (ß.passport) ß.load('passport');
 
 //app.use(cookieParser()); // read cookies (needed for auth) // tryeed alaso with secret in argument
 // since version 1.5.0, the cookie-parser middleware no longer needs to be used for this module to work. 
@@ -65,8 +67,8 @@ const sessionMiddleware = session({
 });
 
 app.use(sessionMiddleware);
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+if (ß.passport) app.use(passport.initialize());
+if (ß.passport) app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // https://github.com/socketio/socket.io/issues/2945
@@ -82,7 +84,10 @@ io.use(sharedsession(sessionMiddleware, {
 
 ß.load('routes');
 
-httpsServer.listen(443, function(err) {
+var port = 443;
+if (ß.port) port = ß.port;
+
+httpsServer.listen(port, function(err) {
     if (err) ß.err("Server failed to start on the HTTPS port.");
     console.log('- Server is started on port 443, mem usage:', process.memoryUsage().rss);
     if (ß.DEBUG) ß.ntc("Server (re)start DEBUG");
@@ -120,4 +125,5 @@ process.on('SIGUSR1', function() {
         console.log("Server closed via SIGUSR1");
         process.exit(0);
     });
+
 });

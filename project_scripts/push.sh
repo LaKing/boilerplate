@@ -4,11 +4,24 @@
 wd=/srv/codepad-project
 cd "$wd"
 
+if [[ ! -d $wd ]]
+then
+	echo "Project Working Directory not found. Nothing to push. ?"
+    exit
+fi
+
 project_log=/var/codepad/project.log
 project_pid=/var/codepad/project.pid
+push_lock=/var/codepad/push_lock
+
+[[ -f $push_lock ]] && exit 11
 
 NOW=$(date +%Y.%m.%d-%H:%M:%S)
+echo "$NOW" > "$push_lock"
 
+function push_unlock() {
+    rm -fr "$push_lock"
+}
 
 function log() {
     local msg
@@ -35,13 +48,15 @@ function restart_service() {
        log "$USER successfully restarted project.service, push complete, exiting."
        systemctl status project
        make_docs
+       push_unlock
        exit 0
     else
        log "user $USER failed to push and restart the project.service"
     fi
 }
 
-function send_sigusr() {
+function terminate_process() {
+    local var lastpid
     if [[ -f "$project_pid" ]]
     then
         lastpid="$(cat "$project_pid")"
@@ -49,10 +64,18 @@ function send_sigusr() {
         then
             log "Found pidfile, process running, sending SIGUSR1 to process $lastpid"
             run kill -SIGUSR1 "$lastpid"
+            sleep 0.1
+            var=1
             while ps -p "$lastpid" > /dev/null
             do
-                log "pid $lastpid is still running"
-                sleep 1 
+                log "pid $lastpid is still running ($var)"
+                sleep 1
+                ((var++))
+                run kill -SIGUSR1 "$lastpid"
+                [[ $var == 3 ]] && log "$lastpid still runnin, not normal! check your event loop."
+                [[ $var == 5 ]] && run kill -SIGINT "$lastpid"
+                [[ $var == 10 ]] && run kill -KILL "$lastpid"
+                [[ $var == 15 ]] && run kill -TERM "$lastpid"
             done
             log "pid $lastpid process finished"
         else
@@ -68,13 +91,14 @@ function start_server() {
     if [ ! -f "$wd/server.js" ]
     then
         log "$wd/server.js not found"
-        return
+        push_unlock
+        exit 87
     fi
 
     log "$USER starting server.js as standalone process"
 
     (echo >/dev/tcp/localhost/80) &>/dev/null && log "TCP port 80 opened by an application" || log "TCP port 80 available"
-    (echo >/dev/tcp/localhost/443) &>/dev/null && log "TCP port 443 opened by an application, exiting." && exit 1 || log "TCP port 443 available"
+    (echo >/dev/tcp/localhost/443) &>/dev/null && log "TCP port 443 opened by an application, exiting." && push_unlock && exit 80 || log "TCP port 443 available"
 
     log "Starting server.js as codepad process."
     if [[ $USER != codepad ]]
@@ -112,15 +136,16 @@ echo "PUSH $cv of $HOSTNAME:$wd $NOW" > "$project_log"
 
 if [[ $USER == root ]]
 then
+    log "push-as-root, chown project"
+
     chown -R codepad:codepad $wd 2> /dev/null
     chmod -R +X $wd 2> /dev/null
 
     setcap cap_net_bind_service=+ep /usr/bin/node
-    log "push-as-root"
 
-    ## in production you may want to restart the project as a service
-    # send_sigusr
-    # restart_service    
+    ## in production you may want to restart the service
+    #terminate_process
+    #restart_service    
 fi
 
 if [[ $USER == codepad ]]
@@ -128,7 +153,7 @@ then
     increment_version
 fi
 
-send_sigusr
+terminate_process
 
 if [[ -f "$project_pid" ]] && ps -p "$(cat "$project_pid")" > /dev/null
 then
@@ -140,5 +165,7 @@ fi
 
 log "pidof node: $(pidof node)"
 
+push_unlock
 log "push complete, exit 0"
 exit 0
+

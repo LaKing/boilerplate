@@ -4,10 +4,16 @@ const fs = require('fs-extra');
 
 if (!ß.lib) ß.lib = {};
 
+// @DOC Each module may have a lib folder with js files, each containing a single exposed function 
+// @DOC Such a function should be defined with module.exports = function(arguments)
+// @DOC These are then named by their filename and can be referred with ß.lib.modulename.functionname (namespaced with module names) or ß.lib.functionname (lib namespace)
+// @DOC lib-function files in modules have precedence over boilerplate modules, thus if defined, wll be overridden.
+// @DOC The function-defining js files may contain private local variables and functions, and any number of arguments. 
 
 function get_module_libs(m) {
 
-    var r = {};
+    ß.lib[m] = {};
+
     var p = '/modules/' + m + '/lib';
 
     var cpfiles = [];
@@ -19,62 +25,25 @@ function get_module_libs(m) {
     var files = [...new Set([...cpfiles, ...bpfiles])];
 
     for (var i = 0; i < files.length; i++) {
-        if (cpfiles.indexOf(files[i]) >= 0) r[files[i].split('.')[0]] = require(ß.CWD + p + '/' + files[i]);
-        else
-        if (bpfiles.indexOf(files[i]) >= 0) r[files[i].split('.')[0]] = require(ß.BPD + p + '/' + files[i]);
+        var name = files[i].split('.')[0];
+        if (cpfiles.indexOf(files[i]) >= 0) {
+            var cpfn = require(ß.CWD + p + '/' + files[i]);
+            ß.lib[m][name] = cpfn;
+            if (ß.lib[name]) console.log("- developer-warning: Can not add multiple project-lib-function names to ß.lib-namespace, skipping ", m, name);
+            else ß.lib[name] = cpfn;
+        } else
+        if (bpfiles.indexOf(files[i]) >= 0) {
+            var bpfn = require(ß.BPD + p + '/' + files[i]);
+            ß.lib[m][name] = bpfn;
+            if (ß.lib[name]) console.log("- developer-warning: Can not add multiple boilerplate-lib-function names to ß.lib-namespace, skipping ", m, name);
+            else ß.lib[name] = bpfn;
+        }
     }
 
-
-    return r;
 }
 
 ß.init_modules_libs = function(modules) {
     for (var i = 0; i < modules.length; i++) {
-        ß.lib[modules[i]] = get_module_libs(modules[i]);
+        get_module_libs(modules[i]);
     }
 };
-
-
-/*
-
-// global level and boilerplate level libs - outdated by module level libs
-
-var bplib = [];
-if (fs.existsSync(ß.BPD + '/lib')) bplib = fs.readdirSync(ß.BPD + '/lib');
-
-var cplib = [];
-if (fs.existsSync(ß.CWD + '/lib')) cplib = fs.readdirSync(ß.CWD + '/lib');
-
-var libs = [...new Set([...bplib, ...cplib])];
-
-function add_lib(lib) {
-
-    //console.log("@add_lib", lib);
-
-    ß.lib[lib] = {};
-
-    var bpfiles = [];
-    if (fs.existsSync(ß.BPD + '/lib/' + lib)) bpfiles = fs.readdirSync(ß.BPD + '/lib/' + lib);
-
-    var cpfiles = [];
-    if (fs.existsSync(ß.CWD + '/lib/' + lib)) cpfiles = fs.readdirSync(ß.CWD + '/lib/' + lib);
-
-    var files = [...new Set([...bpfiles, ...cpfiles])];
-
-    for (var i = 0; i < files.length; i++) {
-        if (files[i] !== 'index.js') {
-            if (cpfiles.indexOf(files[i]) >= 0) ß.lib[lib][files[i].split('.')[0]] = require(ß.CWD + '/lib/' + lib + '/' + files[i]);
-            else
-            if (bpfiles.indexOf(files[i]) >= 0) ß.lib[lib][files[i].split('.')[0]] = require(ß.BPD + '/lib/' + lib + '/' + files[i]);
-        }
-    }
-}
-
-for (var i = 0; i < libs.length; i++) {
-    add_lib(libs[i]);
-}
-
-*/
-
-//----------------
-

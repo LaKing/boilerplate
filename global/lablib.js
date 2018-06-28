@@ -15,7 +15,7 @@ const $TAG = $BLUE + '[ ' + HOSTNAME.split('.')[0] + ' ]';
 ß.fs.mkdirpSync(ß.CWD + '/log/' + ß.DATE);
 
 ß.log = function(type) {
-    let logfile = ß.CWD + '/log/' + ß.DATE + '/admin-log';
+    let logfile = ß.CWD + '/log/' + ß.DATE + '/admin.log';
 
     let logdata = type + ' ' + ß.now();
 

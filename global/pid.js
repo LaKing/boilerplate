@@ -26,9 +26,13 @@ console.log("- wrote pid:", process.pid);
 if (process.ppid) console.log("- ppid: ", process.ppid);
 
 process.on('SIGTERM', function() {
-    fs.unlinkSync(ß.pidfile);
+    try {
+        fs.unlinkSync(ß.pidfile);
+    } catch (e) {}
 });
 
 process.on('SIGUSR1', function() {
-    fs.unlinkSync(ß.pidfile);
+    try {
+        fs.unlinkSync(ß.pidfile);
+    } catch (e) {}
 });

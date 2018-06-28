@@ -36,9 +36,9 @@ if (ß.codepadlog) console.log("- Using codepad HTML-format logging");
 
 function link_html(str) {
     if (!str) return '';
-    if (!ß.codepadlog) return str;
+    if (!ß.codepadlog) return '';
     var ix = str.indexOf('/');
-    if (ix < 1) return str;
+    if (ix < 0) return '';
 
     var sub = str.substring(ix);
     if (sub.substring(0, ß.CWD.length) === ß.CWD) {
@@ -46,8 +46,8 @@ function link_html(str) {
         var a = sub.substring(ß.CWD.length).split(':');
         var file = a[0];
         var line = a[1];
-        var char = a[2].split(')')[0];
-        var link = file + '?line=' + line + '?char=' + char;
+        //var char = a[2].split(')')[0];
+        var link = file + '?line=' + line; // + '?char=' + char;
 
         return '<a href="/p' + link + '">/p' + link + '</a>';
 
@@ -61,7 +61,7 @@ function with_html(str) {
 
     var lines = str.split('\n');
     for (var i = 0; i < lines.length; i++) {
-        html += '┠─ ' + lines[i] + link_html(lines[i]) + '\n';
+        html += '┠─ ' + lines[i] + ' ' + link_html(lines[i]) + '\n';
     }
     return html;
 }
@@ -71,9 +71,10 @@ const logger = new Console(process.stdout, process.stderr);
 
 if (ß.codepadlog)
     process.on('uncaughtException', (err) => {
-        logger.log('┏━━━━━━━━━━━━━━━━━━━━━━━━━━ Exception ━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        logger.log('┏━━━━━━━━━━━━━━━━━━━━━━━━━━ Exception ' + err.name + ' ━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        logger.log('┠────  ', err.message);
         if (err.stack) logger.log(with_html(err.stack));
-        logger.log(err);
+        logger.log('┗━━━━ EXITING with code 100');
         process.exit(100);
     });
 
@@ -97,6 +98,8 @@ global.Ł = function() {
 
 };
 
+if (ß.codepadlog) logger.log("- Logging functions ł and Ł are available, with codepad html-extended log");
+else logger.log("- Logging functions ł and Ł are available.");
 
 global.Đ = function() {
 
@@ -110,14 +113,14 @@ global.Đ = function() {
     // A special format if used to message a simple error.
     if (arguments[0] instanceof Error && arguments.length === 1) {
         var err = arguments[0];
-        logger.log('┏━━━ ĐANGER @', from);
+        logger.log('┏━━━ ĐETERMINATE @', from);
         logger.log('┠─── ' + err.name + ' ' + link_html(err.stack.split('\n')[1]) + '</span>');
         if (ß.codepadlog) logger.log('┠─  <span style="background: rgba(200,000,000,0.4);">', err.message, '</span>');
         else logger.log('┠─  ', err.message);
         logger.log('┗━━━━');
 
     } else {
-        logger.log('┏━━━ ĐANGER @', from);
+        logger.log('┏━━━ ĐETERMINATE @', from);
         for (let arg in arguments) {
             if (ß.codepadlog) logger.log('┠─  <span style="background: rgba(100,100,100,0.4);">', arguments[arg], '</span>');
             else logger.log('┠─  ', arguments[arg]);
@@ -125,7 +128,7 @@ global.Đ = function() {
         logger.log('┗━━━━');
     }
 
-    throw 'The ĐANGER function got a non-null error, therefore throws an exception. EXITING.';
+    throw 'The determinator function got a non-null error, therefore throws an exception.';
 
     //return arguments;
 };
@@ -141,14 +144,14 @@ global.đ = function() {
     // A special format if used to message a simple error.
     if (arguments[0] instanceof Error && arguments.length === 1) {
         var err = arguments[0];
-        logger.log('┏━━━ đanger @', from);
+        logger.log('┏━━━ đeterminate @', from);
         logger.log('┠─── ' + err.name + ' ' + link_html(err.stack.split('\n')[1]) + '</span>');
         if (ß.codepadlog) logger.log('┠─  <span style="background: rgba(200,000,000,0.4);">', err.message, '</span>');
         else logger.log('┠─  ', err.message);
         logger.log('┗━━━━');
 
     } else {
-        logger.log('┏━━━ đanger @', from);
+        logger.log('┏━━━ đeterminate @', from);
         for (let arg in arguments) {
             if (ß.codepadlog) logger.log('┠─  <span style="background: rgba(100,100,100,0.4);">', arguments[arg], '</span>');
             else logger.log('┠─  ', arguments[arg]);
@@ -158,4 +161,5 @@ global.đ = function() {
     return arguments;
 };
 
-logger.log("- Logging functions ł and Ł are available.");
+if (ß.codepadlog) logger.log("- Determinator functions đ and Đ are available, with codepad html-extended log");
+else logger.log("- Determinator functions đ and Đ are available.");

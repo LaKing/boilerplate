@@ -9,5 +9,8 @@ userSchema.methods.generateHash = function(password) {
 
 // checking if password is valid
 userSchema.methods.validPassword = function(password) {
-    return ß.bcrypt.compareSync(password, this.local.password);
+    if (this.local)
+        if (this.local.password)
+            return ß.bcrypt.compareSync(password, this.local.password);
+    return false;
 };
