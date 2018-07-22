@@ -27,9 +27,19 @@ function process_data(lang, data) {
     return r;
 }
 
+// for a given language, we need to process a given sourcefile - sync version
+module.exports = function(lang, file) {
 
+    const data = fs.readFileSync(file, 'utf8');
+    var filename = file.split('/').pop();
+    fs.writeFileSync(lang_dir + '/' + lang + '/' + filename, process_data(lang, data));
+};
+
+/*
 // for a given language, we need to process a given sourcefile
 module.exports = function(lang, file) {
+  
+  	fs.writeFileSync(lang_dir + '/' + lang + '/' + filename, "Rendering"); 
 
     //var f = ß.BPD + '/' + dir + '/' + file;
     //if (fs.existsSync(ß.CWD + '/' + dir + '/' + file)) f = ß.CWD + '/' + dir + '/' + file;
@@ -46,3 +56,4 @@ module.exports = function(lang, file) {
         });
     });
 };
+*/

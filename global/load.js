@@ -2,6 +2,11 @@
 
 const fs = require('fs-extra');
 
+// @DOC ## ßoilerplate/global/load.js
+// @DOC Simply requiring files
+// @DOC Passing a 'dir' as an argument to ß.load()
+// @DOC It will load all the files in 'dir', first in our modules folder - if that not exists, it will use ßoilerplate/modules
+
 function acquire_module_dir(m, dir) {
 
     var p = '/modules/' + m + '/' + dir;

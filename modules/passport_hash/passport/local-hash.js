@@ -5,7 +5,7 @@ const User = ß.User;
 const lib = ß.lib;
 const passport = ß.passport;
 
-const CustomStrategy = require('passport-custom').Strategy;
+const CustomStrategy = ß.passport_custom.Strategy;
 
 passport.use('hash-login', new CustomStrategy(
     function(req, done) {

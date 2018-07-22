@@ -4,6 +4,8 @@ const fs = ß.fs;
 
 // this iterates in all languages    
 module.exports = function(folder) {
+  
+  	console.log(" - Language.transpile", folder);
 
     var cpfiles = ß.get_files_array(ß.CWD, folder);
     var bpfiles = ß.get_files_array(ß.BPD, folder);

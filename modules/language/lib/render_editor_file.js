@@ -31,10 +31,23 @@ function process_editor_data(lang, data) {
     return r;
 }
 
+// for a given language, we need to process a given sourcefile - sync version
+module.exports = function(lang, file) {
+
+    const data = fs.readFileSync(file, 'utf8');
+    var filename = file.split('/').pop();
+    var pathtag = '<!-- @path! ' + file.substring(ß.CWD.length) + ' ! -->\n';
+
+    fs.writeFileSync(editor_dir + '/' + lang + '/' + filename, pathtag + process_editor_data(lang, data));
+};
+
+/*
 
 // for a given language, we need to process a given sourcefile
 module.exports = function(lang, file) {
 
+  fs.writeFileSync(lang_dir + '/' + lang + '/' + filename, "Rendering");
+  
     //var f = ß.BPD + '/' + dir + '/' + file;
     //if (fs.existsSync(ß.CWD + '/' + dir + '/' + file)) f = ß.CWD + '/' + dir + '/' + file;
 
@@ -49,19 +62,5 @@ module.exports = function(lang, file) {
         });
     });
 };
-
-/*
-
-function render_file_to_editor(lang, file) {
-    fs.readFile(file, 'utf8', function(err, data) {
-        if (err) return console.log(file, err);
-        var filename = file.split('/').pop();
-        var content = '<!-- @path! ' + file + ' ! -->\n' + data;
-        fs.writeFile(editor_path + '/' + filename, content, function(err) {
-            if (err) return console.log(err);
-        });
-    });
-}
-
 
 */

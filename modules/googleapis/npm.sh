@@ -1,1 +1,1 @@
-npm install googleapis --save
+npm install googleapis

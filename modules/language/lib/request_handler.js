@@ -7,7 +7,6 @@ function express_localized_file_handler(file) {
     const app = ß.app;
     const language = ß.language;
 
-    //console.log("register-request:", file);
     app.get('/' + file, function(req, res) {
         var lang = lib.language.get_by_req(req);
         var path = ß.CWD + '/local/' + lang;
@@ -21,7 +20,6 @@ function express_localized_file_handler(file) {
                 res.send('ERROR');
                 return;
             }
-            
             res.send(data);
             
         });
@@ -30,7 +28,7 @@ function express_localized_file_handler(file) {
 
 // this iterates in all the files    
 module.exports = function() {
-
+	console.log(" - Registering localized file handlers");
     // we assume the default langue folder has all the files
     const lang = ß.language.default;
     const lang_dir = ß.CWD + '/local';

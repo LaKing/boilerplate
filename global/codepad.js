@@ -34,6 +34,10 @@ function _getCallerFile() {
 if (ß.codepadlog !== false && process.env.USER === 'codepad') ß.codepadlog = true;
 if (ß.codepadlog) console.log("- Using codepad HTML-format logging");
 
+// @DOC ## ßoilerplate/global/codepad.js
+// @DOC Global logginf functions defined - ł and Ł
+// @DOC đ and Đ - determinates errors, for example in a catch block
+
 function link_html(str) {
     if (!str) return '';
     if (!ß.codepadlog) return '';

@@ -1,6 +1,6 @@
 /*jshint esnext: true */
 
-ß.google = require('googleapis');
+ß.google = require('googleapis').google;
 
 const keyfile = ß.CWD + "/config/google-privatekey.json";
 if (!ß.googleapis_scopes) ß.googleapis_scopes = ['https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/spreadsheets'];
@@ -15,7 +15,7 @@ if (ß.fs.existsSync(keyfile)) {
         privatekey.private_key,
         ß.googleapis_scopes
     );
-    
+
     console.log(' - Googleapis enabled', ß.googleapis_scopes.join(' '));
 
 } else {

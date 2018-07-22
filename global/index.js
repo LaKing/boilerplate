@@ -1,5 +1,11 @@
 /*jshint esnext: true */
 
+// @DOC ## ßoilerplate/global/index.js
+// @DOC Here we define the ß global variable
+// @DOC You can use your project in DEBUG mode instead of production mode
+// @DOC ß.CWD stands for the Current Work Directory and ß.BPD is the Boilerplate Directory
+// @DOC Importing, loading and init modules, files that required
+
 if (!global.ß) global.ß = {};
 if (!ß.cli_commands) ß.cli_commands = [];
 if (!ß.DEBUG) {

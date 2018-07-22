@@ -1,5 +1,11 @@
 /*jshint esnext: true */
 
+// @DOC ## ßoilerplate/global/now.js
+// @DOC Simple date functions 
+// @DOC ß.now() returns yyyy-mm-dd hh:mm:ss format
+// @DOC ß.date() returns yyyy-mm-dd format
+// @DOC ß.time() returns dd hh:mm:ss format
+
 ß.now = function() {
     var now = new Date();
 

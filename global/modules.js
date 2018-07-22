@@ -2,6 +2,10 @@
 
 const fs = require('fs-extra');
 
+// @DOC ## ßoilerplate/global/modules.js
+// @DOC ß.modules contains all the modules that we use
+// @DOC In DEBUG mode, we can define active-modules that run only in this mode
+
 function get_modules() {
 
     var bpmodules = [];

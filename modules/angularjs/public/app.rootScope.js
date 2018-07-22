@@ -1,5 +1,10 @@
 (function() {
 
+  	function is_mobile() {
+        if (/Mobile|Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) return true;
+        else return false;
+    }
+  
     app.run(function($rootScope, $location, $templateCache) {
         var path = $location.path();
         console.log("@rootScope", $location.absUrl());
