@@ -28,7 +28,7 @@ passport.use('local-signup', new LocalStrategy({
 
                     // check to see if theres already a user with that email
                     if (user) {
-                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                        return done(null, false, req.flash('signupMessage', 'That email is already in use.'));
                     } else {
 
                         ß.lib.verify.email(email, function(err, isok) {

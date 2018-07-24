@@ -3,6 +3,7 @@
 ß.app.post('/post-email', function(req, res, next) {
 
     var email = req.body.email;
+  	if (!email) return res.send('No email.');
 
     ß.User.findOne({
         'local.email': email

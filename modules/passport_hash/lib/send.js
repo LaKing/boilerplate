@@ -17,7 +17,7 @@ module.exports = function(id) {
             if (user.local.email.indexOf('@') < 0) return console.log("Invali email address ", user.local.email);
         } else return console.log("ERROR No local email address ", user.local.email);
                   
-        var link = "https://" + HOSTNAME + "/hash/" + user.local.email + "/" + id + '/' + lib.passport_hash.hash(user.local.email);
+        var link = "https://" + HOSTNAME + "/hash/" + user.local.email.toLowerCase() + "/" + id + '/' + lib.passport_hash.hash(user.local.email);
 
         var subject = "Login to " + HOSTNAME;
         var html = '';
