@@ -15,6 +15,7 @@ ln -s /srv/codepad-project/boilerplate/@core-modules/logging /srv/codepad-projec
 ln -s /srv/codepad-project/boilerplate/@core-modules/mobile_detect /srv/codepad-project/@-modules/mobile_detect
 ln -s /srv/codepad-project/boilerplate/@core-modules/mongoose /srv/codepad-project/@-modules/mongoose
 ln -s /srv/codepad-project/boilerplate/@core-modules/nodemailer /srv/codepad-project/@-modules/nodemailer
+ln -s /srv/codepad-project/boilerplate/@core-modules/readme /srv/codepad-project/@-modules/readme
 ln -s /srv/codepad-project/boilerplate/@core-modules/server /srv/codepad-project/@-modules/server
 ln -s /srv/codepad-project/boilerplate/@core-modules/session /srv/codepad-project/@-modules/session
 ln -s /srv/codepad-project/boilerplate/@core-modules/settings /srv/codepad-project/@-modules/settings

@@ -2,10 +2,22 @@
 
 CWD="$PWD"
 
-cd boilerplate/global
-bash npm.sh
+if [[ -f npm.sh ]]
+then
+    pwd
+    source npm.sh
+fi
 
-for f in "$CWD"/boilerplate/modules/*
+if [[ -f boilerplate/global/npm.sh ]]
+then
+    cd boilerplate/global
+    pwd
+    source npm.sh
+fi
+
+cd "$CWD"
+
+for f in "$CWD"/*-modules/*
 do
     echo ''
     if [[ -f $f/npm.sh ]]
@@ -15,17 +27,3 @@ do
         source npm.sh
     fi
 done
-
-if [[ -d $CWD/modules ]]
-then
-    for f in "$CWD"/modules/*
-    do
-        echo ''
-        if [[ -f $f/npm.sh ]]
-        then
-            cd $f 
-            pwd
-            source npm.sh
-        fi
-    done
-fi
