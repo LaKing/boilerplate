@@ -34,9 +34,7 @@ function _getCallerFile() {
 if (ß.codepadlog !== false && process.env.USER === 'codepad') ß.codepadlog = true;
 if (ß.codepadlog) console.log("- Using codepad HTML-format logging");
 
-// @DOC ## ßoilerplate/global/codepad.js
-// @DOC Global logginf functions defined - ł and Ł
-// @DOC đ and Đ - determinates errors, for example in a catch block
+
 
 function link_html(str) {
     if (!str) return '';
@@ -83,6 +81,15 @@ if (ß.codepadlog)
     });
 
 
+/* @DOC 
+## Logging, Throwing
+### Global logging  ```ł``` and ```Ł``` functions to be used in development
+Place temporary ```console.log()``` functions with short special characters, they can be tracked down within the project.  
+```ł()``` is an alias for a simple console-log.  
+```Ł()``` is an enhanced console-log that prints arguments in seperate lines, and indicates where it has been called from.  
+When codepad-style logging is enabled it is printed in html form.
+*/
+
 global.ł = function() {
     logger.log(...arguments);
 };
@@ -92,19 +99,56 @@ global.Ł = function() {
     var stack = new Error().stack;
     var from = link_html(stack.split('\n')[2]);
 
-    logger.log('┏━━━ ŁOG @', from);
+    logger.log('┏━━━ ŁOG ', ß.now());
 
     for (let arg in arguments) {
         if (ß.codepadlog) logger.log('┠─  <span style="background: rgba(100,100,100,0.4);">', arguments[arg], '</span>');
         else logger.log('┠─  ', arguments[arg]);
     }
-    logger.log('┗━━━━');
+    logger.log('┗━━━━ @', from);
 
 };
 
 if (ß.codepadlog) logger.log("- Logging functions ł and Ł are available, with codepad html-extended log");
 else logger.log("- Logging functions ł and Ł are available.");
 
+/* @DOC 
+### Global  determinator ```đ``` and the detonator ```Đ``` error-handlers.
+Should the determinator function ```đ(err);``` recieve an error as argument, it will log the error, then execution will continiue.
+On the other hand the detonator ```Đ(err);``` will log the error and ```thow```, thus exit the current process.
+Both functions can display codepad-styled html with link to the execution stack sourcefile. 
+*/
+
+// The determinator displays the error in the logs, but execution will continue, ...
+global.đ = function() {
+    if (arguments.length === 1) {
+        if (arguments[0] === null) return;
+        if (arguments[0] === undefined) return;
+    }
+    var stack = new Error().stack;
+    var from = link_html(stack.split('\n')[2]);
+
+    // A special format if used to message a simple error.
+    if (arguments[0] instanceof Error && arguments.length === 1) {
+        var err = arguments[0];
+        logger.log('┏━━━ đeterminate ', ß.now());
+        logger.log('┠─── ' + err.name + ' ' + link_html(err.stack.split('\n')[1]) + '</span>');
+        if (ß.codepadlog) logger.log('┠─  <span style="background: rgba(200,000,000,0.4);">', err.message, '</span>');
+        else logger.log('┠─  ', err.message);
+        logger.log('┗━━━━ @', from);
+
+    } else {
+        logger.log('┏━━━ đeterminate ', ß.now());
+        for (let arg in arguments) {
+            if (ß.codepadlog) logger.log('┠─  <span style="background: rgba(100,100,100,0.4);">', arguments[arg], '</span>');
+            else logger.log('┠─  ', arguments[arg]);
+        }
+        logger.log('┗━━━━ @', from);
+    }
+    return arguments;
+};
+
+// The detonator function will blow up current execution
 global.Đ = function() {
 
     if (arguments.length === 1) {
@@ -117,53 +161,24 @@ global.Đ = function() {
     // A special format if used to message a simple error.
     if (arguments[0] instanceof Error && arguments.length === 1) {
         var err = arguments[0];
-        logger.log('┏━━━ ĐETERMINATE @', from);
+        logger.log('┏━━━ ĐETONATE ', ß.now());
         logger.log('┠─── ' + err.name + ' ' + link_html(err.stack.split('\n')[1]) + '</span>');
         if (ß.codepadlog) logger.log('┠─  <span style="background: rgba(200,000,000,0.4);">', err.message, '</span>');
         else logger.log('┠─  ', err.message);
-        logger.log('┗━━━━');
-
+        logger.log('┗━━━━ @', from);
+        throw err;
     } else {
-        logger.log('┏━━━ ĐETERMINATE @', from);
+        logger.log('┏━━━ ĐETONATE ', ß.now());
         for (let arg in arguments) {
             if (ß.codepadlog) logger.log('┠─  <span style="background: rgba(100,100,100,0.4);">', arguments[arg], '</span>');
             else logger.log('┠─  ', arguments[arg]);
         }
-        logger.log('┗━━━━');
+        logger.log('┗━━━━ @', from);
+      	throw new Error('The Đetonator function got a non-null error, therefore throws an exception.');
     }
-
-    throw 'The determinator function got a non-null error, therefore throws an exception.';
-
-    //return arguments;
 };
 
-global.đ = function() {
-    if (arguments.length === 1) {
-        if (arguments[0] === null) return;
-        if (arguments[0] === undefined) return;
-    }
-    var stack = new Error().stack;
-    var from = link_html(stack.split('\n')[2]);
 
-    // A special format if used to message a simple error.
-    if (arguments[0] instanceof Error && arguments.length === 1) {
-        var err = arguments[0];
-        logger.log('┏━━━ đeterminate @', from);
-        logger.log('┠─── ' + err.name + ' ' + link_html(err.stack.split('\n')[1]) + '</span>');
-        if (ß.codepadlog) logger.log('┠─  <span style="background: rgba(200,000,000,0.4);">', err.message, '</span>');
-        else logger.log('┠─  ', err.message);
-        logger.log('┗━━━━');
-
-    } else {
-        logger.log('┏━━━ đeterminate @', from);
-        for (let arg in arguments) {
-            if (ß.codepadlog) logger.log('┠─  <span style="background: rgba(100,100,100,0.4);">', arguments[arg], '</span>');
-            else logger.log('┠─  ', arguments[arg]);
-        }
-        logger.log('┗━━━━');
-    }
-    return arguments;
-};
 
 if (ß.codepadlog) logger.log("- Determinator functions đ and Đ are available, with codepad html-extended log");
 else logger.log("- Determinator functions đ and Đ are available.");

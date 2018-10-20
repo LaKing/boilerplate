@@ -31,6 +31,8 @@ function process() {
     [[ -d "$f/server" ]] && echo "- backend server process functions."
     [[ -d "$f/start" ]] && echo "- backend start process functions."
     [[ -d "$f/debug" ]] && echo "- backend debug process functions."
+    [[ -d "$f/data" ]] && echo "- data folder for json files."
+
 
     echo ''
 

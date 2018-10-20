@@ -166,6 +166,16 @@ fi
 log "pidof node: $(pidof node)"
 
 push_unlock
-log "push complete, exit 0"
-exit 0
+
+## adjust to project compile/startup-time
+sleep 4
+
+if [[ -f "$project_pid" ]] && ps -p "$(cat "$project_pid")" > /dev/null
+then
+    log "Project appears to be running"
+    exit 0
+else
+    exit 1
+fi
+
 

@@ -1,6 +1,6 @@
 # ßoilerplate.JS
 
-A modular framework for Javascript based projects, mainly MEAN web applications.
+A modular framework for NodeJS based applications.
 
 ## What is it good for? Why should I need this? Why am I reading this?
 
@@ -49,7 +49,9 @@ require("./boilerplate");
 ```
 ## What modules are used.
 
-Generally, all modules are used, except if they are blacklisted, or the module-condition.js file evalutes to false. 
+In addition to the modules folder, all folders in the working directory that have '-modules' in their name will be considered as a set of modules.
+They are processed sequentially, however if a -modules folder is prefixed with @ it will be considered a boilerplate factory module, and has lower priority as othe modules. 
+The module-condition.js file if present, has to evalute to true. 
 
 ## My code style
 
@@ -74,5 +76,3 @@ Don't panik either. These two are determinator functions, that handle errors.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Documentation

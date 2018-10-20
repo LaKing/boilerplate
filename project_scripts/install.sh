@@ -6,11 +6,19 @@ bash make-cert.sh
 wd=/srv/codepad-project
 cd "$wd"
 
+## since we run the project most of the time as codepad project ...
+## no problem if there is no codepad, but we use that folder structure
 project_log=/var/codepad/project.log
 mkdir -p /var/codepad
 
 chown -R codepad:codepad $wd 2> /dev/null
 chmod -R +X $wd 2> /dev/null
+
+## we also set up a /var/boilerplate for localized files, logs, editor files - wich are disposable files
+mkdir -p /var/boilerplate
+ln -s /var/boilerplate "$wd/var"
+
+chown -R codepad:codepad /var/boilerplate
 
 NOW=$(date +%Y.%m.%d-%H:%M:%S)
 
@@ -98,6 +106,17 @@ Group=codepad
 Restart=always
 RestartSec=3
 SyslogIdentifier=project
+
+# Environment variables:
+Environment=NODE_ENV=production
+# Allow many incoming connections
+LimitNOFILE=infinity
+# Allow core dumps for debugging
+LimitCORE=infinity
+StandardInput=null
+StandardOutput=syslog
+StandardError=syslog
+
 [Install]
 WantedBy=multi-user.target
 EOF

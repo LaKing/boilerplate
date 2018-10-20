@@ -17,6 +17,7 @@ function publish() {
 ## publish folders/files from project root
 
 publish boilerplate
+publish @-modules
 publish modules
 publish static
 

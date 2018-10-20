@@ -1,58 +1,30 @@
 /*jshint esnext: true */
 
-// @DOC ## THE ß-variable
-// @DOC This is the primary global variable, visible in the global scope. 
-// @DOC Frequently used node_modules can be attached directly.
-// @DOC for example ß.fs is reference to the fs-extra
+/* @DOC
 
-// BOILERPLATE FRAMEWORK INITIALIZATION
-const fs = require('fs-extra');
+## THE ß-variable
 
-// functions
+The boilerplate module framework uses a "ß namespace" to store constants and references to functions across it's modules.  
+This namespace is attached to the `ß` primary global variable, visible in the global scope. Frequently used node_modules can be attached directly.
+You can pre-create the ß variable in your server.js file before loading the boilerplate, to pre-define global constants.
 
-// get a path from any file. If present in the project, use that, otherwise use the one from the boilerplate 
-if (!ß.get_path) ß.get_path = function(f) {
-    // get file or folder
-    if (fs.existsSync(ß.CWD + '/' + f)) return ß.CWD + '/' + f;
-    else return ß.BPD + '/' + f;
-};
+A custom `server.js` with debug-mode may look like this.  
+```
+// Pre-declare ß so constants and functions can be attached.
+global.ß = {};
+// Set the DEBUG constant to true
+ß.DEBUG = true;
+```
+The entry point to boot the framework is then:
+```
+require("./boilerplate");
+```
+*/
 
-// get a path from any file. If present in the project, use that, otherwise use the one from the boilerplate 
-if (!ß.view) ß.views = function(req, file) {
-    var lang = ß.lib.language.get_by_req(req);
-    return ß.CWD + '/local/' + lang + '/' + file;
-};
 
-if (!ß.local) ß.local = function(lang, file) {
-    return ß.CWD + '/local/' + lang + '/' + file;
-};
-
-// require - however, this wont work with calling arguments
-if (!ß.require) ß.require = function(module_path) {
-    if (fs.existsSync(ß.CWD + '/' + module_path)) require(ß.CWD + '/' + path);
-    else require(ß.BPD + '/' + module_path);
-};
-
-// require everything in a folder - exept the index
-if (!ß.acquire) ß.acquire = function(dir) {
-    var bpfiles = [];
-    if (fs.existsSync(ß.BPD + '/' + dir)) bpfiles = fs.readdirSync(ß.BPD + '/' + dir);
-
-    var cpfiles = [];
-    if (fs.existsSync(ß.CWD + '/' + dir)) cpfiles = fs.readdirSync(ß.CWD + '/');
-
-    var files = [...new Set([...bpfiles, ...cpfiles])];
-
-    for (var i = 0; i < files.length; i++) {
-        if (files[i] !== 'index.js' && files[i].split('.').reverse()[0] === 'js') {
-            if (cpfiles.indexOf(files[i]) >= 0) require(ß.CWD + '/' + dir + '/' + files[i]);
-            else
-            if (bpfiles.indexOf(files[i]) >= 0) require(ß.BPD + '/' + dir + '/' + files[i]);
-        }
-    }
-};
 
 // It would be safer to use localized versions of variables. ...
+// we do not do this, but I keep it here for reference
 
 // for data-only access
 if (!ß.localize) ß.localize = function() {
@@ -67,3 +39,19 @@ if (!ß.local) ß.local = function() {
 // to use a local version
 //const _ß = ß.local(); // funtions and data
 //const _ß = ß.localize(); // data only
+
+if (!ß.debug_namespace) ß.debug_namespace = function() {
+    const util = require('util');
+
+    ß.fs.mkdirpSync(ß.VAR + '/debug');
+    var config_file = ß.VAR + '/debug/boiler-namespace.txt';
+    var data = '';
+
+    for (let i in ß) {
+        data += 'ß.' + i + ' = ' + util.inspect(ß[i]);
+        data += '\n\n';
+    }
+
+    ß.fs.writeFileSync(config_file, data);
+    console.log("- ß has " + Object.keys(ß).length + " keys, debug:", config_file);
+};
