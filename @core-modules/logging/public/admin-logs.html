@@ -1,0 +1,11 @@
+<div ng-controller="logsController" class="container content-box-large" style="background-color:#032764; font-family: monospace;">
+    <br>
+    <a href="" ng-click="search.type = ''" class="btn btn-primary">ALL</a>
+    <a href="" ng-click="search.type = 'MSG'" class="btn btn-primary">MSG</a>
+    <a href="" ng-click="search.type = 'NTC'" class="btn btn-primary">NTC</a>
+    <a href="" ng-click="search.type = 'ERR'" class="btn btn-primary">ERR</a>
+    <br><br>
+    <div ng-repeat="l in admin_logs | filter:search">
+        <span title="{{l.timestamp}}" style="color: rgba({{l.r}},{{l.g}},{{l.b}},{{l.a}});">{{l.string}}</span><br>
+    </div>
+</div>
