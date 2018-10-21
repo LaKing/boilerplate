@@ -101,7 +101,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 
 
-[@README.EN.md:1](https://boilerplate.d250.hu:9001/p/boilerplate/README.EN.md?line=1)
+[@/boilerplate/README.EN.md]
 
 ## THE ß object
 
@@ -122,7 +122,7 @@ require("./boilerplate");
 ```
 
 
-[@bp.js:3](https://boilerplate.d250.hu:9001/p/boilerplate/global/bp.js?line=3)
+[@/boilerplate/global/bp.js line 3]
 
 ## Logging, Throwing
 ### Global logging  ```ł``` and ```Ł``` functions to be used in development
@@ -132,7 +132,7 @@ Place temporary ```console.log()``` functions with short special characters, the
 When codepad-style logging is enabled it is printed in html form.
 
 
-[@codepad.js:84](https://boilerplate.d250.hu:9001/p/boilerplate/global/codepad.js?line=84)
+[@/boilerplate/global/codepad.js line 84]
 
 ### Global  determinator ```đ``` and the detonator ```Đ``` error-handlers.
 Should the determinator function ```đ(err);``` recieve an error as argument, it will log the error, then execution will continiue.
@@ -140,7 +140,7 @@ On the other hand the detonator ```Đ(err);``` will log the error and ```thow```
 Both functions can display codepad-styled html with link to the execution stack sourcefile.
 
 
-[@codepad.js:115](https://boilerplate.d250.hu:9001/p/boilerplate/global/codepad.js?line=115)
+[@/boilerplate/global/codepad.js line 115]
 
 ## Module hooks
 Hooks are similar to lib-functions, however, multiple hooks from multiple modules are called when calling `ß.run_hook` or `ß.run_hooks`.
@@ -150,7 +150,7 @@ As always, hooks definied within the project-modules take precedence over @boile
 A development-debug log is generated in the `ß.VAR` directory.
 
 
-[@hook.js:7](https://boilerplate.d250.hu:9001/p/boilerplate/global/hook.js?line=7)
+[@/boilerplate/global/hook.js line 7]
 
 ## Constants
 
@@ -162,7 +162,7 @@ A development-debug log is generated in the `ß.VAR` directory.
 `ß.MRD` is the module root directory
 
 
-[@index.js:3](https://boilerplate.d250.hu:9001/p/boilerplate/global/index.js?line=3)
+[@/boilerplate/global/index.js line 3]
 
 ## Lablib - builtin logging
 
@@ -176,7 +176,7 @@ These logs are written to a file, and should contain business-logic logs.
 `ß.debug()` only if debug mode is enabled, logs with a blue line
 
 
-[@lablib.js:14](https://boilerplate.d250.hu:9001/p/boilerplate/global/lablib.js?line=14)
+[@/boilerplate/global/lablib.js line 14]
 
 ## Module libs
 
@@ -187,7 +187,7 @@ lib-function files in `@-modules` have lower precedence over custom modules, thu
 The function-defining js files may contain private local variables and functions, and any number of arguments.
 
 
-[@lib.js:7](https://boilerplate.d250.hu:9001/p/boilerplate/global/lib.js?line=7)
+[@/boilerplate/global/lib.js line 7]
 
 ## Module dir loading
 There is a command to `require()` all files in a dir of all modules.  
@@ -202,7 +202,7 @@ It will load all the files in this, first in all the custom modules, then in the
 ```
 
 
-[@load.js:5](https://boilerplate.d250.hu:9001/p/boilerplate/global/load.js?line=5)
+[@/boilerplate/global/load.js line 5]
 
 ## ßoilerplate timestamp functions
 Simple date functions  
@@ -212,13 +212,13 @@ Simple date functions
 `ß.DATE` and `ß.TIME` are constant stamps created at bootup
 
 
-[@now.js:3](https://boilerplate.d250.hu:9001/p/boilerplate/global/now.js?line=3)
+[@/boilerplate/global/now.js line 3]
 
 A note on logging. According to https://stackoverflow.com/questions/41502564/journalctl-user-units-output-disappears
 user-services do not appear on unit logs. As a workaround use journalctl without unit definitions. For example jurnalctl -f
 
 
-[@process.js:3](https://boilerplate.d250.hu:9001/p/boilerplate/global/process.js?line=3)
+[@/boilerplate/global/process.js line 3]
 
 # Module's Documentation
 
@@ -275,6 +275,7 @@ boilerplate
  - LICENSE.md
  - README.EN.md
  - README.HU.md
+ - README.md
  - cli.js
  - cli.sh
  - global
@@ -765,13 +766,13 @@ routes
 The README for the project is served under the ```/README``` url.
 
 
-[@readme.js:7](https://boilerplate.d250.hu:9001/p/boilerplate/@core-modules/readme/routes/readme.js?line=7)
+[@/boilerplate/@core-modules/readme/routes/readme.js line 7]
 
 This module generates a readme automatically from comments that are marked with the ```@DOC``` tag at start.
    Both, single-line and multiline comments can be used. When the project is started source files are parsed and marked document blocks extracted.
 
 
-[@autodoc.js:3](https://boilerplate.d250.hu:9001/p/boilerplate/@core-modules/readme/start/autodoc.js?line=3)
+[@/boilerplate/@core-modules/readme/start/autodoc.js line 3]
 
 <pre>
 routes
@@ -792,17 +793,17 @@ If the ```ß.static_options``` is ```undefined``` at inicialization, it will set
 It is recommended to use ```ß.static_options``` for express static server routes.
 
 
-[@express.js:6](https://boilerplate.d250.hu:9001/p/boilerplate/@core-modules/server/global/express.js?line=6)
+[@/boilerplate/@core-modules/server/global/express.js line 6]
 
 Static assets like css files can be placed in any module or the project root, in a /static folder
 
 
-[@serve_static.js:3](https://boilerplate.d250.hu:9001/p/boilerplate/@core-modules/server/routes/serve_static.js?line=3)
+[@/boilerplate/@core-modules/server/routes/serve_static.js line 3]
 
 Data representing assets like json files can be placed in any module or the project root, in a /data folder
 
 
-[@serve_static.js:6](https://boilerplate.d250.hu:9001/p/boilerplate/@core-modules/server/routes/serve_static.js?line=6)
+[@/boilerplate/@core-modules/server/routes/serve_static.js line 6]
 
 <pre>
 global
@@ -903,7 +904,7 @@ Email-verify via SMTP connection.
 Fails if there is no address, etc, ..
 
 
-[@email.js:3](https://boilerplate.d250.hu:9001/p/boilerplate/@core-modules/verify/lib/email.js?line=3)
+[@/boilerplate/@core-modules/verify/lib/email.js line 3]
 
 <pre>
 lib
