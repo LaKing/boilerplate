@@ -5,12 +5,12 @@ A modular framework for NodeJS based applications.
 ## What kind of sorcery is this?
 
 On one hand the `ß` object, the modular loader mechanism. The code is defined in the boilerplate/global folder.  
-On the other hand the boilerplate for your application - the stack you start with, and customize it. The modules in the boilerplate folder.  
+On the other hand the boilerplate for your application - the stack you start with, that will be customized. The modules in the boilerplate folder.  
 
 ## What is it good for? Why should I need this? Why am I reading this?
 
 On one hand this is a method to reduce complexity, to organize code, to put it to a reuseable form, to create your own modules.
-On the other hand a starting point with the common features already implemented.
+On the other hand a starting point with some common features already implemented.
 
 You may need something like that if you have several projects that need to organised, that need to have a structure.
 
@@ -71,26 +71,13 @@ Well, I use red Hat based systems so if you know what DNF is, you can run the in
 You will need NodeJS and npm of course. There are some npm.sh files in the modules, these will install the node_modules of the ß-modules.
 NOTE: `modules` are ßoilerplat modules, and `node_modules` are npm packaged modules. Unfortunatley npm has no standard for example for location of publicly visible files in a web project. Some npm modules use a `/dist` folder, while some others use some different folder, so we need to crate wrapper modules to define express routes for example. The point is, `node_modules` are not to be confused with ß-modules.
 
-### Other files to consider
-
-You can start your project with `server.js` that you copy from the `project_scripts` folder. There is not much in there:
-This should be sufficient if your folder structure is ok.
-
-```
-require("./boilerplate");
-
-```
-But you can customize `server.js`, and add pre-defined constants or variables.
+You can start your project with `start.sh` or `server.js` that you copy from the `project_scripts` folder, and add pre-defined constants or variables.
 
 ## What modules are used.
 
 In addition to the modules folder, all folders in the working directory that have 'modules' in their name will be considered as a set of modules. (Except `node_modules`)
 They are processed sequentially, however if a modules folder is prefixed with `@` it will be considered a boilerplate factory module, and has lower priority as the other modules. 
 A module-condition.js file if present, has to evalute to true. A list of modules is printed into `/var/boilerplate/debug` 
-
-## My code style
-
-Sorry, I dont like camel case so much. My variables contain some underscores and are longer. My bad.
 
 ## Other special characters
 
