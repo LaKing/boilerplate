@@ -6,17 +6,17 @@ If the ```ß.static_options``` is ```undefined``` at inicialization, it will set
 It is recommended to use ```ß.static_options``` for express static server routes.
 
 
-[@express.js:6](https://bp-devel.d250.hu:9001/p/boilerplate/@core-modules/server/global/express.js?line=6)
+[@express.js:6](https://boilerplate.d250.hu:9001/p/boilerplate/@core-modules/server/global/express.js?line=6)
 
 Static assets like css files can be placed in any module or the project root, in a /static folder
 
 
-[@serve_static.js:3](https://bp-devel.d250.hu:9001/p/boilerplate/@core-modules/server/routes/serve_static.js?line=3)
+[@serve_static.js:3](https://boilerplate.d250.hu:9001/p/boilerplate/@core-modules/server/routes/serve_static.js?line=3)
 
 Data representing assets like json files can be placed in any module or the project root, in a /data folder
 
 
-[@serve_static.js:6](https://bp-devel.d250.hu:9001/p/boilerplate/@core-modules/server/routes/serve_static.js?line=6)
+[@serve_static.js:6](https://boilerplate.d250.hu:9001/p/boilerplate/@core-modules/server/routes/serve_static.js?line=6)
 
 <pre>
 global
