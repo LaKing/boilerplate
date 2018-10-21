@@ -2,7 +2,7 @@
 
 /* @DOC
 
-## THE ß-variable
+## THE ß object
 
 The boilerplate module framework uses a "ß namespace" to store constants and references to functions across it's modules.  
 This namespace is attached to the `ß` primary global variable, visible in the global scope. Frequently used node_modules can be attached directly.
