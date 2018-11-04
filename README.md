@@ -225,10 +225,11 @@ user-services do not appear on unit logs. As a workaround use journalctl without
 ## The codepad-project module
 #### 
 <pre>
-@-modules
+@ng-modules
  - admin
  - angularjs
  - animate
+ - async
  - bootstrap3
  - favicon
  - fontawesome4
@@ -264,14 +265,6 @@ user-services do not appear on unit logs. As a workaround use journalctl without
 boilerplate
  - .git
  - .gitignore
- - @admin-modules
- - @core-modules
- - @frontend-modules
- - @googleapis-modules
- - @javascript-modules
- - @marketing-modules
- - @passport-modules
- - @payment-modules
  - LICENSE.md
  - README.EN.md
  - README.HU.md
@@ -280,7 +273,6 @@ boilerplate
  - cli.sh
  - global
  - index.js
- - project_scripts
  - version
 config
  - admin-passports.json
@@ -299,6 +291,7 @@ config
 log
  - 2018-10-20
  - 2018-10-21
+ - 2018-11-04
 var
  - boilerplate
  - debug
@@ -310,7 +303,42 @@ var
 
 
 ## The @admin module
-#### /boilerplate/@admin-modules/admin
+#### lerplate/@ng-modules/admin
+The hook function `socket.emit('admin-delete-user', id)` deletes the appropriate user by the given id.
+   If the id belongs to an admin then it won't be removed, otherwise the user will be deleted.
+   In the end updated users are emitted back via `socket.emit('users', data)`.
+
+
+[@/usr/local/share/boilerplate/@ng-modules/admin/hooks/adminsocket.delete-user.js line 3]
+
+The hook function `socket.emit('get-users', arg)` finds the appropriate user/users by the given argument and emits these users back via `socket.emit('users', data)`.
+
+
+[@/usr/local/share/boilerplate/@ng-modules/admin/hooks/adminsocket.get-users.js line 3]
+
+The hook function `socket.emit('admin-save-user-profile', data)` updates the given user profile, billing and shipping informations on the profile page.
+
+
+[@/usr/local/share/boilerplate/@ng-modules/admin/hooks/adminsocket.save-user-profile.js line 3]
+
+The hook function `socket.emit('admin-save-user', data)` saves and updates the given user datas.
+   This searches for the user by `data._id`.
+
+
+[@/usr/local/share/boilerplate/@ng-modules/admin/hooks/adminsocket.save-user.js line 3]
+
+The lib-function `ß.lib.admin.check_if_admin(id)` checks if the user with the given passport id has admin-level permissions on the website.
+Those id's can be set in the `config/admin-passports.json` file or, in debug mode if the file exists `config/admin-passports.debug.json` is used.
+
+
+[@/usr/local/share/boilerplate/@ng-modules/admin/lib/check_if_admin.js line 3]
+
+The lib-function `ß.lib.admin.is_master_password(password)` checks whether the given password is listed in the passwords config file `config/admin-passwords.json`.
+   Note that there is no username associated with the password, the admin user has access right to every passport id account.
+
+
+[@/usr/local/share/boilerplate/@ng-modules/admin/lib/is_master_password.js line 3]
+
 <pre>
 hooks
  - adminsocket.delete-user.js
@@ -341,7 +369,7 @@ static
 
 
 ## The @angularjs module
-#### /boilerplate/@core-modules/angularjs
+#### lerplate/@ng-modules/angularjs
 <pre>
 public
  - app.alertService.js
@@ -358,7 +386,7 @@ static
 
 
 ## The @animate module
-#### /boilerplate/@frontend-modules/animate
+#### lerplate/@ng-modules/animate
 <pre>
 routes
  - animate.js
@@ -366,8 +394,17 @@ routes
 
 
 
+## The @async module
+#### lerplate/@ng-modules/async
+<pre>
+global
+ - async.js
+</pre>
+
+
+
 ## The @bootstrap3 module
-#### /boilerplate/@frontend-modules/bootstrap3
+#### lerplate/@ng-modules/bootstrap3
 <pre>
 routes
  - bootstrap.js
@@ -378,7 +415,7 @@ static
 
 
 ## The @favicon module
-#### /boilerplate/@frontend-modules/favicon
+#### lerplate/@ng-modules/favicon
 <pre>
 start
  - favicon.js
@@ -389,7 +426,7 @@ static
 
 
 ## The @fontawesome4 module
-#### /boilerplate/@frontend-modules/fontawesome4
+#### lerplate/@ng-modules/fontawesome4
 <pre>
 routes
  - font-awesome.js
@@ -398,7 +435,7 @@ routes
 
 
 ## The @frontend module
-#### /boilerplate/@core-modules/frontend
+#### lerplate/@ng-modules/frontend
 <pre>
 public
  - app.mainController.js
@@ -413,7 +450,7 @@ routes
 
 
 ## The @frontendlib module
-#### /boilerplate/@core-modules/frontendlib
+#### lerplate/@ng-modules/frontendlib
 <pre>
 global
  - frontend_files.js
@@ -423,7 +460,7 @@ global
 
 
 ## The @jquery module
-#### /boilerplate/@frontend-modules/jquery
+#### lerplate/@ng-modules/jquery
 <pre>
 routes
  - jquery.js
@@ -432,7 +469,7 @@ routes
 
 
 ## The @language module
-#### /boilerplate/@core-modules/language
+#### lerplate/@ng-modules/language
 <pre>
 init
  - functions.js
@@ -458,7 +495,7 @@ user_model
 
 
 ## The @logging module
-#### /boilerplate/@core-modules/logging
+#### lerplate/@ng-modules/logging
 <pre>
 hooks
  - adminsocket_log.data.js
@@ -476,7 +513,7 @@ start
 
 
 ## The @mobile_detect module
-#### /boilerplate/@core-modules/mobile_detect
+#### lerplate/@ng-modules/mobile_detect
 <pre>
 init
  - mobile_detect.js
@@ -487,7 +524,7 @@ routes
 
 
 ## The @moment module
-#### /boilerplate/@javascript-modules/moment
+#### lerplate/@ng-modules/moment
 <pre>
 global
  - moment.js
@@ -496,7 +533,7 @@ global
 
 
 ## The @mongo_express module
-#### /boilerplate/@admin-modules/mongo_express
+#### lerplate/@ng-modules/mongo_express
 <pre>
 start
  - mongo_express.js
@@ -506,7 +543,7 @@ start
 
 
 ## The @mongoose module
-#### /boilerplate/@core-modules/mongoose
+#### lerplate/@ng-modules/mongoose
 <pre>
 global
  - mongoose.js
@@ -525,7 +562,7 @@ start
 
 
 ## The @nodemailer module
-#### /boilerplate/@core-modules/nodemailer
+#### lerplate/@ng-modules/nodemailer
 <pre>
 init
  - transporter.js
@@ -534,7 +571,7 @@ init
 
 
 ## The @offline module
-#### /boilerplate/@frontend-modules/offline
+#### lerplate/@ng-modules/offline
 <pre>
 static
  - offline.css
@@ -544,7 +581,19 @@ static
 
 
 ## The @passport module
-#### /boilerplate/@passport-modules/passport
+#### lerplate/@ng-modules/passport
+The lib-function `ß.lib.passport.isLoggedIn(req, res, next)` checks if the user is authenticated or not.
+   If not, the user is redirected to the home page.
+
+
+[@/usr/local/share/boilerplate/@ng-modules/passport/lib/isLoggedIn.js line 3]
+
+The lib-function `ß.lib.passport.isLoggedInAdmin(req, res, next)` checks whether the authenticated user is either admin or not via `ß.lib.admin.check_if_admin(req.session.passport.user)`. 
+   If the user is not authenticated then redirect to the home page.
+
+
+[@/usr/local/share/boilerplate/@ng-modules/passport/lib/isLoggedInAdmin.js line 3]
+
 <pre>
 global
  - passport.js
@@ -590,7 +639,15 @@ user_model
 
 
 ## The @passport_facebook module
-#### /boilerplate/@passport-modules/passport_facebook
+#### lerplate/@ng-modules/passport_facebook
+The lib function `ß.lib.passport_facebook.config_auth()` loads or sets the appropriate facebook passport config file.
+   The settings can be set in `config/passport_facebook.json` or `config/passport_facebook.debug.json`.
+   To get passport-facebook to work, there needs to be a facebook app, and the config shall contains the secret-app-ID, the app-secret, and which data fields are required by the app.
+   Under the hood, we use [passport-facebook](https://github.com/jaredhanson/passport-facebook).
+
+
+[@/usr/local/share/boilerplate/@ng-modules/passport_facebook/lib/config_auth.js line 3]
+
 <pre>
 lib
  - config_auth.js
@@ -607,7 +664,15 @@ user_model
 
 
 ## The @passport_google module
-#### /boilerplate/@passport-modules/passport_google
+#### lerplate/@ng-modules/passport_google
+The lib function `ß.lib.passport_google.config_auth()` loads or sets the appropriate google passport file.
+   The settings can be set in `/config/passport_google.json` or in `/config/passport_google.debug.json`.
+   To get passport-google to work, you should have a clientID, clientSecret and the callbackURL. These can be obtained from [Google Developers Console](https://console.developers.google.com/). 
+   We use [passport-google-oauth](https://github.com/jaredhanson/passport-google-oauth).
+
+
+[@/usr/local/share/boilerplate/@ng-modules/passport_google/lib/config_auth.js line 3]
+
 <pre>
 lib
  - config_auth.js
@@ -624,7 +689,7 @@ user_model
 
 
 ## The @passport_hash module
-#### /boilerplate/@passport-modules/passport_hash
+#### lerplate/@ng-modules/passport_hash
 <pre>
 lib
  - hash.js
@@ -639,7 +704,7 @@ routes
 
 
 ## The @payment module
-#### /boilerplate/@payment-modules/payment
+#### lerplate/@ng-modules/payment
 <pre>
 init
  - payment.js
@@ -670,7 +735,7 @@ user_model
 
 
 ## The @payment_barion module
-#### /boilerplate/@payment-modules/payment_barion
+#### lerplate/@ng-modules/payment_barion
 <pre>
 init
  - init.js
@@ -690,7 +755,7 @@ routes
 
 
 ## The @payment_braintree module
-#### /boilerplate/@payment-modules/payment_braintree
+#### lerplate/@ng-modules/payment_braintree
 <pre>
 global
  - braintree.js
@@ -711,7 +776,7 @@ static
 
 
 ## The @payment_simplepay module
-#### /boilerplate/@payment-modules/payment_simplepay
+#### lerplate/@ng-modules/payment_simplepay
 <pre>
 init
  - init.js
@@ -731,7 +796,7 @@ routes
 
 
 ## The @profile module
-#### /boilerplate/@passport-modules/profile
+#### lerplate/@ng-modules/profile
 <pre>
 hooks
  - socket.save-profile.js
@@ -746,7 +811,7 @@ user_model
 
 
 ## The @promo module
-#### /boilerplate/@marketing-modules/promo
+#### lerplate/@ng-modules/promo
 <pre>
 hooks
  - adminsocket.add_handler.js
@@ -762,17 +827,17 @@ routes
 
 
 ## The @readme module
-#### /boilerplate/@core-modules/readme
+#### lerplate/@ng-modules/readme
 The README for the project is served under the ```/README``` url.
 
 
-[@/boilerplate/@core-modules/readme/routes/readme.js line 7]
+[@/usr/local/share/boilerplate/@ng-modules/readme/routes/readme.js line 7]
 
 This module generates a readme automatically from comments that are marked with the ```@DOC``` tag at start.
    Both, single-line and multiline comments can be used. When the project is started source files are parsed and marked document blocks extracted.
 
 
-[@/boilerplate/@core-modules/readme/start/autodoc.js line 3]
+[@/usr/local/share/boilerplate/@ng-modules/readme/start/autodoc.js line 3]
 
 <pre>
 routes
@@ -786,30 +851,44 @@ static
 
 
 ## The @server module
-#### /boilerplate/@core-modules/server
+#### lerplate/@ng-modules/server
 ## Express
 Express is used by default in development mode, with the default Cache-Control max-age 0.  
 If the ```ß.static_options``` is ```undefined``` at inicialization, it will set max-age to 24h if production env. var is set.  
 It is recommended to use ```ß.static_options``` for express static server routes.
 
 
-[@/boilerplate/@core-modules/server/global/express.js line 6]
+[@/usr/local/share/boilerplate/@ng-modules/server/global/express.js line 6]
 
 Static assets like css files can be placed in any module or the project root, in a /static folder
 
 
-[@/boilerplate/@core-modules/server/routes/serve_static.js line 3]
+[@/usr/local/share/boilerplate/@ng-modules/server/routes/serve_static.js line 3]
 
 Data representing assets like json files can be placed in any module or the project root, in a /data folder
 
 
-[@/boilerplate/@core-modules/server/routes/serve_static.js line 6]
+[@/usr/local/share/boilerplate/@ng-modules/server/routes/serve_static.js line 7]
 
 <pre>
+cert
+ - localhost-cert-config.txt
+ - localhost.crt
+ - localhost.csr
+ - localhost.key
+ - localhost.org.pem
+ - make-cert.sh
 global
  - express.js
  - path.js
  - socketiostream.js
+install
+ - .gitignore
+ - notify.sh
+ - publish.sh
+ - push.sh
+ - server.js
+ - start.sh
 lib
  - config_mongodb.js
  - serve_files.js
@@ -826,7 +905,7 @@ start
 
 
 ## The @session module
-#### /boilerplate/@core-modules/session
+#### lerplate/@ng-modules/session
 <pre>
 global
  - express-session.js
@@ -844,7 +923,7 @@ routes
 
 
 ## The @settings module
-#### /boilerplate/@core-modules/settings
+#### lerplate/@ng-modules/settings
 <pre>
 global
  - settings_file.js
@@ -860,7 +939,7 @@ lib
 
 
 ## The @smartforms module
-#### /boilerplate/@frontend-modules/smartforms
+#### lerplate/@ng-modules/smartforms
 <pre>
 lib
  - get_smartform_schema.js
@@ -880,7 +959,7 @@ static
 
 
 ## The @szamlazz module
-#### /boilerplate/@payment-modules/szamlazz
+#### lerplate/@ng-modules/szamlazz
 <pre>
 global
  - szamlazz.js
@@ -899,12 +978,12 @@ routes
 
 
 ## The @verify module
-#### /boilerplate/@core-modules/verify
+#### lerplate/@ng-modules/verify
 Email-verify via SMTP connection.
 Fails if there is no address, etc, ..
 
 
-[@/boilerplate/@core-modules/verify/lib/email.js line 3]
+[@/usr/local/share/boilerplate/@ng-modules/verify/lib/email.js line 3]
 
 <pre>
 lib
