@@ -1,10 +1,14 @@
 
+// deprecated
 ß.app.post('/session-data', function(req, res, next) {
-
-    //console.log('POST', req.body);
     req.session.data = req.body;
-    //req.session.save();
     res.send('OK');
     ß.debug('+ POST session-data: ' + JSON.stringify(req.body));
-    //Ł(req.body, req.session);
+});
+
+// internal json based api
+ß.app.post('/post-session-data.json', function(req, res, next) {
+    req.session.data = req.body;
+    res.json('OK');
+    ß.debug('+ POST session-data: ' + JSON.stringify(req.body));
 });

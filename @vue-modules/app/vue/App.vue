@@ -19,7 +19,7 @@
             <img v-if="at('socket-io')" alt="socket.io logo" src="@/assets/socketio.png" key="a"/>
         </transition>
         <transition name="component-fade" mode="out-in">
-            <hello_boilerplate v-if="at('') || at('boilerplate')" msg="##&en Welcome to the ßoilerplate Vue.js stack ##&hu A ßoilerplate Vue alapú stack ##" />
+            <hello_boilerplate v-if="at('') || at('boilerplate')" msg="##&en Welcome to the ßoilerplate Vue.js stack ##&hu A ßoilerplate Vue stack ##" />
             <hello_vue v-if="at('vue')" msg="##&en The ##&hu A ## ßoilerplate Vue.js module" /> 
             <hello_vuetify v-if="at('vuetify')" msg="##&en The ##&hu A ## ßoilerplate Vuetify module" />
             <hello_session v-if="at('session')" msg="##&en The ##&hu A ## ßoilerplate Session module" /> 
@@ -30,7 +30,6 @@
 </template>
 
 <script>
-
 import language_selector from "@/components/LanguageSelector.vue";
   
 import hello_boilerplate from "./components/HelloBoilerplate.vue";

@@ -49,7 +49,7 @@ var store = new Vuex.Store({
         save_session: function(context) {
             //console.log('save_session', this.state);
             // eslint-disable-next-line
-            var url = 'https://' + ß.HOSTNAME +  "/session-data";
+            var url = 'https://' + ß.HOSTNAME +  "/post-session-data.json";
 
             axios({
                 method: "post",
