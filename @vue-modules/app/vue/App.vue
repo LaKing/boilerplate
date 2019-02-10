@@ -8,30 +8,30 @@
                 <v-btn flat to="/session">Session</v-btn>
                 <v-btn flat to="/login">##&en Login ##&hu Bejelentkezés ##</v-btn>
                 <v-btn flat to="/socket-io">Socket.io</v-btn>
-           
-				<language_selector></language_selector>
+
+                <language_selector></language_selector>
             </v-toolbar-items>
         </v-toolbar>
-      <br>
+        <br />
         <transition name="component-fade" mode="out-in">
-            <img v-if="at('') || at('boilerplate') || at('session')" alt="ßoilerplate logo" src="@/assets/boilerplate.png" key="a"/>
-            <img v-if="at('vuetify')" alt="Vuetify logo" src="./assets/vuetify.png" /> <img v-if="at('vue')" alt="Vue logo" src="@/assets/vue.png" key="b"/>
-            <img v-if="at('socket-io')" alt="socket.io logo" src="@/assets/socketio.png" key="a"/>
+            <img v-if="at('') || at('boilerplate') || at('session')" alt="ßoilerplate logo" :src="require('@/assets/boilerplate.png')" key="a" />
+            <img v-if="at('vuetify')" alt="Vuetify logo" :src="require('@/assets/vuetify.png')"/>
+            <img v-if="at('vue')" alt="Vue logo" :src="require('@/assets/vue.png')" key="b" />
+            <img v-if="at('socket-io')" alt="socket.io logo" :src="require('@/assets/socketio.png')" key="a" />
         </transition>
         <transition name="component-fade" mode="out-in">
             <hello_boilerplate v-if="at('') || at('boilerplate')" msg="##&en Welcome to the ßoilerplate Vue.js stack ##&hu A ßoilerplate Vue stack ##" />
-            <hello_vue v-if="at('vue')" msg="##&en The ##&hu A ## ßoilerplate Vue.js module" /> 
+            <hello_vue v-if="at('vue')" msg="##&en The ##&hu A ## ßoilerplate Vue.js module" />
             <hello_vuetify v-if="at('vuetify')" msg="##&en The ##&hu A ## ßoilerplate Vuetify module" />
-            <hello_session v-if="at('session')" msg="##&en The ##&hu A ## ßoilerplate Session module" /> 
-            <hello_socket_io v-if="at('socket-io')" msg="##&en The ##&hu A ## ßoilerplate Socket-io module" /> 
-            <login_dialog v-if="at('login')" />
+            <hello_session v-if="at('session')" msg="##&en The ##&hu A ## ßoilerplate Session module" />
+            <hello_socket_io v-if="at('socket-io')" msg="##&en The ##&hu A ## ßoilerplate Socket-io module" /> <login_dialog v-if="at('login')" />
         </transition>
     </div>
 </template>
 
 <script>
 import language_selector from "@/components/LanguageSelector.vue";
-  
+
 import hello_boilerplate from "./components/HelloBoilerplate.vue";
 import hello_vue from "./components/HelloVue.vue";
 import hello_vuetify from "./components/HelloVuetify.vue";
@@ -42,10 +42,19 @@ import login_dialog from "./components/LoginDialog.vue";
 import hello_socket_io from "./components/HelloSocketIo.vue";
 //import hello_bootstrap from './components/HelloBootstrap.vue';
 
+/*
+
+            <img v-if="at('') || at('boilerplate') || at('session')" alt="ßoilerplate logo" src="@/assets/boilerplate.png" key="a" />
+            <img v-if="at('vuetify')" alt="Vuetify logo" src="@/assets/vuetify.png"/>
+            <img v-if="at('vue')" alt="Vue logo" src="@/assets/vue.png" key="b" />
+            <img v-if="at('socket-io')" alt="socket.io logo" src="@/assets/socketio.png" key="a" />
+
+*/
+  
 export default {
     name: "app",
     data: function() {
-    	return {};
+        return {};
     },
     components: {
         language_selector,

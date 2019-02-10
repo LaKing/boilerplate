@@ -10,7 +10,8 @@
     ],
     "@javascript-modules": [
         "async",
-        "moment"
+        "moment",
+        "googleapis"
     ],
     "@angularjs-modules": [
         "admin",
