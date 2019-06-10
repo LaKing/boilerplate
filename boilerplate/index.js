@@ -10,6 +10,7 @@ if (!ß.MODE) {
 console.log("Starting ßoilerplate on node", process.versions.node, process.platform, ß.MODE, process.cwd());
 
 require('./loader');
+require('./load-modules.js');
 
 ß.load('init');
 ß.load('server');
