@@ -1,4 +1,5 @@
-  #!/bin/bash
+#!/bin/bash
+
 echo "Started in $PWD"
 if [[ ! -f /bin/node ]]
 then
@@ -8,7 +9,7 @@ fi
 
 if [[ $UID != 0 ]]
 then
-	echo "You should be root."
+	echo "You should be root to operate the boilerplate CLI."
 	exit
 fi
 
@@ -70,11 +71,11 @@ fi
 
 if [[ $1 == install ]]
 then
-	echo "# systemd-run --unit $NAME --scope /bin/node --preserve-symlinks boilerplate/cli.js $*"
-	systemd-run --unit "$NAME" --scope /bin/node --preserve-symlinks boilerplate/cli.js $*
+	echo "# systemd-run --unit $NAME --scope /bin/node --preserve-symlinks boilerplate/cli.js $@"
+	systemd-run --unit "$NAME" --scope /bin/node --preserve-symlinks boilerplate/cli.js $@
 else
-	echo "# systemd-run --unit $NAME --scope --uid=$uid --gid=$gid /bin/node --preserve-symlinks boilerplate/cli.js $*"
-	systemd-run --unit "$NAME" --scope --uid="$uid" --gid="$gid" /bin/node --preserve-symlinks boilerplate/cli.js $*
+	echo "# systemd-run --unit $NAME --scope --uid=$uid --gid=$gid /bin/node --preserve-symlinks boilerplate/cli.js $@"
+	systemd-run --unit "$NAME" --scope --uid="$uid" --gid="$gid" /bin/node --preserve-symlinks boilerplate/cli.js $@
 fi
 
 if systemctl --quiet is-active "$NAME.scope"
