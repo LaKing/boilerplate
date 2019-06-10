@@ -7,5 +7,9 @@ Please browse the folders to read the local readme files. Start here: [English r
 
 
 # Quick install
-In case you already know what you are doing:
-`cd /usr/local/share && git clone https://github.com/LaKing/boilerplate && bash /usr/local/share/boilerplate/boilerplate/install.sh`
+In case you already know what you are heading for, and you like to be root:
+```
+cd /usr/local/share && \
+git clone https://github.com/LaKing/boilerplate && \
+bash /usr/local/share/boilerplate/boilerplate/install.sh
+```
