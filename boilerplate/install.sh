@@ -11,13 +11,14 @@ INSTALL_DIR="${INSTALL_BIN:0:-11}"
 
 user=codepad
 
-if id -u "$name"
+echo "Checking if codepad user id is 104?"
+if id -u "$user"
 then
-	echo "Using default user codepad"
+    echo "Using default user codepad"
 else
-	echo "Adding user and group codepad with uid and gid 104 as default user"
-
-	groupadd -r -g 104 codepad
+    echo "Adding user and group codepad with uid and gid 104 as default user"
+    
+    groupadd -r -g 104 codepad
     useradd -r -u 104 -g 104 -s /bin/bash -d /var/codepad codepad
 fi
 
@@ -171,6 +172,14 @@ EOF
 ## syslog routes our console log to a file and to journald.
 syslogconf="/etc/rsyslog.d/project.conf"
 
+if [[ -d /etc/rsyslog.d ]]
+then
+	echo "rsyslog already installed. good."
+else
+	echo "Attemt to install rsyslog"
+    dnf -y install rsyslog
+fi
+
 {
     echo '$template plainFormat,"%msg%\n"'
     echo 'if $programname == "project" then /var/'"$NAME"'/project.log;plainFormat'
@@ -186,6 +195,11 @@ log "daemon-reload"
 systemctl daemon-reload
 
 systemctl status project.service
+
+## we will delete previousley created files to recreate them - in case installation dir changes for example.
+rm -fr /bin/ß
+rm -fr /bin/push
+rm -fr /bin/publish
 
 if [[ ! -e "$CWD"/boilerplate ]]
 then
