@@ -3,14 +3,27 @@
 ## enforce codepad user
 if [[ $UID != 0 ]]
 then
-    echo "This script has to run as root. Currently running as $USER"
+    echo "This install script has to run with root privileges. Currently running as $USER"
     exit 1
 fi
+
 INSTALL_BIN="$(realpath "$BASH_SOURCE")"
 INSTALL_DIR="${INSTALL_BIN:0:-11}"
 
+## ensure user is using the /srv directory
+INSTALL_SRV="$(dirname $(dirname "$INSTALL_DIR"))"
+if [[ $INSTALL_SRV == /srv ]]
+then
+    echo "Installing in /srv - OK"
+else
+    echo "Installing shall be done into the folder /srv, please move the boilerplate into that folder and rename it according to your project name. Exiting for now."
+    exit 7
+fi
+
+## by default we enforce running as user codepad - for historic reasons, could be a system user with another name.
 user=codepad
 
+## using codepad user or not, we have that silly requirement of having a codepad user on the system. 
 echo "Checking if codepad user id is 104?"
 if id -u "$user"
 then
