@@ -281,6 +281,15 @@ then
 
 fi
 
+if [[ -d "$CWD"/boilerplate/loader/node_modules/fs-extra ]]
+then
+	echo "The fs-extra package is available, good."
+else
+	echo "We must install the fs-extra package"
+	cd "$CWD"/boilerplate/loader
+    npm install fs-extra
+fi
+
 log "Finished install.sh $NOW"
 
 ## continiue install process within the boilerplate cli
