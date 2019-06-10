@@ -41,3 +41,21 @@ try {
 }
 
 
+// run the loader tasks
+try {
+    ß.load_modules(ß.MRD);
+
+    if (!ß.CLI) {
+        let n = Object.keys(ß.modules).length;
+        if (n < 1) ß.error("0 modules.");
+        if (n == 1) ß.error("1 module only.");
+        if (n <= 1) return ß.error("Check your installation. Module Root Directory (ß.MRD) is " + ß.MRD + " Did you uplink any modul stacks?");
+    }
+
+    ß.debug_modules();
+
+} catch (err) {
+    đ(err);
+    console.log("ERROR, EXITING due to a failure in the boilerplate loader initialization");
+    process.exit(94);
+}
