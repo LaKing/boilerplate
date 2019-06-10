@@ -16,7 +16,7 @@
                 <v-flex xs12 sm6 md3><v-text-field v-model="session_data_main" label="Solo" placeholder="session's main" solo></v-text-field></v-flex>
             </v-layout>
         </v-container>
-        <json_editor ref="editor" :json="local_pre" />
+        <v-container><json_editor ref="editor" :json="local_pre" /></v-container>
     </div>
 </template>
 

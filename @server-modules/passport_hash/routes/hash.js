@@ -14,11 +14,21 @@
             return;
         }
         if (!user) {
-            console.log("Passport hash no-user", req.params, info);
-            res.status(500).end("Mission Failed.");
+
             return;
         }
         // on success
-        res.redirect('/login-profile');
+        req.logIn(user, function(err) {
+            if (err) { 
+              đ(err);
+              console.log("Passport hash logIn failed");
+              res.status(500).end("Sorry, error."); 
+                return;
+            }
+
+            return res.redirect("/login");
+        });
+        //ß.msg('Email confirmed: ' + );
+        //res.redirect('/login');
     })(req, res, next);
 });

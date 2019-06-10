@@ -37,8 +37,7 @@ export default {
         click_action: function(action) {
             //console.log(key, action);
             if (action.charAt(0) === "/") {
-                let BASE_URL = process.env.VUE_APP_BASE_URL || "";
-                window.location = BASE_URL + action;
+                window.location = "https://" + ß.HOSTNAME + action;
             } else this.$emit("dialog_handler", action);
         },
         has_key(key) {

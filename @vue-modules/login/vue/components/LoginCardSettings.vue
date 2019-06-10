@@ -1,9 +1,11 @@
 <template>
     <v-card-text>
         <v-container>
-            <v-alert v-show="confirmed" :value="true" type="error" color="rgba(255, 0, 0, 0.5)" class="text-sm-left">Accound will be deleted permanently. Are you sure?</v-alert>
-            <v-btn color="red" @click="action">Delete account</v-btn>
-            <v-alert v-show="msg" :value="true" type="error" color="rgba(255, 0, 0, 0.5)" class="text-sm-left">{{ msg }}</v-alert>
+            <v-alert v-show="confirmed" :value="true" type="error" color="rgba(255, 0, 0, 0.5)" class="text-sm-left"
+                >##&en Accound will be deleted permanently. Are you sure? ##&hu A törlés nem visszavonható, biztos benne? ##</v-alert
+            >
+            <v-btn color="red" @click="action">##&en Delete account ##&hu Fiók törlése ##</v-btn>
+            <v-alert id="alert" v-show="msg" :value="true" :type="type" transition="fade" class="text-sm-left">{{ msg }}</v-alert>
             <v-progress-circular v-show="progress" :size="50" color="primary" indeterminate></v-progress-circular>
         </v-container>
     </v-card-text>
@@ -17,7 +19,8 @@ export default {
         return {
             confirmed: false,
             progress: false,
-            msg: false
+            msg: false,
+            type: "info"
         };
     },
     components: {},
@@ -37,28 +40,28 @@ export default {
         },
         delete_account() {
             this.progress = true;
-
-            // eslint-disable-next-line
-            var URL = process.env.VUE_APP_BASE_URL || "";
-            URL += "/post-delete-account.json";
+            this.type = "info";
 
             var _this = this;
             axios({
                 method: "post",
-                url: URL,
+                url: "https://" + ß.HOSTNAME + "/post-delete-account.json",
                 data: {}
             })
                 .then(function(response) {
                     _this.progress = false;
 
                     if (response.data === "OK") _this.msg = "##&en Account deleted. ##&hu Fiók törölve ##";
-                    else _this.msg = response.data;
-
+                    else {
+                        _this.type = "error";
+                        _this.msg = response.data;
+                    }
                     _this.$store.dispatch("clear_session");
                 })
                 .catch(error => {
                     _this.progress = false;
-                    _this.message = "##&en Network error. ##&hu Hálózati hiba ##";
+                    _this.type = "error";
+                    _this.msg = "##&en Network error. ##&hu Hálózati hiba ##";
                     // eslint-disable-next-line
                     console.log(error);
                 });

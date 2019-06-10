@@ -10,7 +10,7 @@ export default {
     props: ["btn_title"],
     data() {
         var default_email = "";
-        if (process.env.VUE_APP_DEBUG) if (process.env.VUE_APP_MODE === "development") default_email = "admin@" + process.env.VUE_APP_HOSTNAME;
+        if (ß.DEBUG) if (ß.MODE === "development") default_email = "admin@" + ß.HOSTNAME;
 
         return {
             valid: false,

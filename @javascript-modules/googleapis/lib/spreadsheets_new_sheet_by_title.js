@@ -4,6 +4,10 @@ const sheets = ß.google.sheets("v4");
 // create a new sheet if not exists by title
 
 module.exports = function(spreadsheetId, new_sheet, callback) {
+    if (!callback) callback = function() {};
+
+    // TODO await ß.isDefined('googleapis_authorised');
+
     ß.jwtClient.authorize(function(err, tokens) {
         if (err) {
             console.log("ERROR in google jwtClientAuth", err);

@@ -10,7 +10,7 @@ function link_node_modules(module, module_dir) {
     fs.inDirsSync(path, function(npd) {
         // process the node package directory
         if (npd.charAt(0) !== "@") return ß.link(path + "/" + npd, dest + "/" + npd);
-        // proce node module collections
+        // process node module collections
         fs.inDirsSync(path + "/" + npd, function(np) {
             return ß.link(path + "/" + npd + "/" + np, dest + "/" + npd + "/" + np);
         });
@@ -18,9 +18,19 @@ function link_node_modules(module, module_dir) {
 }
 
 // @DOC The `src` folder is actually a unified version of all vue folders
-ß.modules_process(ß.vue_modules, link_vue);
+ß.modules_process(ß.vue_modules, link_vue_priority);
+ß.modules_process(ß.vue_modules, link_vue_standard);
 
-function link_vue(module, module_dir) {
+function link_vue_priority(module, module_dir, priority) {
+  	if (priority) link_vue(module, module_dir, priority);
+}
+
+function link_vue_standard(module, module_dir, priority) {
+    if (!priority) link_vue(module, module_dir, priority);
+}
+
+function link_vue(module, module_dir, priority) {
+
     const path = module_dir + "/vue";
     const dest = destination + "/src";
 

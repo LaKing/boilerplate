@@ -1,7 +1,11 @@
 /*ßoilerplate */
-const sheets = ß.google.sheets('v4');
+const sheets = ß.google.sheets("v4");
 
 module.exports = function(spreadsheetId, range, callback) {
+    if (!callback) callback = function() {};
+
+    // TODO await ß.isDefined('googleapis_authorised');
+
     ß.jwtClient.authorize(function(err, tokens) {
         if (err) {
             console.log("ERROR in google jwtClientAuth", err);
@@ -19,7 +23,7 @@ module.exports = function(spreadsheetId, range, callback) {
                     return callback(err, null);
                 }
 
-                console.log('Sucessfully fetched', response.data.values.length);
+                console.log("Sucessfully fetched", response.data.values.length);
                 callback(null, response.data.values);
             });
         }

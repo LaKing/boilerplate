@@ -82,10 +82,10 @@ log "Running git user configurations"
 
 
 ## copy all files froom install dir into the working directory
-if [[ -d install ]]
+if [[ -d $INSTALL_DIR/install ]]
 then
     log "Copy install script files"
-    for f in install/*
+    for f in "$INSTALL_DIR"/install/*
     do
     	file="$(basename "$f")"
         if [[ -f $CWD/$file ]]
@@ -93,7 +93,7 @@ then
             echo " @ install/$file already exists"
         else
             echo " @ Creating $f"
-            cat "$f" > "$CWD/$file"
+            cat "$f" >> "$CWD/$file"
         fi
     done
 
@@ -201,7 +201,7 @@ fi
 if [[ -e "$CWD"/push.sh ]] && [[ ! -f /bin/push ]]
 then
     log "Create push command"
-    ln -s"$CWD"/push.sh /bin/push
+    ln -s "$CWD"/push.sh /bin/push
     chmod +x /bin/push
 fi
 
@@ -242,5 +242,7 @@ then
 
 fi
 
-log "Finished $NOW"
-echo " .. Please create your set of modules, and run: ß install"
+log "Finished install.sh $NOW"
+
+## continiue install process within the boilerplate cli
+/bin/ß help

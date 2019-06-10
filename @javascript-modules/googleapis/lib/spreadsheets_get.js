@@ -1,7 +1,11 @@
 /*ßoilerplate */
-const sheets = ß.google.sheets('v4');
+const sheets = ß.google.sheets("v4");
 
 module.exports = function(spreadsheetId, callback) {
+    if (!callback) callback = function() {};
+
+    // TODO await ß.isDefined('googleapis_authorised');
+
     ß.jwtClient.authorize(function(err, tokens) {
         if (err) {
             console.log("ERROR in google jwtClientAuth", err);

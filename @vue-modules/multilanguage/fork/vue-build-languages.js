@@ -1,4 +1,3 @@
-
 // @DOC We create seperate webpack packers so that we have all languages statically translated.
 
 const fs = require("fs");
@@ -18,11 +17,13 @@ Object.keys(ß.PAGES).forEach(function(page) {
 });
 
 Object.keys(language_object).forEach(function(lang) {
+    // Write a file for the duration of vue build
+    const index_dir = ß.VAR + "/vue/" + lang;
 
-  	// Write a file for the duration of vue build
-  	const index_dir = ß.VAR + "/vue/" + lang;
-
-	fs.writeFileSync(ß.VAR + "/app/" + lang + ".html", '<head><META HTTP-EQUIV="refresh" CONTENT="1"></head><body><input type="button" value = "Vue build .. '+lang+'" onclick="history.go(0)" /></body>');
+    fs.writeFileSync(
+        ß.VAR + "/app/" + lang + ".html",
+        '<head><META HTTP-EQUIV="refresh" CONTENT="1"></head><body><input type="button" value = "Vue build .. ' + lang + '" onclick="history.go(0)" /></body>'
+    );
 
     const name = "vue-build-language-" + lang;
 
@@ -53,8 +54,10 @@ Object.keys(language_object).forEach(function(lang) {
     child.on("close", code => {
         //if (code === 0) console.log('[ OK ]', name);
         if (code !== 0) console.log(name, " - exit with error code", code);
-        fs.unlink(ß.VAR + "/debug/fork-" + name + ".pid");
-        delete child.pid;
+        fs.unlink(ß.VAR + "/debug/fork-" + name + ".pid", err => {
+            if (err) console.log(err);
+            delete child.pid;
+        });
     });
 
     process.on("SIGTERM", function() {
@@ -68,6 +71,4 @@ Object.keys(language_object).forEach(function(lang) {
         console.log("child process kill", name, child.pid);
         child.kill();
     });
-    
 });
-

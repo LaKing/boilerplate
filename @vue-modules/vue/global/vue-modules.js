@@ -5,8 +5,8 @@ var vue_module_filter = function(module, dir) {
     // returns true if it is considered a vue module
 
     let name = ß.get_modulefolder_name(dir);
-    // we need vue modules that either are in a vue -modules modulefolder
-    if (name === "vue-modules" || name === "@vue-mmodules") return true;
+    // we need vue modules that either are in a vue-modules module folder
+    if (name === "vue-modules" || name === "@vue-modules") return true;
     // or have a vue folder
     return ß.fs.existsSync(dir + "/vue");
 };

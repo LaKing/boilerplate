@@ -1,15 +1,12 @@
 /*ßoilerplate */
 
-const lib = ß.lib;
-
 module.exports = function(session, user) {
     const app = ß.app;
-    if (!session) return console.error("ERROR @session.lib.update_user - !session ?");
+    if (!session) return console.error("ERROR @session.lib.update_user - no session ?");
 
-    session.debug = app.locals.settings.debug;
-    session.is_admin = lib.passport_admin.check_if_admin(user._id);
     session.user = user;
 
+  	// TODO better in passport module and a hook?
     if (session.user.profile)
         if (!session.user.profile.email) {
             if (user.local.email) session.user.profile.email = user.local.email;

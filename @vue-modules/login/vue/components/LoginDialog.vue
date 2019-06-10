@@ -1,27 +1,24 @@
 <template>
     <div class="text-xs-center">
         <v-dialog v-model="dialog" max-width="500">
-            <v-btn slot="activator" color="red lighten-2" dark> ##&en LOGIN ##&hu BEJELENTKEZÉS ##</v-btn>
-
-            <v-img src="https://cdn.vuetifyjs.com/images/lists/ali.png" height="300px">
+            <v-img :src="require('@/assets/login.jpg')">
                 <v-layout column fill-height>
                     <v-card-title>
                         <v-btn dark icon v-if="selected !== 'selector'" v-on:click="selected = 'selector'"> <v-icon>chevron_left</v-icon> </v-btn>
                         <v-btn dark icon v-if="selected === 'selector' && is_user" v-on:click="selected = 'settings'"> <v-icon>fas fa-cog</v-icon> </v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn dark icon v-on:click="dialog = false"> <v-icon>cancel</v-icon> </v-btn>
+                        <v-btn dark icon v-on:click="set_dialog('close')"> <v-icon>cancel</v-icon> </v-btn>
                     </v-card-title>
 
                     <v-spacer></v-spacer>
 
                     <v-card-title class="white--text pl-5 pt-5">
-                        <div class="headline">{{ title }}</div>
+                        <div class="headline">{{ profile_email || title }}</div>
                         <v-spacer></v-spacer>
                         <v-btn v-if="is_user" dark icon v-on:click="logout()" title="Logout"> <v-icon>fas fa-sign-out-alt</v-icon> </v-btn>
-                        <v-btn v-if="!is_user" dark icon v-on:click="toggle_rem()" title="##&en remember me on this computer ##&hu emlékezzem rám ez a gép ##"> 
-                          <v-icon v-if="!rem">fas fa-square</v-icon> 
+                        <v-btn v-if="!is_user" dark icon v-on:click="toggle_rem()" title="##&en remember me on this computer ##&hu emlékezzem rám ez a gép ##">
+                            <v-icon v-if="!rem">fas fa-square</v-icon>
                         </v-btn>
-                        
                     </v-card-title>
                 </v-layout>
             </v-img>
@@ -29,7 +26,7 @@
             <v-layout row wrap>
                 <v-flex xs12>
                     <v-card height="320">
-                        <transition name="component-fade" mode="out-in"> <component :is="selected" @dialog_handler="set_dialog" v-bind:rem="rem"/> </transition>
+                        <transition name="component-fade" mode="out-in"> <component :is="selected" @dialog_handler="set_dialog" v-bind:rem="rem" /> </transition>
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -38,8 +35,7 @@
 </template>
 
 <script>
-
-  // the selector list
+// the selector list
 import selector from "@/components/LoginSelector.vue";
 
 // LoginCard contents
@@ -51,12 +47,13 @@ import settings from "@/components/LoginCardSettings.vue";
 
 import axios from "axios";
 
-import ß from "ß";
-  
+// this.$refs.login_dialog.set_dialog('selector');
+
 export default {
     data() {
         return {
-            dialog: true,
+            // open the dialog on the login uri path
+            dialog: this.$route.path === "/login",
             selected: "selector",
             rem: true
         };
@@ -70,25 +67,25 @@ export default {
         settings
     },
     methods: {
+        open() {
+            this.selected = "selector";
+            this.dialog = true;
+        },
+        close() {
+            this.dialog = false;
+        },
         set_dialog(arg) {
             this.selected = "selector";
-            if (arg === "close") {
-                this.dialog = false;
-                return;
-            }
+            if (arg === "close") return (this.dialog = false);
             this.selected = arg;
         },
         logout() {
-          
-          	this.$store.dispatch("clear_session");
-            // eslint-disable-next-line
-            var URL = process.env.VUE_APP_BASE_URL || "";
-            URL += "/post-logout.json";
+            this.$store.dispatch("clear_session");
 
             var _this = this;
             axios({
                 method: "post",
-                url: URL,
+                url: "https://" + ß.HOSTNAME + "/post-logout.json",
                 data: {}
             })
                 .then(function(response) {
@@ -101,19 +98,29 @@ export default {
                 });
         },
         toggle_rem() {
-        	this.rem = !this.rem;
+            this.rem = !this.rem;
         }
     },
     computed: {
         title() {
-            if (this.$store.state.passport.user) {
-                if (this.$store.state.user.local) if (this.$store.state.user.local.email) return this.$store.state.user.local.email.split("@")[0];
-            }
-            return "##&en Login to ## " + ß.HOSTNAME + "##&hu  - bejelentkezés ##";
+            if (this.$store.state.passport)
+                if (this.$store.state.passport.user) {
+                    return "##&en Logged in ##&hu Bejelentkezve ##";
+                }
+            return "##&en Login ##&hu Bejelentkezés ##";
         },
         is_user() {
             if (this.$store.state.passport.user) return true;
             return false;
+        },
+        profile_email() {
+            if (this.$store.state) if (this.$store.state.user) if (this.$store.state.user.profile) if (this.$store.state.user.profile.email) return this.$store.state.user.profile.email;
+            return undefined;
+        }
+    },
+    watch: {
+        dialog(val) {
+            if (!val) this.$emit("finished");
         }
     }
 };

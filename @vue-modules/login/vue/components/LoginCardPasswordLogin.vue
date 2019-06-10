@@ -4,7 +4,7 @@
             <transition name="component-fade" mode="out-in"> <component :is="selected" @return="action" v-bind:btn_title="get_btn_title()" /> </transition>
         </v-container>
         <v-container>
-            <v-alert v-show="msg" :value="true" type="error" color="rgba(255, 0, 0, 0.5)" class="text-sm-left">{{ msg }}</v-alert>
+            <v-alert id="alert" v-show="msg" :value="true" :type="type" transition="fade" class="text-sm-left">{{ msg }}</v-alert>
             <v-progress-circular v-show="progress" :size="50" color="primary" indeterminate></v-progress-circular>
         </v-container>
     </v-card-text>
@@ -24,7 +24,8 @@ export default {
             rememberme: true,
             selected: "form_for_email",
             progress: false,
-            msg: false
+            msg: false,
+            type: "info"
         };
     },
     components: {
@@ -46,14 +47,11 @@ export default {
             if (this.selected === "form_for_password") this.post_login(arg);
         },
         post_email(email) {
-            // eslint-disable-next-line
-            var URL = process.env.VUE_APP_BASE_URL || "";
-            URL += "/post-email.json";
-
             var _this = this;
+            this.type = "info";
             axios({
                 method: "post",
-                url: URL,
+                url: "https://" + ß.HOSTNAME + "/post-email.json",
                 data: { email: email }
             })
                 .then(function(response) {
@@ -65,24 +63,23 @@ export default {
                         _this.email = email;
                         return;
                     }
+                    _this.type = "error";
                     _this.msg = response.data;
                 })
                 .catch(error => {
                     _this.progress = false;
-                    _this.message =  "##&en Network error. ##&hu Hálózati hiba ##";
+                    _this.type = "error";
+                    _this.msg = "##&en Network error. ##&hu Hálózati hiba ##";
                     // eslint-disable-next-line
                     console.log(error);
                 });
         },
         post_login(password) {
-            // eslint-disable-next-line
-            var URL = process.env.VUE_APP_BASE_URL || "";
-            URL += "/post-login.json";
-
             var _this = this;
+            this.type = "info";
             axios({
                 method: "post",
-                url: URL,
+                url: "https://" + ß.HOSTNAME + "/post-login.json",
                 data: { email: this.email, password: password, rem: this.rem }
             })
                 .then(function(response) {
@@ -97,17 +94,20 @@ export default {
                         return;
                     }
                     if (response.data === "NO") _this.msg = "##&en Sorry. Wrong password. ##&hu Sajnos ez nem a megfelelő jelszó ##";
-                    else _this.msg = response.data;
+                    else {
+                        _this.msg = response.data;
+                        _this.type = "error";
+                    }
                     _this.progress = false;
                 })
                 .catch(error => {
                     _this.progress = false;
-                    _this.message =  "##&en Network error. ##&hu Hálózati hiba ##";
+                    _this.type = "error";
+                    _this.msg = "##&en Network error. ##&hu Hálózati hiba ##";
                     // eslint-disable-next-line
                     console.log(error);
                 });
         }
-    },
-    computed: {}
+    }
 };
 </script>

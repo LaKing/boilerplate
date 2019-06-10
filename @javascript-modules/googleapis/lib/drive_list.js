@@ -1,8 +1,12 @@
 /*ßoilerplate */
 
-const drive = ß.google.drive('v3');
+const drive = ß.google.drive("v3");
 
 module.exports = function(callback) {
+    if (!callback) callback = function() {};
+
+    // TODO await ß.isDefined('googleapis_authorised');
+
     ß.jwtClient.authorize(function(err, tokens) {
         if (err) {
             console.log("ERROR in google jwtClientAuth.authorize", err);
@@ -16,7 +20,7 @@ module.exports = function(callback) {
                     return callback(err, null);
                 }
 
-                console.log('Sucessfully fetched', response.data.values.length);
+                console.log("Sucessfully fetched", response.data.values.length);
                 callback(null, response.data.values);
             });
         }

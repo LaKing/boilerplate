@@ -2,7 +2,7 @@
     <v-card-text>
         <v-container grid-list-md> <form_for_email @return="action" v-bind:btn_title="'SEND'" /> </v-container>
         <v-container>
-            <v-alert v-show="msg" :value="true" type="error" color="rgba(255, 0, 0, 0.5)" class="text-sm-left">{{ msg }}</v-alert>
+            <v-alert id="alert" v-show="msg" :value="true" :type="type" transition="fade" class="text-sm-left">{{ msg }}</v-alert>
             <v-progress-circular v-show="progress" :size="50" color="primary" indeterminate></v-progress-circular>
         </v-container>
     </v-card-text>
@@ -17,7 +17,8 @@ export default {
         return {
             email: null,
             progress: false,
-            msg: false
+            msg: false,
+            type: "info"
         };
     },
     components: {
@@ -28,17 +29,15 @@ export default {
             //this.$refs.form.validate();
             this.progress = true;
             this.msg = false;
+            this.type = "info";
             this.post_email(arg);
         },
-        post_email(email) {
-            // eslint-disable-next-line
-            var URL = process.env.VUE_APP_BASE_URL || "";
-            URL += "/post-email-request.json";
-
+        post_email(email) {                    
+            this.type = "info";
             var _this = this;
             axios({
                 method: "post",
-                url: URL,
+                url: "https://" + ß.HOSTNAME + "/post-email-request.json",
                 data: { email: email }
             })
                 .then(function(response) {
@@ -46,16 +45,25 @@ export default {
 
                     console.log(response.data);
                     if (response.data === "OK") _this.msg = "##&en Please check your mailbox ##&hu Ellenőrizze póstafiókját ##";
-                    else _this.msg = response.data;
+                    else {
+                      _this.type = "info";
+                      _this.msg = response.data;
+                    }
                 })
                 .catch(error => {
                     _this.progress = false;
-                    _this.message = "##&en Network error. ##&hu Hálózati hiba ##";
+                    _this.type = "error";
+                    _this.msg = "##&en Network error. ##&hu Hálózati hiba ##";
                     // eslint-disable-next-line
                     console.log(error);
                 });
         }
-    },
-    computed: {}
+    }
 };
 </script>
+
+<style scoped>
+#alert {
+    opacity: 0.6;
+}
+</style>

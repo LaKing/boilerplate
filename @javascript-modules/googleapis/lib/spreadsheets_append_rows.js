@@ -1,6 +1,6 @@
 /*ßoilerplate */
 
-const sheets = ß.google.sheets('v4');
+const sheets = ß.google.sheets("v4");
 
 // EXAMPLE for arguments
 // var spreadsheetId = "1-F1xj5vyiCFIMb0O3lUJjrd2TJ5eOirFeGt5hZGg2ew";
@@ -12,6 +12,10 @@ const sheets = ß.google.sheets('v4');
 
 // data is an array of arrays
 module.exports = function(spreadsheetId, range, data, callback) {
+    if (!callback) callback = function() {};
+
+    // TODO await ß.isDefined('googleapis_authorised');
+
     ß.jwtClient.authorize(function(err, tokens) {
         if (err) {
             console.log("ERROR in google jwtClientAuth", err);
@@ -20,11 +24,11 @@ module.exports = function(spreadsheetId, range, data, callback) {
             var request = {
                 spreadsheetId: spreadsheetId,
                 range: range,
-                valueInputOption: 'RAW',
-                insertDataOption: 'INSERT_ROWS',
+                valueInputOption: "RAW",
+                insertDataOption: "INSERT_ROWS",
                 resource: {
-                    "majorDimension": "ROWS",
-                    "values": data
+                    majorDimension: "ROWS",
+                    values: data
                 },
                 auth: ß.jwtClient
             };
@@ -35,7 +39,7 @@ module.exports = function(spreadsheetId, range, data, callback) {
                     return callback(err, null);
                 }
 
-                console.log('Sucessfully appended', Object.entries(response.data.updates).join('; '));
+                console.log("Sucessfully appended", Object.entries(response.data.updates).join("; "));
                 callback(null, response.data.values);
             });
         }

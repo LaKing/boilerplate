@@ -18,6 +18,7 @@
         "pad",
         "projectfiles",
         "search",
+        "pty",
         "wetty"
     ],
     "@server-modules": [

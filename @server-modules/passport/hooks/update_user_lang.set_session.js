@@ -15,7 +15,7 @@ module.exports = function(session, callback) {
             callback("error in User.findById");
             return đ(err);
         }
-        if (!user) return callback("no user, update_user_lang could not locate user for " + session.user.passport);
+        if (!user) return callback("no user, update_user_lang could not locate user for " + session.passport.user);
         user.lang = session.lang;
         user.save(function(err) {
             if (err) {

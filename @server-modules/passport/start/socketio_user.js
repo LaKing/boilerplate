@@ -40,15 +40,18 @@ io.on('connection', function(socket) {
         if (err) return console.log(err);
         if (!user) return console.log("ERROR user could not be located for ", id);
 
+        if (ß.USE_SESSION) {
+          lib.session.update_user(socket.handshake.session, user);
+          socket.handshake.session.save();
+        }
+      
         var email = "unknown";
+        
+        if (user.local)
         if (user.local.email) email = user.local.email;
-
-        if (socket.handshake.session.is_admin) console.log('+ admin-connected ', email, ' (id ' + id + ') ip:' + ip + ' ', socket.handshake.headers.referer);
+      
+        if (socket.handshake.session.is_admin) console.log('+ admin-connected ', email, ' (id ' + id + ' ) ip:' + ip + ' ', socket.handshake.headers.referer);
         else console.log('+ user-connected ', email, ' (id ' + id + ') ip:' + ip + ' ', socket.handshake.headers.referer);
-
-        //lib.session.update_user(socket.handshake.session, user);
-        //Ł();
-        //socket.emit('session-data', socket.handshake.session);
 
         socket.user_id = id;
 

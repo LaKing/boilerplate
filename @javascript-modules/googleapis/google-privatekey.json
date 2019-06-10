@@ -1,6 +1,6 @@
-
+{
   "type": "service_account",
-  "project_id": "project-123456"
+  "project_id": "project-123456",
   "private_key_id": "abcde0123456789abcdefghijklmnopqrstuvxyz",
   "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvzXiQDFIbGeX..something like a very long string as privatekey..hLhJcFtzdbJcw=\n-----END PRIVATE KEY-----\n",
   "client_email": "project-devel@project-123456.iam.gserviceaccount.com",

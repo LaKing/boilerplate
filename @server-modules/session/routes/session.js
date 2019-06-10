@@ -9,13 +9,16 @@
         res.json({});
         return;
     }
+  
+    // that means req.session.user will be overwritten by req.user - which comes from the database
+    if (ß.USE_PASSPORT)
+        if (req.user) {
+            if (req.session.passport.user) req.session.user = req.user;
+            else req.session.user = {};
+        }
+     
+  	// we can add additional manipulation here in this hook, ...
+    ß.run_hook("session", req.session);
 
-    if (!req.user) {
-        res.send(JSON.stringify(req.session));
-        return;
-    }
-
-    let ret = Object.assign(req.session, { user: req.user });
-    return res.json(ret);
-
+  return res.json(req.session);
 });

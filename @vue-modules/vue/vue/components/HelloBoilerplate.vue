@@ -15,19 +15,17 @@
             It has <a href="https://github.com/LaKing/codepad" target="_blank" rel="noopener">sourcecode on GitHub</a> and a
             <a href="https://codepad-demo.d250.hu:9001/" target="_blank" rel="noopener">DEMO instance</a>
         </p>
-      <json_editor ref="editor" :json="ß" />
-
+        <v-container><json_editor ref="editor" :json="ß" /> </v-container>
     </div>
 </template>
 
 <script>
 // use a Jsoneditor to display boilerplate variables
-import json_editor from 'vue2-jsoneditor';
-  
+import json_editor from "vue2-jsoneditor";
+
 export default {
     name: "HelloWorld",
     data: function() {
-        
         return {
             ß: ß
         };
@@ -39,8 +37,8 @@ export default {
         json_editor
     },
     mounted() {
-      var JSONEditor = this.$refs.editor.editor;
-      JSONEditor.setMode('view');
+        var JSONEditor = this.$refs.editor.editor;
+        JSONEditor.setMode("view");
     }
 };
 </script>
