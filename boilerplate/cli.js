@@ -38,10 +38,10 @@ if (ß.fs.existsSync(ß.CWD + "/cli.js")) require(ß.CWD + "/cli.js");
 // add definitions for commands in folders
 ß.load("cli");
 
-ß.cli_commands.push("install  # start installation / upgrade of systemwide packages and node_modules required by the current selection of modules");
-ß.cli_commands.push("start  # start the boilerplate application in a systemd scope");
-ß.cli_commands.push("stop  # terminate all systemd scopes running the boilerplate application");
-ß.cli_commands.push("debug  # start in verbose debug mode");
+ß.cli_commands.push("install   # start installation / upgrade of systemwide packages and node_modules required by the current selection of modules");
+ß.cli_commands.push("start     # start the boilerplate application in a systemd scope");
+ß.cli_commands.push("stop      # terminate all systemd scopes running the boilerplate application");
+ß.cli_commands.push("debug     # start in verbose debug mode");
 
 if (ß.CMD === "start" || ß.CMD === "debug") {
   if (ß.fs.existsSync(ß.CWD + "/server.js")) return require(ß.CWD + "/server.js");
