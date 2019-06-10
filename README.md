@@ -2,8 +2,9 @@
 
 A modular framework for NodeJS based applications. Not just a package, not just an app, this is a system!
 
-This repo unifies the boilerplate loader, and sets of boilerplate modules that implement application stacks and functions.
+This repo unifies the boilerplate loader, and sets of boilerplate modules that implement application stacks and functions. 
 In case you have no idea what that means, please browse the folders to read the local readme files. 
+
 Start here: [English readme](https://github.com/LaKing/boilerplate/blob/master/boilerplate/README.EN.md)
 
 
