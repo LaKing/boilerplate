@@ -10,7 +10,28 @@ if (!ß.MODE) {
 console.log("Starting ßoilerplate on node", process.versions.node, process.platform, ß.MODE, process.cwd());
 
 require('./loader');
-require('./load-modules.js');
+
+// We already have a module list, start loading modules.
+// run the loader tasks
+
+// TODO - where should we try and catch, where should we leave free flow?
+
+try {
+
+    // @DOC The `/global` folder in a module should contain simple scripts to attach values to the global `ß` namespace.
+    ß.load("global");
+
+    // @DOC After the global `ß` values are set, libs and hooks are loaded.
+    ß.load_lib(ß.modules);
+    ß.load_hooks();
+
+} catch (err) {
+    đ(err);
+    console.log("ERROR, EXITING due to a failure in the boilerplate initialization");
+    process.exit(95);
+}
+
+//ß.debug("- " + Object.keys(ß).length + " ß.keys defined");
 
 ß.load('init');
 ß.load('server');

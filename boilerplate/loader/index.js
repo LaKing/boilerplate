@@ -41,7 +41,7 @@ try {
 }
 
 
-// run the loader tasks
+// try to load the module list
 try {
     ß.load_modules(ß.MRD);
 
