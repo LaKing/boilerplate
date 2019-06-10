@@ -6,7 +6,7 @@ try {
         let n = Object.keys(ß.modules).length;
         if (n < 1) ß.error("0 modules.");
         if (n == 1) ß.error("1 module only.");
-        if (n <= 1) return ß.error("Check your installation. Module Root Directory (ß.MRD) is " + ß.MRD);
+        if (n <= 1) return ß.error("Check your installation. Module Root Directory (ß.MRD) is " + ß.MRD + " Did you uplink any modul stacks?");
     }
 
     ß.debug_modules();

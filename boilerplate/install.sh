@@ -10,15 +10,15 @@ fi
 INSTALL_BIN="$(realpath "$BASH_SOURCE")"
 INSTALL_DIR="${INSTALL_BIN:0:-11}"
 
-## ensure user is using the /srv directory
-#INSTALL_SRV="$(dirname $(dirname "$INSTALL_DIR"))"
-#if [[ $INSTALL_SRV == /srv ]]
-#then
-#    echo "Installing in /srv - OK"
-#else
-#    echo "Installing shall be done into the folder /srv, please move the boilerplate into that folder and rename it according to your project name. Exiting for now."
-#    exit 7
-#fi
+## ensure user is using the right directory
+if [[ $INSTALL_BIN == /usr/local/share/boilerplate/boilerplate/install.sh ]]
+then
+	echo "install.sh resolves to the default path location. excellent."
+else
+	echo "install.sh is not at the suggested location. The boilerplate folder location is suggested to be located in /usr/local/share"
+	echo "Use the following command as root for the correct installation:"
+    echo "cd /usr/local/share && git clone https://github.com/LaKing/boilerplate && bash /usr/local/share/boilerplate/boilerplate/install.sh"
+fi
 
 ## by default we enforce running as user codepad - for historic reasons, could be a system user with another name.
 user=codepad
