@@ -4,18 +4,19 @@ const session = require("express-session");
 const sessionDB = ß.lib.session.config_mongodb();
 const MongoDBStore = require("connect-mongodb-session")(session);
 const store = new MongoDBStore(sessionDB);
-
+const os = require("os");
 
 var crypto = require('crypto');
 var hash = crypto.createHash('md5').update(ß.NAME).digest('hex');
 
-
-const os = require("os");
+if (os.networkInterfaces().host0)
+  if (os.networkInterfaces().host0[0])
+    if (os.networkInterfaces().host0[0].mac) hash = os.networkInterfaces().host0[0].mac;
 
 // a custom secret is primary, 
 // in containers the host0 mac address is more or less a good secret, 
 // otherwise we hope that your application has a unique name.
-const secret = ß.secret || os.networkInterfaces().host0[0].mac || hash;
+const secret = ß.secret || hash;
 
 // Catch errors
 store.on("error", function(error) {
