@@ -10,6 +10,17 @@ INSTALL_BIN="$(realpath "$BASH_SOURCE")"
 INSTALL_DIR="${INSTALL_BIN:0:-11}"
 
 user=codepad
+
+if id -u "$name"
+then
+	echo "Using default user codepad"
+else
+	echo "Adding user and group codepad with uid and gid 104 as default user"
+
+	groupadd -r -g 104 codepad
+    useradd -r -u 104 -g 104 -s /bin/bash -d /var/codepad codepad
+fi
+
 cd ..
 NAME=${PWD##*/}
 
@@ -32,6 +43,7 @@ NOW=$(date +%Y.%m.%d-%H:%M:%S)
 ## working directory
 echo "Started $NAME install.sh $NOW"
 project_log="/$VAR/project.log"
+mkdir -p "$VAR"
 echo '' > "$project_log"
 
 function log() {
