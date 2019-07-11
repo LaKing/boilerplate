@@ -1,4 +1,4 @@
 
-if (!ß.VUETIFY_OPTIONS) ß.VUETIFY_OPTIONS = {};
+if (!ß.VUETIFY) ß.VUETIFY = {};
 
-ß.VUETIFY_OPTIONS.iconfont = 'fa';
+ß.VUETIFY.iconfont = 'fa';
