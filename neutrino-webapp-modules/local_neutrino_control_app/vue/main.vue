@@ -1,6 +1,6 @@
 <template>
     <v-content id="main">
-            <neutrino v-for="e in list" :ctl="e"/>    
+            <neutrino v-for="e in list" :ctl="e" :key="e"/>    
     </v-content>
 </template>
 

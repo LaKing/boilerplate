@@ -7,6 +7,7 @@ const store = new MongoDBStore(sessionDB);
 const os = require("os");
 
 var crypto = require('crypto');
+// TODO find a better fallback secret
 var hash = crypto.createHash('md5').update(ß.NAME).digest('hex');
 
 if (os.networkInterfaces().host0)
@@ -16,6 +17,8 @@ if (os.networkInterfaces().host0)
 // a custom secret is primary, 
 // in containers the host0 mac address is more or less a good secret, 
 // otherwise we hope that your application has a unique name.
+
+if (!ß.secret) ß.ntc("Session handling in production shall have some unique secret set. (ß.secret)");
 const secret = ß.secret || hash;
 
 // Catch errors
