@@ -4,7 +4,6 @@ import 'vuetify/dist/vuetify.min.css';
 
 Vue.use(Vuetify, ß.VUETIFY || {});
 
-
 /*
 Vue.use(Vuetify, {
     iconfont: "fa",

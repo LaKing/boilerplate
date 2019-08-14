@@ -53,8 +53,8 @@ LANG_PAGES.index = {
 
     // use preloader language processor
     if (ß.USE_MULTILANGUAGE) {
-        str += br + "        config.module.rule('vue').use('webpack-detagger').loader('webpack-detagger').options('" + lang + "').end()";
-        str += br + "        config.module.rule('js').test(/.js$/).use('webpack-detagger').loader('webpack-detagger').options('" + lang + "').end()";
+        str += br + "        config.module.rule('vue').use('webpack-detagger').loader('webpack-detagger').options('" + lang + "').end();";
+        str += br + "        config.module.rule('js').test(/.js$/).use('webpack-detagger').loader('webpack-detagger').options('" + lang + "').end();";
     }
 
     str += br + "    },";
