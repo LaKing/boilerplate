@@ -1,5 +1,5 @@
 <template>
-    <v-btn flat @click="set_language('##&en hu ##&hu en ##')">##&en hu ##&hu en ##</v-btn>
+    <v-btn text @click="set_language('##&en hu ##&hu en ##')">##&en hu ##&hu en ##</v-btn>
 </template>
 
 <script>

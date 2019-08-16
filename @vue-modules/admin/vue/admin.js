@@ -6,7 +6,7 @@ import router from './router.js';
 import store from './store.js';
 
 // eslint-disable-next-line 
-import vuetify from './vuetify.js';
+import vuetify from "@/plugins/vuetify.js";
 
 import App from "./Admin.vue";
 
@@ -17,6 +17,7 @@ new Vue({
     el: '#app',
     store,
     router,
+    vuetify,
     mounted() {
         //console.log('mounted()');
         this.$store.dispatch('load_session');

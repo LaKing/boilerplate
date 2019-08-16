@@ -1,4 +1,4 @@
-// @DOC The default index build is a single-language, but has hot reload for development. It will work with simlinks to the original sourcefiles. Push only needed if the file-structure changes.
+// @DOC The default index build is a single-language, but has hot reload for development. It will work with symlinks to the original sourcefiles. Push needed if the file-structure changes.
 
 const br = "\n";
 const webpack_dev_server_client = ß.VAR + "/node_modules/webpack-dev-server/client";
@@ -17,6 +17,10 @@ function build_vue_config_js_file() {
     str += br + "var wp_boilerplate = new webpack.ProvidePlugin({ß: ['" + ß.VAR + "/boilerplate.js', 'default']});";
     str += br + "var wp_debuglog = new webpack.ProvidePlugin({Ł: ['" + ß.VAR + "/debuglog.js', 'default']});";
 
+    // since vuetify 2.0.7 the loaderplugin needs to be added here
+    str += br + "const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');";
+    str += br + "var wp_vuetify = new VuetifyLoaderPlugin();";
+  
     str += br;
     str += br + "module.exports = {";
 
@@ -45,7 +49,10 @@ LANG_PAGES.index = {
     str += br + "        conf.plugins.push(wp_build);";
     str += br + "        conf.plugins.push(wp_boilerplate);";
     str += br + "        conf.plugins.push(wp_debuglog);";
-
+  
+    // since vuetify 2.0.7 the loaderplugin needs to be added here
+    str += br + "        conf.plugins.push(wp_vuetify);";
+  
     str += br + "        conf.resolve.symlinks = false;";
     str += br + "    },";
     str += br + "    chainWebpack: config => {";

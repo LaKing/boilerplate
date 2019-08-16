@@ -59,6 +59,29 @@ if (ß.CMD === "install") {
     return;
 }
 
+/// DEBUG
+if (ß.CMD === "goodfork") {
+    ß.msg("fork");
+    ß.fork_file("/srv/codepad-project/var/vue/node_modules/webpack-dev-server/validate.js");
+    //ß.fork_file("/srv/codepad-project/@vue-modules/vue/fork/vue-serve.js");
+
+    process.exit();
+    return;
+}
+
+// DEBUG 
+if (ß.CMD === "badfork") {
+    ß.msg("fork");
+    //ß.fork_file("/srv/codepad-project/var/vue/node_modules/webpack-dev-server/validate.js");
+    ß.fork_file("/srv/codepad-project/@vue-modules/vue/fork/vue-serve.js");
+
+    process.exit();
+    return;
+}
+// ß stop && ß badfork && sleep 3 && cat /srv/codepad-project/var/debug/fork-vue-serve.stdout.log
+
+
+
 // @DOC `ß uplink` will create folders with symlinks to use modules. This is a helper for application stack initialization.
 ß.cli_uplink();
 

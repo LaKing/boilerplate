@@ -15,15 +15,24 @@
     --public  specify the public network URL for the HMR client
 
 */
-
-const ß = require(process.env.VAR + "/ß.js");
+const process_env_VAR = process.env.VAR || "/srv/codepad-project/var";
+const ß = require(process_env_VAR + "/ß.js");
 
 let MODE = "development";
 if (process.env.NODE_ENV === "production") MODE = "production";
 	
 console.log("VUE CLI SERVE", MODE);
+
 process.env.VUE_CLI_CONTEXT = ß.VAR + '/vue/index';
 process.argv.push("--mode", MODE);
 process.argv.push('serve');
+
 if (MODE === "production" && ß.USE_MULTILANGUAGE) console.log("Multilingual vue apps do not need the index served in production");
 else require(ß.VAR + "/vue/node_modules/@vue/cli-service/bin/vue-cli-service.js");
+
+// to invoke directly use something like
+// node /srv/codepad-project/var/vue/node_modules/@vue/cli-service/bin/vue-cli-service.js serve /srv/codepad-project/var/vue/index/src
+// or 
+// node /srv/codepad-project/@vue-modules/vue/fork/vue-serve.js
+// or
+// node /srv/boilerplate/@vue-modules/vue/node_modules/@vue/cli-service/bin/vue-cli-service.js serve 

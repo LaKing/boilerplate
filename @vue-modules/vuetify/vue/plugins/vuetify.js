@@ -1,8 +1,12 @@
 import Vue from 'vue';
-import Vuetify from 'vuetify';
-import 'vuetify/dist/vuetify.min.css';
+import Vuetify from 'vuetify/lib';
 
-Vue.use(Vuetify, ß.VUETIFY || {});
+// changes for vuetify 2.0.7: moved to plugins; import from lib;
+//import 'vuetify/dist/vuetify.min.css';
+//Vue.use(Vuetify, ß.VUETIFY || {});
+
+Vue.use(Vuetify);
+
 
 /*
 Vue.use(Vuetify, {
@@ -21,3 +25,10 @@ Vue.use(Vuetify, {
     }
 });
 */
+
+// added for vuetify 2.0.7
+export default new Vuetify({
+  icons: {
+    iconfont: 'mdi',
+  },
+});

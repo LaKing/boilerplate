@@ -28,6 +28,10 @@ Object.keys(language_object).forEach(function(lang) {
     str += br + "var wp_boilerplate = new webpack.ProvidePlugin({ß: ['" + ß.VAR + "/boilerplate.js', 'default']});";
     str += br + "var wp_debuglog = new webpack.ProvidePlugin({Ł: ['" + ß.VAR + "/debuglog.js', 'default']});";
 
+    // since vuetify 2.0.7 the loaderplugin needs to be added here
+    str += br + "const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');";
+    str += br + "var wp_vuetify = new VuetifyLoaderPlugin();";
+ 
     str += br;
 
     str += br + "module.exports = {";
@@ -39,6 +43,9 @@ Object.keys(language_object).forEach(function(lang) {
     str += br + "        conf.plugins.push(wp_boilerplate);";
     str += br + "        conf.plugins.push(wp_debuglog);";
 
+    // since vuetify 2.0.7 the loaderplugin needs to be added here
+    str += br + "        conf.plugins.push(wp_vuetify);";
+  
     str += br + "        conf.resolve.symlinks = false;";
     str += br + "    },";
     str += br + "    chainWebpack: config => {";
