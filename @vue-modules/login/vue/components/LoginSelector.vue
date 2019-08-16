@@ -1,19 +1,19 @@
 <template>
     <v-list two-line>
-        <v-list-tile v-for="(item, key) in methods" :key="item.title" avatar @click="click_action(item[is].action)">
-            <v-list-tile-avatar>
+        <v-list-item v-for="(item, key) in methods" :key="item.title" @click="click_action(item[is].action)">
+            <v-list-item-icon>
                 <v-icon :style="style_color(item.iconColor)" class="grey lighten-2">{{ item.icon }}</v-icon>
-            </v-list-tile-avatar>
+            </v-list-item-icon>
 
-            <v-list-tile-content>
-                <v-list-tile-title>{{ item[is].title || key }}</v-list-tile-title>
-                <v-list-tile-sub-title>{{ item[is].subtitle || ''}}</v-list-tile-sub-title>
-            </v-list-tile-content>
+            <v-list-item-content>
+                <v-list-item-title>{{ item[is].title || key }}</v-list-item-title>
+                <v-list-item-subtitle>{{ item[is].subtitle || ''}}</v-list-item-subtitle>
+            </v-list-item-content>
 
-            <v-list-tile-action>
+            <v-list-item-action>
                 <v-btn icon ripple v-if="has_key(key)"> <v-icon color="green lighten-1">check_circle</v-icon> </v-btn>
-            </v-list-tile-action>
-        </v-list-tile>
+            </v-list-item-action>
+        </v-list-item>
     </v-list>
 </template>
 
