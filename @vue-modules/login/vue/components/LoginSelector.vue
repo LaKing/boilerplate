@@ -1,11 +1,11 @@
 <template>
     <v-list two-line>
         <v-list-item v-for="(item, key) in methods" :key="item.title" @click="click_action(item[is].action)">
-            <v-list-item-icon>
+            <v-list-item-avatar>
                 <v-icon :style="style_color(item.iconColor)" class="grey lighten-2">{{ item.icon }}</v-icon>
-            </v-list-item-icon>
+            </v-list-item-avatar>
 
-            <v-list-item-content>
+            <v-list-item-content class="text-left">
                 <v-list-item-title>{{ item[is].title || key }}</v-list-item-title>
                 <v-list-item-subtitle>{{ item[is].subtitle || ''}}</v-list-item-subtitle>
             </v-list-item-content>

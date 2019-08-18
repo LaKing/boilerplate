@@ -17,6 +17,8 @@ var store = new Vuex.Store({
         // if socketio is used
 
         // you may add additional sate variables here if you like, ...
+        // main is a kkind of default object
+        MAIN: ß.MAIN,
 
         // essentials
         session_data: {},
@@ -42,6 +44,9 @@ var store = new Vuex.Store({
                 console.log("reconnect ...");
                 _socket.open();
             }
+        },
+        SOCKET_MAIN(state, main) {
+            state.MAIN = main;
         },
 
         set_session_data: (state, payload) => (state.session_data = payload),

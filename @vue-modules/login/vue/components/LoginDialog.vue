@@ -23,7 +23,7 @@
                 </v-layout>
             </v-img>
 
-            <v-layout row wrap>
+            <v-layout wrap>
                 <v-flex xs12>
                     <v-card height="320">
                         <transition name="component-fade" mode="out-in"> <component :is="selected" @dialog_handler="set_dialog" v-bind:rem="rem" /> </transition>
