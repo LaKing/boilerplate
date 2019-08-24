@@ -1,3 +1,6 @@
+// this file was originally named app.js 
+// @DOC Entry point of the frontend is main.js
+
 import Vue from "vue";
 import "material-design-icons-iconfont/dist/material-design-icons.css";
 import "@fortawesome/fontawesome-free/css/all.css";

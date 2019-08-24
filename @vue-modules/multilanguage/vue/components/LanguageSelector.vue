@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import ß from "ß";
 import axios from "axios";
 
 export default {

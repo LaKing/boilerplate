@@ -275,7 +275,7 @@ function check_process() {
 
 ## If there are files in the await folder, we shall wait before we compelete the push process. 
 function await_processes() {
-    echo @await_processes
+    echo -e '.\c'
     local pidfile pid
     for pidfile in "$VAR"/await/*.pid
     do
@@ -297,7 +297,7 @@ function await_processes() {
 
 function await_processes_countdown() {
     local count
-    count=100
+    count=600
     while [ $count -ge 1 ]
     do       
         ((count--))

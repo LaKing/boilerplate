@@ -30,9 +30,11 @@ process.argv.push('serve');
 if (MODE === "production" && ß.USE_MULTILANGUAGE) console.log("Multilingual vue apps do not need the index served in production");
 else require(ß.VAR + "/vue/node_modules/@vue/cli-service/bin/vue-cli-service.js");
 
-// to invoke directly use something like
+
+// cd /srv/codepad-project/var/vue/index
+// # to invoke directly use something like
 // node /srv/codepad-project/var/vue/node_modules/@vue/cli-service/bin/vue-cli-service.js serve /srv/codepad-project/var/vue/index/src
-// or 
+// # or 
 // node /srv/codepad-project/@vue-modules/vue/fork/vue-serve.js
-// or
+// # or
 // node /srv/boilerplate/@vue-modules/vue/node_modules/@vue/cli-service/bin/vue-cli-service.js serve 

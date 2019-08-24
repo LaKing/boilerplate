@@ -29,7 +29,7 @@ function build_vue_config_js_file() {
 
 // app index used in development
 LANG_PAGES.index = {
-    entry: "src/app.js",
+    entry: "src/main.js",
     template: "src/index.html",
     filename: "index.html"
 };
@@ -64,6 +64,9 @@ LANG_PAGES.index = {
         str += br + "        config.module.rule('js').test(/.js$/).use('webpack-detagger').loader('webpack-detagger').options('" + lang + "').end();";
     }
 
+  	// testing https://stackoverflow.com/questions/50752427/building-deeply-nested-html-with-vue-cli-takes-forever
+  	//str += br + "        config.module.rule('vue').use('vue-loader').loader('vue-loader').tap(options => { options.prettify = false; return options })";
+  
     str += br + "    },";
     str += br + "    devServer: {";
     str += br + "        host: '0.0.0.0',";

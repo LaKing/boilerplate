@@ -1,34 +1,36 @@
 import Vue from 'vue';
-import Vuetify from 'vuetify/lib';
 
-// changes for vuetify 2.0.7: moved to plugins; import from lib;
-//import 'vuetify/dist/vuetify.min.css';
-//Vue.use(Vuetify, ß.VUETIFY || {});
+// A-la-carte installation
+// import Vuetify from 'vuetify/lib';
+
+// Full installation
+import Vuetify from 'vuetify/lib';
+import 'vuetify/dist/vuetify.min.css';
+
 
 Vue.use(Vuetify);
 
+var options = ß.VUETIFY || {};
 
 /*
-Vue.use(Vuetify, {
-    iconfont: "fa",
-    options: {
-        customProperties: true
-    },
-    theme: {
-        primary: "#ffffcc",
-        secondary: "#477272",
-        accent: "#82B1FF",
-        error: "#FF5252",
-        info: "#2196F3",
-        success: "#4CAF50",
-        warning: "#FFC107"
-    }
-});
-*/
 
-// added for vuetify 2.0.7
-export default new Vuetify({
+options = {
   icons: {
     iconfont: 'mdi',
   },
-});
+  theme: {
+    themes: {
+      light: {
+        primary: '#FF0000',
+        secondary: '#00FF00',
+        accent: '#8c9eff',
+        error: '#b71c1c',
+      },
+    },
+  }
+}
+
+*/
+
+// added for vuetify 2.0.7
+export default new Vuetify(options);

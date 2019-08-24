@@ -71,5 +71,7 @@ if (!ß.CFG) ß.CFG = ß.CWD + "/config";
 ß.fs.mkdirpSync(ß.CFG);
 ß.fs.chownSync(ß.CFG, ß.UID, ß.GID);
 
+
+
 // this object can have globally available values attached
 if (!ß.SETTINGS) ß.SETTINGS = {};
