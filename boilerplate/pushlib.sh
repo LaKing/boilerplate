@@ -380,5 +380,5 @@ await_processes_countdown
 show_errors
 check_process
 end="$(date +%s)"
-log "READY ($error_count errors, $((end-start)) sec)" 
-exit 0
+log "$NAME READY ($error_count errors, $((end-start)) sec)" 
+
