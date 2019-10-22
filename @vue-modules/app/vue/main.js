@@ -24,6 +24,8 @@ if (ß.DEBUG) console.log(ß.BUILD_VERSION, BUILD_MODULE, LANG);
 
 // eslint-disable-next-line
 if (ß.DEBUG) Vue.config.devtools = true;
+// eslint-disable-next-line
+if (ß.DEBUG) Vue.config.debug = true;
 
 // we create $app via this plugin, to make the function $app.uri and the constant $app.url available globally.
 // it might get extended with others. ...

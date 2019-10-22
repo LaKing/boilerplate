@@ -6,3 +6,4 @@ npm install sass
 #npm install fibers
 #npm install deepmerge
 npm install vue
+npm install @mdi/font -D

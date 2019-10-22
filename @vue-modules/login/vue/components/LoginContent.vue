@@ -1,13 +1,12 @@
 <template>
     <div class="text-xs-center">
-        <v-dialog v-model="dialog" max-width="500">
             <v-img :src="require('@/assets/login.jpg')">
                 <v-layout column fill-height>
                     <v-card-title>
                         <v-btn dark icon v-if="selected !== 'selector'" v-on:click="selected = 'selector'"> <v-icon>chevron_left</v-icon> </v-btn>
                         <v-btn dark icon v-if="selected === 'selector' && is_user" v-on:click="selected = 'settings'"> <v-icon>fas fa-cog</v-icon> </v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn dark icon v-on:click="set_dialog('close')" v-if="isDialog"> <v-icon>cancel</v-icon> </v-btn>
+                        <v-btn dark icon v-on:click="set_dialog('close')"> <v-icon>cancel</v-icon> </v-btn>
                     </v-card-title>
 
                     <v-spacer></v-spacer>
@@ -30,7 +29,6 @@
                     </v-card>
                 </v-flex>
             </v-layout>
-        </v-dialog>
     </div>
 </template>
 
@@ -55,11 +53,9 @@ export default {
             // open the dialog on the login uri path
             dialog: this.$route.path === "/login",
             selected: "selector",
-            rem: true,
-          	isDialog: this.withDialog || true
+            rem: true
         };
     },
-  	props:["withDialog"],
     components: {
         selector,
         password_login,

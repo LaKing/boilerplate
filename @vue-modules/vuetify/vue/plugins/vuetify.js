@@ -1,3 +1,6 @@
+// material icons
+import '@mdi/font/css/materialdesignicons.css';
+
 import Vue from 'vue';
 
 // A-la-carte installation

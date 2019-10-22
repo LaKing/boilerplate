@@ -1,4 +1,6 @@
 
 if (!ß.VUETIFY) ß.VUETIFY = {};
 
-ß.VUETIFY.iconfont = 'fa';
+// https://vuetifyjs.com/en/customization/icons
+if (!ß.VUETIFY.icons) ß.VUETIFY.icons = {};
+if (!ß.VUETIFY.icons.iconfont) ß.VUETIFY.icons.iconfont = 'fa';

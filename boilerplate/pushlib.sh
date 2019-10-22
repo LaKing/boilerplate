@@ -313,8 +313,8 @@ function process_pushfiles() {
     do
         if [[ -e $f ]]
         then
-            log "source $(basename "$f")" 
-            source "$f"
+            log "$(basename "$f")" 
+            /bin/bash "$f" >> "$project_log"
         fi
     done
 }
