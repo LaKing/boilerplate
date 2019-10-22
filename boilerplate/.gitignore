@@ -10,4 +10,3 @@ lib-cov
 npm-debug.log
 node_modules/
 package-lock.json
-git-push.sh
