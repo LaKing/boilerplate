@@ -1,34 +1,32 @@
 <template>
     <div class="text-xs-center">
-            <v-img :src="require('@/assets/login.jpg')">
-                <v-layout column fill-height>
-                    <v-card-title>
-                        <v-btn dark icon v-if="selected !== 'selector'" v-on:click="selected = 'selector'"> <v-icon>chevron_left</v-icon> </v-btn>
-                        <v-btn dark icon v-if="selected === 'selector' && is_user" v-on:click="selected = 'settings'"> <v-icon>fas fa-cog</v-icon> </v-btn>
-                        <v-spacer></v-spacer>
-                        <v-btn dark icon v-on:click="set_dialog('close')"> <v-icon>cancel</v-icon> </v-btn>
-                    </v-card-title>
+        <v-img :src="require('@/assets/login.jpg')">
+            <v-layout column fill-height>
+                <v-card-title>
+                    <v-btn dark icon v-if="selected !== 'selector'" v-on:click="selected = 'selector'"> <v-icon>chevron_left</v-icon> </v-btn>
+                    <v-btn dark icon v-if="selected === 'selector' && is_user" v-on:click="selected = 'settings'"> <v-icon>fas fa-cog</v-icon> </v-btn>
+                </v-card-title>
 
+                <v-spacer></v-spacer>
+
+                <v-card-title class="white--text pl-5 pt-5">
+                    <div class="headline">{{ profile_email || title }}</div>
                     <v-spacer></v-spacer>
-
-                    <v-card-title class="white--text pl-5 pt-5">
-                        <div class="headline">{{ profile_email || title }}</div>
-                        <v-spacer></v-spacer>
-                        <v-btn v-if="is_user" dark icon v-on:click="logout()" title="Logout"> <v-icon>fas fa-sign-out-alt</v-icon> </v-btn>
-                        <v-btn v-if="!is_user" dark icon v-on:click="toggle_rem()" title="##&en remember me on this computer ##&hu emlékezzem rám ez a gép ##">
-                            <v-icon v-if="!rem">fas fa-square</v-icon>
-                        </v-btn>
-                    </v-card-title>
-                </v-layout>
-            </v-img>
-
-            <v-layout wrap>
-                <v-flex xs12>
-                    <v-card height="320">
-                        <transition name="component-fade" mode="out-in"> <component :is="selected" @dialog_handler="set_dialog" v-bind:rem="rem" /> </transition>
-                    </v-card>
-                </v-flex>
+                    <v-btn v-if="is_user" dark icon v-on:click="logout()" title="Logout"> <v-icon>fas fa-sign-out-alt</v-icon> </v-btn>
+                    <v-btn v-if="!is_user" dark icon v-on:click="toggle_rem()" title="##&en remember me on this computer ##&hu emlékezzen rám ez a gép ##">
+                        <v-icon v-if="!rem">fas fa-square</v-icon>
+                    </v-btn>
+                </v-card-title>
             </v-layout>
+        </v-img>
+
+        <v-layout wrap>
+            <v-flex xs12>
+                <v-card height="320">
+                    <transition name="component-fade" mode="out-in"> <component :is="selected" @dialog_handler="set_dialog" v-bind:rem="rem" /> </transition>
+                </v-card>
+            </v-flex>
+        </v-layout>
     </div>
 </template>
 
@@ -112,7 +110,8 @@ export default {
             return false;
         },
         profile_email() {
-            if (this.$store.state) if (this.$store.state.user) if (this.$store.state.user.profile) if (this.$store.state.user.profile.email) return this.$store.state.user.profile.email;
+            if (this.$store.state)
+                if (this.$store.state.user) if (this.$store.state.user.profile) if (this.$store.state.user.profile.email) return this.$store.state.user.profile.email;
             return undefined;
         }
     },

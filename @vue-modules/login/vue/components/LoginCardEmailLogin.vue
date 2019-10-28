@@ -1,6 +1,6 @@
 <template>
     <v-card-text>
-        <v-container grid-list-md> <form_for_email @return="action" v-bind:btn_title="'SEND'" /> </v-container>
+        <v-container grid-list-md> <form_for_email @return="action" v-bind:btn_title="'##&en Submit ##&hu Küldés ##'" /> </v-container>
         <v-container>
             <v-alert id="alert" v-show="msg" :value="true" :type="type" transition="fade" class="text-sm-left">{{ msg }}</v-alert>
             <v-progress-circular v-show="progress" :size="50" color="primary" indeterminate></v-progress-circular>

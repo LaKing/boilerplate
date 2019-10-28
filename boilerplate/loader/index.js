@@ -19,7 +19,8 @@ try {
     require("./logger.js");
     require("./det.js");
     require("./process.js");
-
+	
+    require("./boot.js");
     require("./bp.js");
     require("./load.js");
     require("./spawn.js");
@@ -34,9 +35,16 @@ try {
     require("./hook.js");
 
     require("./modules.js");
+  
+  	// fallback function for multilinguial modules and projects without the multilanguage module.
+    // ß.translate should always be defined.
+  	if (!ß.translate) ß.translate = function(arg, data) {
+     	return data; 
+    };
+  
 } catch (err) {
     console.error(err);
-    console.log("ERROR, EXITING due to a failure in the boilerplate-loader");
+    console.log("ERROR, EXITING due to a boot failure in the boilerplate-loader");
     process.exit(93);
 }
 

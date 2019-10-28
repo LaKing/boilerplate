@@ -28,12 +28,12 @@ const LANGUAGE_PREFIX = '&';
 function process_data(lang, data) {
 	
   	// validate input
-  	if (!lang) {
-      console.error("Could not process data due to missing lang");
-      return data;
-    }
+  	//if (!lang) {
+    //  console.error("Could not properly process multilingual data due to missing lang");
+    //  return data;
+    //}
   
-  	if (!data) return console.error("Could not process missing data");
+  	//if (!data) return console.error("Could not process missing multilingual data");
   	
     // create chunks array
     var ca = data.split(CHUNK_SEPERATOR);

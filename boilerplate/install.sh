@@ -290,6 +290,16 @@ else
     npm install fs-extra
 fi
 
+for f in "$CWD"/*-modules/*/dnf.sh
+do
+	if [[ -f $f ]]
+    then
+    	log "run $f"
+    	run bash "$f"
+    fi
+done
+
+
 log "Finished install.sh $NOW"
 
 ## continiue install process within the boilerplate cli

@@ -32,7 +32,7 @@ function get_positive() {
 }
 function get_negative() {
     c--;
-  	if (c<0) c = Negatives.length;
+    if (c < 0) c = Negatives.length;
     return Negatives[c % Negatives.length];
 }
 

@@ -35,7 +35,11 @@
 </template>
 
 <script>
+// the login dialog is loaded on App.vue so it can work as a dialog
+  
 // the selector list
+import login_layout from "@/components/LoginLayout.vue";
+
 import selector from "@/components/LoginSelector.vue";
 
 // LoginCard contents
@@ -61,6 +65,7 @@ export default {
     },
   	props:["withDialog"],
     components: {
+      	login_layout,
         selector,
         password_login,
         password_settings,

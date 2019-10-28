@@ -296,6 +296,7 @@ function await_processes() {
 }
 
 function await_processes_countdown() {
+	echo @await_processes_countdown
     local count
     count=600
     while [ $count -ge 1 ]
@@ -303,6 +304,7 @@ function await_processes_countdown() {
         ((count--))
     	await_processes
     done
+    echo '@online'
 }
 
 ## in case we have some custom pushfiles, process them with this function
@@ -380,5 +382,5 @@ await_processes_countdown
 show_errors
 check_process
 end="$(date +%s)"
-log "$NAME READY ($error_count errors, $((end-start)) sec)" 
+log "PUSH $NAME READY ($error_count errors, $((end-start)) sec)" 
 

@@ -7,8 +7,8 @@
             <v-btn text to="/vuetify">Vuetify</v-btn>
             <v-btn text to="/session">Session</v-btn>
             <v-btn text to="/socket-io">Socket.io</v-btn>
-          
-            <v-btn v-on:click="$root.login_dialog.open();">##&en Login ##&hu Bejelentkezés ##</v-btn>
+            <v-btn text to="/hello_login">##&en Login ##&hu Bejelentkezés ##</v-btn>
+            <v-btn v-on:click="$root.login_dialog.open();">##&en Dialog ##&hu Dialogus ##</v-btn>
             <language_selector></language_selector>
           	<v-btn v-if="debug" text @click="open_editor()">Editor</v-btn>
         </v-toolbar-items>

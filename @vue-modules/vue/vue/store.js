@@ -17,7 +17,7 @@ var store = new Vuex.Store({
         // if socketio is used
 
         // you may add additional sate variables here if you like, ...
-        // main is a kkind of default object
+        // main is a kind of default object
         MAIN: ß.MAIN,
 
         // essentials

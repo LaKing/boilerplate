@@ -5,7 +5,7 @@
 ß.app.post("/post-email-request.json", function(req, res, next) {
     var email = req.body.email;
 
-    if (!ß.lib.passport_hash.okey_today(email)) return res.json("We have sent you an email today already.");
+    if (!ß.lib.passport_hash.okey_today(email)) return res.json(ß.translate(req.session.lang, "##&en We have sent you an email today already. ##&hu Ma már kapott egy e-mailt tőlünk. ##"));
 
     ß.User.findOne({ "local.email": email }, function(err, user) {
         if (err) {

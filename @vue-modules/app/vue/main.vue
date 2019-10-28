@@ -11,7 +11,8 @@
             <hello_vue v-if="at('vue')" msg="##&en The ##&hu A ## ßoilerplate Vue.js module" />
             <hello_vuetify v-if="at('vuetify')" msg="##&en The ##&hu A ## ßoilerplate Vuetify module" />
             <hello_session v-if="at('session')" msg="##&en The ##&hu A ## ßoilerplate Session module" />
-            <hello_socket_io v-if="at('socket-io')" msg="##&en The ##&hu A ## ßoilerplate Socket-io module" /> 
+            <hello_socket_io v-if="at('socket-io')" msg="##&en The ##&hu A ## ßoilerplate Socket-io module" />
+            <hello_login v-if="at('hello_login')" msg="##&en The ##&hu A ## ßoilerplate login module" />
             <!--login_dialog ref="login_dialog_reference" v-if="at('login') || open_login_dialog" @finished="finish_login_dialog"/-->
         </transition>
     </v-content>
@@ -24,6 +25,7 @@ import hello_vuetify from "@/components/HelloVuetify.vue";
 import hello_session from "@/components/HelloSession.vue";
 
 //import login_dialog from "@/components/LoginDialog.vue";
+import hello_login from "@/components/HelloLogin.vue";
 
 import hello_socket_io from "@/components/HelloSocketIo.vue";
 //import hello_bootstrap from '@/components/HelloBootstrap.vue';
@@ -41,7 +43,7 @@ export default {
     name: "app",
     data: function() {
         return {
-        	//open_login_dialog: false
+            //open_login_dialog: false
         };
     },
     components: {
@@ -49,14 +51,15 @@ export default {
         hello_vue,
         hello_vuetify,
         hello_session,
-        hello_socket_io,
+        hello_login,
+        hello_socket_io
         //login_dialog
         //hello_bootstrap
     },
     methods: {
         at: function(arg) {
             return this.$route.path === "/" + arg;
-        }/*,
+        } /*,
         finish_login_dialog() {
         	this.open_login_dialog = false;
             //this.$router.go('/');

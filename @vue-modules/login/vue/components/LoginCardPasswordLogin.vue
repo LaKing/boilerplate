@@ -35,9 +35,9 @@ export default {
     methods: {
         get_btn_title() {
             if (this.selected === "form_for_password")
-                if (this.registered) return "LOGIN";
-                else return "REGISTER";
-            return "NEXT";
+                if (this.registered) return "##&en LOGIN ##&hu Bejelentkezés ##";
+                else return "##&en REGISTER ##&hu Regisztráció ##";
+            return "##&en NEXT ##&hu Tovább ##";
         },
         action(arg) {
             //this.$refs.form.validate();

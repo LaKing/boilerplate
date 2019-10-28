@@ -24,6 +24,8 @@ if (!global.ß) global.ß = {};
 
 ß.CMD = process.argv[2];
 ß.ARG = process.argv[3];
+ß.OPA = process.argv[4];
+
 //console.log('cli-command: ß ' + ß.CMD + ' ' + ß.ARG);
 
 if (ß.CMD === "debug") ß.DEBUG = true;
@@ -42,6 +44,8 @@ if (ß.fs.existsSync(ß.CWD + "/cli.js")) require(ß.CWD + "/cli.js");
 ß.cli_commands.push("start     # start the boilerplate application in a systemd scope");
 ß.cli_commands.push("stop      # terminate all systemd scopes running the boilerplate application");
 ß.cli_commands.push("debug     # start in verbose debug mode");
+
+ß.cli_commands.push("");
 
 if (ß.CMD === "start" || ß.CMD === "debug") {
   if (ß.fs.existsSync(ß.CWD + "/server.js")) return require(ß.CWD + "/server.js");
@@ -84,6 +88,19 @@ if (ß.CMD === "badfork") {
 
 // @DOC `ß uplink` will create folders with symlinks to use modules. This is a helper for application stack initialization.
 ß.cli_uplink();
+
+ß.cli_commands.push("");
+ß.cli_commands.push("lib FN [ARG]    # Execute a boilerplate function with one argument");
+if (ß.CMD === "lib") {
+    ß.DEBUG = true;
+	if (!ß.ARG) return ß.err("No boilerplate-function argument for the exec-function command.");
+  	ß.boot();
+  	ß.lib[ß.ARG](ß.OPA);
+    process.exit();
+ 	return;
+}
+
+ß.cli_commands.push("");
 
 ß.notice("- CLI-command:", ß.CMD || '?', ß.ARG || '');
 if (ß.CMD !== 'help') ß.error("no command / invalid command");

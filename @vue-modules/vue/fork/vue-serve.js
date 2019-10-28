@@ -15,6 +15,8 @@
     --public  specify the public network URL for the HMR client
 
 */
+
+// use a fallback default for codepad contaienrs
 const process_env_VAR = process.env.VAR || "/srv/codepad-project/var";
 const ß = require(process_env_VAR + "/ß.js");
 

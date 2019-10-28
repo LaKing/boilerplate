@@ -18,8 +18,9 @@ Usage: vue-cli-service build [options] [entry|pattern]
     --watch            watch for changes
 */
 
-
-const ß = require(process.env.VAR + "/ß.js");
+// use a fallback default for codepad contaienrs
+const process_env_VAR = process.env.VAR || "/srv/codepad-project/var";
+const ß = require(process_env_VAR + "/ß.js");
 
 // we want to tell our IDE that we are waiting for this process
 // we already wrote the global pid, so we overwrite it now.

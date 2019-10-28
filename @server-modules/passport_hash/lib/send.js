@@ -38,13 +38,9 @@ module.exports = function(id, callback) {
 
         var text = '';
 
-        if (user.local.verified == false) {
-            if (user.lang === 'hu') subject = "Regisztráció megerősítése, " + HOSTNAME;
-            else subject = "Confirm registration to " + HOSTNAME;
-        }
+        if (user.local.verified == false) subject = ß.translate(user.lang, "##&en Confirm registration to ##&hu Regisztráció megerősítése ##") + ' ' + HOSTNAME;
 
-        if (user.lang === 'hu') text += 'Kérjük lépjen be ennek a linknek s használatával: ';
-        else text += 'Please visit the following link, to log in: ';
+		text += ß.translate(user.lang, "##&en Please visit the following link, to log in ##&hu Kérjük lépjen be ennek a linknek s használatával: ##");
 
         html += '<h2>' + subject + '</h2><br><b>' + text + '</b><a href = "' + link + '">' + link + '</a><br><br>';
 
