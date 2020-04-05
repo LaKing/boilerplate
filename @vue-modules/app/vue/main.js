@@ -12,6 +12,8 @@ import App from "@/App.vue";
 import io from "socket.io-client";
 import VueSocketio from "vue-socket.io-extended";
 
+// @DOC Socketio will only connect if a passport user is logged in. Override possible. 
+
 if (ß.USE_SOCKETIO) {
     const socket_options = ß.SOCKETIO_OPTIONS || {
         autoConnect: ß.SOCKETIO_AUTOCONNECT || false
@@ -49,8 +51,7 @@ var vm = new Vue({
     router,
     vuetify, // added as required in 2.0.7
     mounted() {
-        //console.log('mounted()');
-        this.$store.dispatch("load_session");
+        this.$store.dispatch("server/load_session");
     },
     render: h => h(App)
 });

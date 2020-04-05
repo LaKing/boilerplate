@@ -1,5 +1,9 @@
 // @DOC each language will have it's own src folder for the vue build process
 
+// OKAY SORRY? this seems to be unnecesery, as we use the webpack plugin which processes files we need.
+
+
+/*
 // create a language object first
 var language_object = {};
 Object.keys(ß.PAGES).forEach(function(page) {
@@ -8,6 +12,11 @@ Object.keys(ß.PAGES).forEach(function(page) {
 
 // then for each language, do the processing
 Object.keys(language_object).forEach(function(lang) {
+*/
+
+
+/*
+Object.keys(ß.APP_LANGUAGES).forEach(function(lang) {
 
     ß.modules_process(ß.vue_modules, build_vue_src_priority);
     ß.modules_process(ß.vue_modules, build_vue_src_standard);
@@ -24,6 +33,7 @@ Object.keys(language_object).forEach(function(lang) {
         const path = module_dir + "/vue";
         const dest = ß.VAR + "/vue/" + lang + "/src";
 
+        
         ß.fs.traverse_path_process_files(path, function(file_path) {
             let source = path + file_path;
             let target = dest + file_path;
@@ -40,6 +50,18 @@ Object.keys(language_object).forEach(function(lang) {
             // and use links for non translateable files
             ß.link(source, target);
         });
+        
     }
   
+});
+*/
+
+// OKAY so we just create a symlink for source.
+Object.keys(ß.APP_LANGUAGES).forEach(function(lang) {
+  
+  const source = ß.VAR + "/vue/src";
+  const target = ß.VAR + "/vue/" + lang + "/src";
+  ß.fs.mkdirpSync(ß.VAR + "/vue/" + lang);
+  ß.fs.symlinkSync(source, target);
+
 });

@@ -18,6 +18,7 @@ export default {
 #login_layout_frame {
   height: 200px;
   width: 400px;
+  max-width:100%;
   background-color: powderblue;
 }
   

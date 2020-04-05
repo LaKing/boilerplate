@@ -18,7 +18,7 @@
 
 // use a fallback default for codepad contaienrs
 const process_env_VAR = process.env.VAR || "/srv/codepad-project/var";
-const ß = require(process_env_VAR + "/ß.js");
+const ß = require(process_env_VAR + "/boilerplate.es5.js");
 
 let MODE = "development";
 if (process.env.NODE_ENV === "production") MODE = "production";

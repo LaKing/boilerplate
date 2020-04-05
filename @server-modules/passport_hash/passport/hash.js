@@ -11,7 +11,6 @@ const CustomStrategy = ß.passport_custom.Strategy;
 passport.use(
     "hash",
     new CustomStrategy(function(req, done) {
-
         // local variables
         const email = req.params.email.toLowerCase();
         const id = req.params.id;
@@ -23,18 +22,19 @@ passport.use(
 
         process.nextTick(function() {
             User.findById(id, function(err, user) {
-                if (err) return done(err, false, "ERROR");
+                if (err) return done(err, false, "ERROR could not find user by id.");
                 if (!user) return done(null, false, "User not found.");
 
                 if (lib.passport_hash.hash(user.local.email) === hash) {
+                    ß.run_hook("user_login", user);
                     if (!user.local.verified) {
                         user.local.verified = true;
                         user.save(function(err) {
-                            if (err) return done(err, user, "ERROR");
+                            if (err) return done(err, user, "ERROR could not save user.");
                             else return done(null, user, "OK");
                         });
                     } else {
-                      return done(null, user, "OK");
+                        return done(null, user, "OK");
                     }
                 } else return done(null, false, "Hash missmatch.");
             });

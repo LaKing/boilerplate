@@ -1,15 +1,16 @@
 /*ßoilerplate */
 
 module.exports = function(req, res, next) {
+    if (!req.user) return res.send("NO");
+    const id = req.user._id; //req.session.passport.user
 
-    if (!req.user) return res.send('NO');
-  	const id = req.user._id; //req.session.passport.user
-  
-  
     const User = ß.User;
     const HOSTNAME = ß.HOSTNAME;
 
-    var ejsfile = ß.views(req, 'barion.ejs');
+
+  	//var ejsfile = ß.views(req, 'barion.ejs');
+	var lang = req.session.lang || ß.DEFAULT_LANG || 'en';
+	var ejsfile = ß.VAR + "/ejs/" + lang + '/barion.ejs';
 
     User.findById(id, function(err, user) {
         if (err) {
@@ -34,7 +35,7 @@ module.exports = function(req, res, next) {
         res.render(ejsfile, {
             lang: req.session.lang.toUpperCase(),
             host: HOSTNAME,
-            p: p,
+            p: p
         });
     });
 };

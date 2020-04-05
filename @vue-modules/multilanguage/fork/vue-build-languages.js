@@ -3,7 +3,7 @@
 const fs = require("fs");
 const child_process = require("child_process");
 
-const ß = require(process.env.VAR + "/ß.js");
+const ß = require(process.env.VAR + "/boilerplate.es5.js");
 //const language_process = require("../process.js");
 
 let MODE = "development";
@@ -11,13 +11,18 @@ if (process.env.NODE_ENV === "production") MODE = "production";
 
 const service_js = ß.VAR + "/vue/node_modules/@vue/cli-service/bin/vue-cli-service.js";
 
+/*
 var language_object = {};
 Object.keys(ß.PAGES).forEach(function(page) {
     if (ß.PAGES[page].lang) language_object[ß.PAGES[page].lang] = true;
 });
 
+
 Object.keys(language_object).forEach(function(lang) {
-    // Write a file for the duration of vue build
+*/
+Object.keys(ß.APP_LANGUAGES).forEach(function(lang) {
+
+	// Write a file for the duration of vue build
     const index_dir = ß.VAR + "/vue/" + lang;
 
     fs.writeFileSync(

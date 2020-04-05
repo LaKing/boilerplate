@@ -39,7 +39,7 @@ export default {
             var _this = this;
             axios({
                 method: "post",
-                url: "https://" + ß.HOSTNAME + "/post-password-update.json",
+                url: "/post-password-update.json",
                 data: { password: password }
             })
                 .then(function(response) {

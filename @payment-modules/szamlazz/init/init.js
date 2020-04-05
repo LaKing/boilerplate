@@ -43,5 +43,7 @@ if (fs.existsSync(config_file)) {
     fs.writeJsonSync(config_file, config);
 }
 
+if (!config.save_path) config.save_path = ß.CWD + "/invoice";
+if (config.save_path) ß.fs.ensureDirSync(config.save_path);
 
 ß.szamlazz_config = config;

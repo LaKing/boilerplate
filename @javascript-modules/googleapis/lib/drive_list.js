@@ -12,16 +12,21 @@ module.exports = function(callback) {
             console.log("ERROR in google jwtClientAuth.authorize", err);
             return callback(err, null);
         } else {
-            var request = {};
+          	          
+            var request = {
+            	auth: ß.jwtClient,
+              	fields: "*"
+            };
 
             drive.files.list(request, function(err, response) {
                 if (err) {
                     console.error("ERROR in google drive.files.list", err);
+                  	ß.logfs(err);
                     return callback(err, null);
                 }
-
-                console.log("Sucessfully fetched", response.data.values.length);
-                callback(null, response.data.values);
+				ß.debug_logfs(response);
+                if (response.data) console.log("Sucessfully fetched", response.data.files.length);
+                callback(null, response.data.files);
             });
         }
     });

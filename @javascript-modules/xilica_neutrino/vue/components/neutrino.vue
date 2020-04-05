@@ -48,7 +48,7 @@ export default {
     },
     methods: {
         send(bool) {
-            this.$socket.emit("answer", bool);
+            this.$socket.client.emit("answer", bool);
         }
     }
 };

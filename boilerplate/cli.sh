@@ -94,6 +94,7 @@ then
     exit
 fi
 
+
 if [[ $1 == restart-server ]]
 then
 	if [[ -f $VAR/project.pid ]]
@@ -108,9 +109,18 @@ then
     fi
 fi
 
+
+## no privileges needed, and running in the NAME-cli scope that should terminate automatically
+echo "# systemd-run --unit $NAME-cli --scope --uid=$uid --gid=$gid /bin/node --preserve-symlinks boilerplate/cli.js $@"
+systemd-run --unit "$NAME-cli" --scope --uid="$uid" --gid="$gid" /bin/node --preserve-symlinks boilerplate/cli.js $@
+
+
+
 if systemctl --quiet is-active "$NAME.scope"
 then
 	sleep 1
     echo "systemctl status $NAME.scope"
 	systemctl status "$NAME.scope"
+else
+	echo "$NAME.scope inactive"
 fi

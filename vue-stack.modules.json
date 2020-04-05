@@ -1,4 +1,23 @@
 {
+    "@javascript-modules": [
+	"async",
+	"clouddir",
+	"clouddata",
+	"csvloader",
+	"devel_iframe",
+	"googleapis",
+	"jest",
+	"mikrotik",
+	"mime",
+	"moment",
+	"ping",
+	"rclone"
+    ],
+    "@admin-modules": [
+	"admin",
+	"ansi",
+	"logs"
+    ],
     "@server-modules": [
         "admin",
         "api",
@@ -6,6 +25,7 @@
         "favicon",
         "logging",
         "mobile_detect",
+        "mongodb",
         "mongoose",
         "multilanguage",
         "nodemailer",
@@ -18,10 +38,10 @@
         "server",
         "session",
         "socketio",
-        "verify"
+        "verify",
+        "user_profile"
     ],
     "@vue-modules": [
-        "admin",
         "app",
         "bootstrap-vue",
         "fontawesome5",
@@ -30,6 +50,8 @@
         "multilanguage",
         "socketio",
         "vue",
-        "vuetify"
+        "vueinclude",
+        "vuetify",
+        "vuex"
     ]
 }

@@ -10,6 +10,7 @@
             <li><a href="https://socket.io" target="_blank" rel="noopener">Socket.io</a></li>
             <li><a href="https://github.com/socketio/socket.io" target="_blank" rel="noopener">on Github</a></li>
         </ul>
+         <v-btn v-if="!isConnected" @click="connect()">Connect</v-btn>
         <h3 v-if="!isConnected">{{ question_text }}</h3>
         <div v-if="isConnected">
             <h3>{{ question_text }}</h3>
@@ -52,7 +53,10 @@ export default {
     },
     methods: {
         send(bool) {
-            this.$socket.emit("answer", bool);
+            this.$socket.client.emit("answer", bool);
+        },
+        connect() {
+        	this.$store.dispatch("socket/connect");
         }
     }
 };

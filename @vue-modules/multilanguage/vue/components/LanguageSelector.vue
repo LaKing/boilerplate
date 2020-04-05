@@ -12,7 +12,7 @@ export default {
     methods: {
         set_language: function(lang) {
             // eslint-disable-next-line
-            var url = "https://" + ß.HOSTNAME + "/post-lang-" + lang + ".json";
+            var url = "/post-lang-" + lang + ".json";
           console.log(lang);
             axios({
                 method: "post",

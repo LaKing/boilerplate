@@ -36,7 +36,7 @@
 
 <script>
 // the login dialog is loaded on App.vue so it can work as a dialog
-  
+
 // the selector list
 import login_layout from "@/components/LoginLayout.vue";
 
@@ -60,12 +60,12 @@ export default {
             dialog: this.$route.path === "/login",
             selected: "selector",
             rem: true,
-          	isDialog: this.withDialog || true
+            isDialog: this.withDialog || true
         };
     },
-  	props:["withDialog"],
+    props: ["withDialog"],
     components: {
-      	login_layout,
+        login_layout,
         selector,
         password_login,
         password_settings,
@@ -87,16 +87,17 @@ export default {
             this.selected = arg;
         },
         logout() {
-            this.$store.dispatch("clear_session");
+            this.$store.dispatch("server/clear_session");
 
             var _this = this;
             axios({
                 method: "post",
-                url: "https://" + ß.HOSTNAME + "/post-logout.json",
+                url: "/post-logout.json",
                 data: {}
             })
                 .then(function(response) {
-                    _this.$store.dispatch("clear_session");
+                    _this.$store.dispatch("server/clear_session");
+                    _this.$store.dispatch("socket/disconnect");
                     _this.set_dialog("selector");
                 })
                 .catch(error => {
@@ -110,18 +111,21 @@ export default {
     },
     computed: {
         title() {
-            if (this.$store.state.passport)
-                if (this.$store.state.passport.user) {
+            if (this.$store.state.server.session.passport)
+                if (this.$store.state.server.session.passport.user) {
                     return "##&en Logged in ##&hu Bejelentkezve ##";
                 }
             return "##&en Login ##&hu Bejelentkezés ##";
         },
         is_user() {
-            if (this.$store.state.passport.user) return true;
+            //if (this.$store.state.server.session.passport.user) return true;
             return false;
         },
         profile_email() {
-            if (this.$store.state) if (this.$store.state.user) if (this.$store.state.user.profile) if (this.$store.state.user.profile.email) return this.$store.state.user.profile.email;
+            if (this.$store.state.server.session)
+                if (this.$store.state.server.session.user)
+                    if (this.$store.state.server.session.user.profile)
+                        if (this.$store.state.server.session.user.profile.email) return this.$store.state.server.session.user.profile.email;
             return undefined;
         }
     },

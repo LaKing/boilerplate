@@ -20,7 +20,7 @@ new Vue({
     vuetify,
     mounted() {
         //console.log('mounted()');
-        this.$store.dispatch('load_session');
+        this.$store.dispatch('server/load_session');
     },
     render: h => h(App)
 });

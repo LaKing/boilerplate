@@ -13,6 +13,7 @@
             <hello_session v-if="at('session')" msg="##&en The ##&hu A ## ßoilerplate Session module" />
             <hello_socket_io v-if="at('socket-io')" msg="##&en The ##&hu A ## ßoilerplate Socket-io module" />
             <hello_login v-if="at('hello_login')" msg="##&en The ##&hu A ## ßoilerplate login module" />
+            <hello_payment v-if="at('payment')" msg="##&en Payment ##&hu Fizetés ##" />
             <!--login_dialog ref="login_dialog_reference" v-if="at('login') || open_login_dialog" @finished="finish_login_dialog"/-->
         </transition>
     </v-content>
@@ -28,6 +29,10 @@ import hello_session from "@/components/HelloSession.vue";
 import hello_login from "@/components/HelloLogin.vue";
 
 import hello_socket_io from "@/components/HelloSocketIo.vue";
+  
+import hello_payment from "@/components/HelloPayment.vue";
+//import hello_paypal from "@/components/HelloPayPal.vue";
+
 //import hello_bootstrap from '@/components/HelloBootstrap.vue';
 
 /*
@@ -52,14 +57,21 @@ export default {
         hello_vuetify,
         hello_session,
         hello_login,
-        hello_socket_io
+        hello_socket_io,
+        hello_payment,
+        //hello_paypal
         //login_dialog
         //hello_bootstrap
     },
     methods: {
         at: function(arg) {
-            return this.$route.path === "/" + arg;
-        } /*,
+            let a = arg.toLowerCase();
+            let p = this.$route.path.toLowerCase();
+            if (p === "/" + a) return true;
+            if (p === "/" + a + "/") return true;
+            return false;
+        } 
+        /*,
         finish_login_dialog() {
         	this.open_login_dialog = false;
             //this.$router.go('/');

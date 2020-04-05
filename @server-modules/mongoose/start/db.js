@@ -7,12 +7,18 @@ var url = ß.lib.mongoose.config_mongodb().url;
 
 console.log(' - mongoose ' + url + ' collections:', collections.join(' '));
 
-var str = '#!/bin/bash \n';
+var import_str = '#!/bin/bash \n';
+var export_str = '#!/bin/bash \n';
 
 for (var c in collections) {
-    str += 'mongoexport --jsonArray --uri ' + url + ' --collection ' + collections[c] + ' --out exports_' + collections[c] + '.json \n';
+    import_str += 'mongoimport --jsonArray --uri ' + url + ' --collection ' + collections[c] + ' exports_' + collections[c] + '.json \n';
+    export_str += 'mongoexport --jsonArray --uri ' + url + ' --collection ' + collections[c] + ' --out exports_' + collections[c] + '.json \n';
 }
 
-ß.fs.writeFile('export_mongodb.sh', str, function(err) {
+ß.fs.writeFile('export_mongodb.sh', export_str, function(err) {
+    Đ(err);
+});
+
+ß.fs.writeFile('import_mongodb.sh', import_str, function(err) {
     Đ(err);
 });

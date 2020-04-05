@@ -14,27 +14,28 @@ function build_vue_config_js_file() {
     str += br + "var webpack = require('webpack');";
     str += br + "var wp_lang = new webpack.DefinePlugin({'LANG': JSON.stringify('" + lang + "')});";
     str += br + "var wp_build = new webpack.DefinePlugin({'BUILD_MODULE': JSON.stringify('INDEX')});";
-    str += br + "var wp_boilerplate = new webpack.ProvidePlugin({ß: ['" + ß.VAR + "/boilerplate.js', 'default']});";
+    str += br + "var wp_boilerplate = new webpack.ProvidePlugin({ß: ['" + ß.VAR + "/boilerplate.es6.js', 'default']});";
     str += br + "var wp_debuglog = new webpack.ProvidePlugin({Ł: ['" + ß.VAR + "/debuglog.js', 'default']});";
-
+    str += br + "var wp_leadnull = new webpack.ProvidePlugin({ł: ['" + ß.VAR + "/leadnull.js', 'default']});";
+  
     // since vuetify 2.0.7 the loaderplugin needs to be added here
     str += br + "const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');";
     str += br + "var wp_vuetify = new VuetifyLoaderPlugin();";
-  
+
     str += br;
     str += br + "module.exports = {";
 
     if (ß.PAGES) {
         var LANG_PAGES = {};
 
-// app index used in development
-LANG_PAGES.index = {
-    entry: "src/main.js",
-    template: "src/index.html",
-    filename: "index.html"
-};
+        // app index used in development
+        LANG_PAGES.index = {
+            entry: "src/main.js",
+            template: "src/index.html",
+            filename: "index.html"
+        };
 
-      // in live development with hot modules, we only use non-language pages
+        // in live development with hot modules, we only use non-language pages
         Object.keys(ß.PAGES).forEach(function(page) {
             if (ß.PAGES[page].lang) return;
             //console.log("SKIPPING LANGUAGE-SPECIFIC", page, " IN DEFAULT BUILD");
@@ -49,14 +50,15 @@ LANG_PAGES.index = {
     str += br + "        conf.plugins.push(wp_build);";
     str += br + "        conf.plugins.push(wp_boilerplate);";
     str += br + "        conf.plugins.push(wp_debuglog);";
+    str += br + "        conf.plugins.push(wp_leadnull);";
   
     // since vuetify 2.0.7 the loaderplugin needs to be added here
     str += br + "        conf.plugins.push(wp_vuetify);";
-  
+
     str += br + "        conf.resolve.symlinks = false;";
     str += br + "    },";
     str += br + "    chainWebpack: config => {";
-    str += br + "        config.resolve.alias.set('ß', '" + ß.VAR + "/boilerplate.js');";
+    str += br + "        config.resolve.alias.set('ß', '" + ß.VAR + "/boilerplate.es6.js');";
 
     // use preloader language processor
     if (ß.USE_MULTILANGUAGE) {
@@ -64,9 +66,9 @@ LANG_PAGES.index = {
         str += br + "        config.module.rule('js').test(/.js$/).use('webpack-detagger').loader('webpack-detagger').options('" + lang + "').end();";
     }
 
-  	// testing https://stackoverflow.com/questions/50752427/building-deeply-nested-html-with-vue-cli-takes-forever
-  	//str += br + "        config.module.rule('vue').use('vue-loader').loader('vue-loader').tap(options => { options.prettify = false; return options })";
-  
+    // testing https://stackoverflow.com/questions/50752427/building-deeply-nested-html-with-vue-cli-takes-forever
+    //str += br + "        config.module.rule('vue').use('vue-loader').loader('vue-loader').tap(options => { options.prettify = false; return options })";
+
     str += br + "    },";
     str += br + "    devServer: {";
     str += br + "        host: '0.0.0.0',";
@@ -75,14 +77,28 @@ LANG_PAGES.index = {
     //str += br + "        https: true,";
 
     str += br + "        https: {";
-    let cert_path = ß.get_module_path('server', 'cert');
+    let cert_path = ß.get_module_path("server", "cert");
     str += br + "           key: fs.readFileSync('" + cert_path + "/localhost.key'),";
-    str += br + "           cert: fs.readFileSync('"+ cert_path + "/localhost.crt'),";
+    str += br + "           cert: fs.readFileSync('" + cert_path + "/localhost.crt'),";
     //str += br + "           ca: fs.readFileSync('/path/to/ca.pem'),";
     str += br + "        },";
 
     //str += br + "        clientLogLevel: 'info',";
-    str += br + "        public: 'https://" + ß.HOSTNAME + ":9000'";
+    str += br + "        public: 'https://" + ß.HOSTNAME + ":9000',";
+
+ /* 
+  	// proxy requests made to the dev server to the live server
+    str += br + "           proxy: {";
+    str += br + "              context: '/api',";
+    str += br + "              target: 'https://" + ß.HOSTNAME + ":9000',";
+    str += br + "            }";
+  	
+  */
+  
+    	// proxy requests made to the dev server to the live server
+    str += br + "           proxy: 'https://" + ß.HOSTNAME + "',";
+  	
+  
     str += br + "    },";
     str += br + "    outputDir: '" + ß.VAR + "/app'";
     str += br + "};";

@@ -51,7 +51,7 @@ export default {
             this.type = "info";
             axios({
                 method: "post",
-                url: "https://" + ß.HOSTNAME + "/post-email.json",
+                url: "/post-email.json",
                 data: { email: email }
             })
                 .then(function(response) {
@@ -79,7 +79,7 @@ export default {
             this.type = "info";
             axios({
                 method: "post",
-                url: "https://" + ß.HOSTNAME + "/post-login.json",
+                url: "/post-login.json",
                 data: { email: this.email, password: password, rem: this.rem }
             })
                 .then(function(response) {
@@ -87,7 +87,7 @@ export default {
 
                     if (response.data === "OK") {
                         // user logged in
-                        _this.$store.dispatch("load_session");
+                        _this.$store.dispatch("server/load_session");
                         //_this.$router.push('/welcome');
                         _this.$emit("dialog_handler", "selector");
 

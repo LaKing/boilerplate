@@ -1,4 +1,11 @@
-/*ßoilerplate */
+/* @DOC
+
+The ß is
+Unicode Character “ß” (U+00DF)
+ASCII 225
+
+On nix, Ctrl-Shift U00DF
+*/
 
 if (!global.ß) global.ß = {};
 

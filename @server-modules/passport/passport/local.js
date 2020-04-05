@@ -10,7 +10,6 @@ const fields = {
     passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
 };
 
-
 ß.passport.use(
     new LocalStrategy(fields, function(req, email, password, done) {
         if (email) email = email.toLowerCase();
@@ -28,6 +27,7 @@ const fields = {
                     return done(null, false, "Password failed for " + email);
                 } else
                     ß.lib.passport.create_user(email, password, function(err, user) {
+                        ß.run_hook("user_login", user);
                         return done(err, user, "user created");
                     });
             });

@@ -18,3 +18,8 @@ echo "POSTINSTALL sed -i 's/followSymlinks: false/followSymlinks: true/g' node_m
 ## we must address an issue with our way of working with symlinks. Hot reload needs to be aware that files may be symlinked.
 ## watchpack issue 61, https://github.com/webpack/watchpack/issues/61
 sed -i 's/followSymlinks: false/followSymlinks: true/g' node_modules/watchpack/lib/DirectoryWatcher.js
+
+## Another issue is at schema-utils/src/validateOptions.js:31
+## Let's patch it.
+
+cat schema-utils/src/validateOptions.js > node_modules/schema-utils/src/validateOptions.js

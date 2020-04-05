@@ -95,11 +95,36 @@ if (ß.CMD === "lib") {
     ß.DEBUG = true;
 	if (!ß.ARG) return ß.err("No boilerplate-function argument for the exec-function command.");
   	ß.boot();
-  	ß.lib[ß.ARG](ß.OPA);
+  	ß.msg("Execute lib function " + ß.ARG + "(" + ß.OPA + ")");
+  	
+  	//Ł(ß.lib.drive_list);
+  	if (ß.ARG.indexOf('.')>0)
+    {
+  		var arga = ß.ARG.split('.');	
+  		var module = arga[0];
+      	var fnname = arga[1];
+  		
+      	if (typeof ß.lib[module][fnname] === 'function') 
+          if (ß.OPA) ß.lib[module][fnname](ß.OPA);
+      	  else ß.lib[module][fnname]();
+  		else ß.err("ß.lib." + ß.ARG + " is not a ß function.");
+      
+        process.exit();
+ 		return;
+
+    } else {
+
+    	if (typeof ß.lib[ß.ARG] === 'function')  
+          if (ß.OPA) ß.lib[ß.ARG](ß.OPA);
+      	  else ß.lib[ß.ARG]();
+		else ß.err("ß.lib." + ß.ARG + " is not a ß function.");
+
+    }
     process.exit();
  	return;
 }
 
+ß.cli_commands.push("restart-server		# restart the server process");
 ß.cli_commands.push("");
 
 ß.notice("- CLI-command:", ß.CMD || '?', ß.ARG || '');

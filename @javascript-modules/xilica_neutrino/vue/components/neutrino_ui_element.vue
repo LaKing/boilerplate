@@ -36,7 +36,7 @@ export default {
                 command: cmd
             };
           //Ł(this.$socket);
-            this.$socket.emit("neutrino_ctl", data, function(response) {Ł(response);});
+            this.$socket.client.emit("neutrino_ctl", data, function(response) {Ł(response);});
         }
     },
     computed: {

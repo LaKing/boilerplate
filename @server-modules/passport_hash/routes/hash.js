@@ -14,19 +14,19 @@
             return;
         }
         if (!user) {
-
             return;
         }
         // on success
         req.logIn(user, function(err) {
-            if (err) { 
-              đ(err);
-              console.log("Passport hash logIn failed");
-              res.status(500).end("Sorry, error."); 
+            if (err) {
+                đ(err);
+                console.log("Passport hash logIn failed");
+                res.status(500).end("Sorry, error.");
                 return;
             }
-
-            return res.redirect("/login");
+            var uri = "/login";
+            if (ß.PASSPORT_HASH_REDIRECT_URI) uri = ß.PASSPORT_HASH_REDIRECT_URI;
+            return res.redirect(uri);
         });
         //ß.msg('Email confirmed: ' + );
         //res.redirect('/login');

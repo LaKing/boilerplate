@@ -9,13 +9,19 @@ if (!ß.PAGES) return console.log("LANGUAGE requires PAGES");
 
 // We assume that in ß.PAGES if the key and the lang under the key are identical, then it's the language entrypoint itself
 // However, we just make a collection here based on pages.lang, ...
+
+/*
 var language_object = {};
 Object.keys(ß.PAGES).forEach(function(page) {
     if (ß.PAGES[page].lang) language_object[ß.PAGES[page].lang] = true;
 });
 
 Object.keys(language_object).forEach(function(lang) {
-    var str = "";
+*/
+
+Object.keys(ß.APP_LANGUAGES).forEach(function(lang) {
+
+	var str = "";
 
     var LANG_PAGES = {};
     Object.keys(ß.PAGES).forEach(function(page) {
@@ -25,9 +31,10 @@ Object.keys(language_object).forEach(function(lang) {
     str += br + "var webpack = require('webpack');";
     str += br + "var wp_lang = new webpack.DefinePlugin({'LANG': JSON.stringify('" + lang + "')});";
     str += br + "var wp_build = new webpack.DefinePlugin({'BUILD_MODULE': JSON.stringify('" + ß.MODE + "')});";
-    str += br + "var wp_boilerplate = new webpack.ProvidePlugin({ß: ['" + ß.VAR + "/boilerplate.js', 'default']});";
+    str += br + "var wp_boilerplate = new webpack.ProvidePlugin({ß: ['" + ß.VAR + "/boilerplate.es6.js', 'default']});";
     str += br + "var wp_debuglog = new webpack.ProvidePlugin({Ł: ['" + ß.VAR + "/debuglog.js', 'default']});";
-
+	str += br + "var wp_leadnull = new webpack.ProvidePlugin({ł: ['" + ß.VAR + "/leadnull.js', 'default']});";
+  
     // since vuetify 2.0.7 the loaderplugin needs to be added here
     str += br + "const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');";
     str += br + "var wp_vuetify = new VuetifyLoaderPlugin();";
@@ -35,6 +42,10 @@ Object.keys(language_object).forEach(function(lang) {
     str += br;
 
     str += br + "module.exports = {";
+      
+    // from not sure
+    // str += br + '"transpileDependencies": ["vuetify"],';
+  
     str += br + "    pages: " + util.inspect(LANG_PAGES, { depth: Infinity }) + ",";
     str += br + "    configureWebpack: (conf) => {";
 
@@ -42,14 +53,15 @@ Object.keys(language_object).forEach(function(lang) {
     str += br + "        conf.plugins.push(wp_build);";
     str += br + "        conf.plugins.push(wp_boilerplate);";
     str += br + "        conf.plugins.push(wp_debuglog);";
-
+    str += br + "        conf.plugins.push(wp_leadnull);";
+  
     // since vuetify 2.0.7 the loaderplugin needs to be added here
     str += br + "        conf.plugins.push(wp_vuetify);";
   
     str += br + "        conf.resolve.symlinks = false;";
     str += br + "    },";
     str += br + "    chainWebpack: config => {";
-    str += br + "        config.resolve.alias.set('ß', '/var/codepad-project/boilerplate.js');";
+    str += br + "        config.resolve.alias.set('ß', '/var/codepad-project/boilerplate.es6.js');";
 
     // use preloader language processor
     if (ß.USE_MULTILANGUAGE) {

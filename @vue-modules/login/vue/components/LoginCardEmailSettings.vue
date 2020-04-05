@@ -40,7 +40,7 @@ export default {
             var _this = this;
             axios({
                 method: "post",
-                url: "https://" + ß.HOSTNAME + "/post-email-update.json",
+                url: "/post-email-update.json",
                 data: { email: email }
             })
                 .then(function(response) {

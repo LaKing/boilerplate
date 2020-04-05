@@ -56,7 +56,7 @@ export default {
                         _this.type = "error";
                         _this.msg = response.data;
                     }
-                    _this.$store.dispatch("clear_session");
+                    _this.$store.dispatch("server/clear_session");
                 })
                 .catch(error => {
                     _this.progress = false;

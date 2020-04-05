@@ -14,7 +14,7 @@ https://www.szamlazz.hu/szamla/docs/SzamlaAgent.zip
 
 // TODO@LAB elektronikus nyugta implementálása
 
-const HOSTNAME = require('os').hostname();
+const HOSTNAME = require("os").hostname();
 
 const fs = ß.fs;
 const szamlazz = ß.szamlazz;
@@ -25,7 +25,7 @@ function convertItems(s) {
     for (var i = 0; i < s.length; i++) {
         it = s[i];
         r[i] = new szamlazz.Item({
-            label: it.code + ' ' + it.name,
+            label: it.code + " " + it.name,
             comment: it.info,
             quantity: it.qty,
             unit: it.unit,
@@ -38,32 +38,35 @@ function convertItems(s) {
 
 function convertBuyer(user) {
     var r = {
-        name: 'Ismeretlen Név',
-        country: 'Magyarország',
-        zip: '0000',
-        city: 'Budapest',
-        address: 'Ismeretlen cím.',
-        issuerName: '',
+        name: "Ismeretlen Név",
+        country: "Magyarország",
+        zip: "0000",
+        city: "Budapest",
+        address: "Ismeretlen cím.",
+        issuerName: "",
         identifier: 1,
-        phone: '',
-        comment: ''
+        phone: "",
+        comment: ""
     };
 
-    if (user.profile.email) r.name = user.profile.email;
-    if (user.profile.name) r.name = user.profile.name;
+    if (user.profile) {
+        r.name = user.profile.email || "unknown-user@" + ß.HOSTNAME;
+        r.name = user.profile.name || "Ismeretlen Felhasználó";
+    }
 
-    if (user.billing.name) r.name = user.billing.name;
-    if (user.billing.zip) r.zip = user.billing.zip;
-    if (user.billing.city) r.city = user.billing.city;
-    if (user.billing.address) r.address = user.billing.address;
-    if (user.billing.taxNumber) r.taxNumber = user.billing.taxNumber;
-    if (user.billing.phone) r.phone = user.billing.phone;
+    if (user.billing) {
+        if (user.billing.name) r.name = user.billing.name;
+        if (user.billing.zip) r.zip = user.billing.zip;
+        if (user.billing.city) r.city = user.billing.city;
+        if (user.billing.address) r.address = user.billing.address;
+        if (user.billing.taxNumber) r.taxNumber = user.billing.taxNumber;
+        if (user.billing.phone) r.phone = user.billing.phone;
+    }
 
     return r;
 }
 
 module.exports = function(userid, paymentid) {
-
     // TODO@LAB ha nincs kitöltve Billing, akkor elektronikus nyugtát kellene adni!
 
     ß.User.findById(userid, function(err, user) {
@@ -80,39 +83,38 @@ module.exports = function(userid, paymentid) {
         let buyer = new szamlazz.Buyer(convertBuyer(user));
 
         let invoice = new szamlazz.Invoice({
-            paymentMethod: szamlazz.PaymentMethod.CreditCard, // optional, default: BankTransfer 
-            currency: szamlazz.Currency.Ft, // optional, default: Ft 
-            language: szamlazz.Language.Hungarian, // optional, default: Hungarian 
-            seller: seller, // the seller, required 
-            buyer: buyer, // the buyer, required 
-            items: convertItems(payment.items) // the sold items, required 
+            paymentMethod: szamlazz.PaymentMethod.CreditCard, // optional, default: BankTransfer
+            currency: szamlazz.Currency.Ft, // optional, default: Ft
+            language: szamlazz.Language.Hungarian, // optional, default: Hungarian
+            seller: seller, // the seller, required
+            buyer: buyer, // the buyer, required
+            items: ß.lib.szamlazz.convert_items(payment.items) // the sold items, required
         });
 
         szamlazzClient.issueInvoice(invoice, (e, result) => {
             if (e) {
-                console.log('ERROR @ szamlazzClient.issueInvoice', e.message, e.code); // handle errors 
+                console.log("ERROR @ szamlazzClient.issueInvoice", e.message, e.code); // handle errors
                 return console.log("ERROR at invocie creation.");
             }
 
             if (result.pdf) {
                 fs.mkdirp(ß.CWD + "/user/" + userid + "/invoice", function(err) {
                     if (err) return console.log("Could not create invoice folder.", err);
-                    var file = ß.CWD + "/user/" + userid + '/invoice/' + paymentid + '.pdf';
-                    // a Buffer with the pdf data is available if requestInvoiceDownload === true 
-                    fs.writeFile(file, result.pdf, (err) => {
+                    var file = ß.CWD + "/user/" + userid + "/invoice/" + paymentid + ".pdf";
+                    // a Buffer with the pdf data is available if requestInvoiceDownload === true
+                    fs.writeFile(file, result.pdf, err => {
                         if (err) throw err;
-                        console.log("The invoice has been saved to " + file);
+                        ß.msg("The invoice has been saved to " + file);
                         //console.log("https://" + HOSTNAME + '/' + userid + '-' + paymentid + '.pdf');
-                        ß.run_hook('invoice_created', {
+                        ß.run_hook("invoice_created", {
+                            user: user,
                             userid: userid,
                             paymentid: paymentid,
                             file: file
                         });
-
                     });
                 });
             }
         });
     });
-
 };

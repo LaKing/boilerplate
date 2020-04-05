@@ -13,7 +13,7 @@
 
 
 */
-const ß = require(process.env.VAR + "/ß.js");
+const ß = require(process.env.VAR + "/boilerplate.es5.js");
 // @DOC vue inspect is disabled by default, but can be enabled for analisation
 if (ß.VUE_INSPECT) {
     let MODE = "development";

@@ -11,5 +11,5 @@ var vue_module_filter = function(module, dir) {
     return ß.fs.existsSync(dir + "/vue");
 };
 
-ß.vue_modules = ß.modules_subset_by_filter(vue_module_filter);
+if (!ß.vue_modules) ß.vue_modules = ß.modules_subset_by_filter(vue_module_filter);
 

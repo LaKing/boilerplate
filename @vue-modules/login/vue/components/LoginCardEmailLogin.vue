@@ -37,7 +37,7 @@ export default {
             var _this = this;
             axios({
                 method: "post",
-                url: "https://" + ß.HOSTNAME + "/post-email-request.json",
+                url: "/post-email-request.json",
                 data: { email: email }
             })
                 .then(function(response) {

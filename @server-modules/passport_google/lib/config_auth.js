@@ -24,7 +24,7 @@ module.exports = function() {
             googleAuth: {
                 clientID: "your-secret-clientID-here",
                 clientSecret: "your-client-secret-here",
-                callbackURL: "http://" + ß.HOSTNAME + "/auth/google/callback"
+                callbackURL: "https://" + ß.HOSTNAME + "/auth/google/callback"
             }
         };
 

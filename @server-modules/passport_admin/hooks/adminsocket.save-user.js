@@ -33,8 +33,8 @@ module.exports = function(socket) {
                 }
                 console.log("@admin save-user OK ", user._id);
                 //user.updateLocal(data.profile.email, data.profile.password);
-                socket.emit("success", "OK");
-
+                socket.emit("alert", {success: "The user data saved successfully."});
+				//callback("ok");
                 // TODO @ LAB analize this
                 // a user socketjeit, és az admin socketjeit kellene frissíteni
                 User.find({}, function(err, data) {
