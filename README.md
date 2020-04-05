@@ -1,6 +1,6 @@
 # ßoilerplate 2.x
 
-A modular framework for NodeJS based applications. Not just a package, not just an app, this is a system!
+A modular framework for NodeJS based applications and full-stacks.
 
 This repo unifies the boilerplate loader, and sets of boilerplate modules that implement application stacks and functions. 
 In case you have no idea what that means, please browse the folders to read the local readme files. 
