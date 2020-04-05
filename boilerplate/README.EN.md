@@ -75,18 +75,20 @@ A module-condition.js file if present, has to evalute to true. A list of modules
 
 if you see this:
 ```
-ł(some_vairable, or_two_variables); // mostly same as console.log
-Ł(that, or_what, something); // extended logs with info on where it happened
+Ł(that, or_what, something); // extended development logs with info on where it happened
 ```
-Don't panik. These two are just logging functions, mainly used in development.
+Don't panik. These two are just functions, mainly used in development.
 
 ```
+ł(obj, string); // my fetish for handy functions, i call it leadnull function
 đ(err); // not so fatal, log and continiue
-Đ(error); // fatal error, log and throw
+Đ(error); // fatal error, log and prevent further disasters by exiting
 ```
 
-Don't panik either. These two are the determinator and the detonator functions, that handle errors.
+Don't panik either. These are the leadnull, the determinator and the detonator functions, that handle errors.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+Product of D250 Laboratories
+This is collaborativeware. That means if you use it, you must let me know, and you should collaborate.
+Licensed under the MIT License for now - see the [LICENSE.md](LICENSE.md) file for details.
