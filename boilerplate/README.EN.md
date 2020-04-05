@@ -89,6 +89,6 @@ Don't panik either. These are the leadnull, the determinator and the detonator f
 
 ## License
 
-Product of D250 Laboratories
+Product of D250 Laboratories.
 This is collaborativeware. That means if you use it, you must let me know, and you should collaborate.
 Licensed under the MIT License for now - see the [LICENSE.md](LICENSE.md) file for details.
