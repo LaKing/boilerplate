@@ -1,3 +1,5 @@
+if (process.argv.indexOf("--restart-server") >= 0) return;
+
 // @DOC vue serve runs as a forked process
 
 /* -- cli-service 3.2.0 --

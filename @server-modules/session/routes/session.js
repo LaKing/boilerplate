@@ -23,6 +23,7 @@
   return res.json(req.session);
 });
 
+// this is not used anywhere, it was left here temporary
 ß.app.all("/api/session.json", function(req, res, next) {
     res.setHeader("Content-Type", "application/json");
 

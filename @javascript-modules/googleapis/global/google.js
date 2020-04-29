@@ -38,7 +38,7 @@ if (ß.fs.existsSync(keyfile)) {
     console.log(" - Googleapis enabled", ß.googleapis_scopes.join(" "));
 
     const apis = ß.google.getSupportedAPIs();
-    ß.fs.writeFileSync(ß.VAR + "/debug/googleapis-supported.log", JSON.stringify(apis, null, 4));
+    ß.fs.writeFileSync(ß.BPLOG + "/googleapis-supported.log", JSON.stringify(apis, null, 4));
   
 } else {
     // https://console.developers.google.com/apis/dashboard ?

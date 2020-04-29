@@ -3,20 +3,21 @@
 const fs = ß.fs;
 
 if (!ß.lib) ß.lib = {};
+if (!ß.lib_path) ß.lib_path = {};
 
 /* @DOC
 ## Module libs
 
 Each module may have a `/lib` folder with js files, each file containing a single function automatically exposed on the `ß.lib` namespace. 
 Such a function should be defined with `module.exports = function(arguments) {}`
-These are then named by their filename and can be referred with `ß.lib.modulename.functionname` (namespaced with module names) or `ß.lib.functionname` (direct lib namespace)
+These are then named by their filename and can be referred with `ß.lib.modulename.functionname` (namespaced with module names)
 lib-function files in `@-modules` have lower precedence over custom modules, thus if defined with priority, they will be overridden.
 The function-defining js files may contain private local variables and functions, and any number of arguments. 
 
 */
 
 var log = "";
-const logfile = ß.VAR + "/debug/lib.log";
+const logfile = ß.BPLOG + "/lib.log";
 
 function reg(msg) {
     //ß.debug(msg);
@@ -25,6 +26,8 @@ function reg(msg) {
 
 function get_module_lib(module, dir) {
     if (!ß.lib[module]) ß.lib[module] = {};
+  	if (!ß.lib_path[module]) ß.lib_path[module] = {};
+  
     let path = dir + "/lib";
     if (fs.isDirSync(path)) {
         let files = fs.readdirSync(path);
@@ -34,7 +37,9 @@ function get_module_lib(module, dir) {
             if (!ß.lib[module][name]) {
                 reg("+ ß.lib." + module + "." + name + " definition from " + path + "/" + files[i]);
                 ß.lib[module][name] = require(path + "/" + files[i]);
-              /*
+              	ß.lib_path[module][name] = path + "/" + files[i];
+              
+              /* This has been deprecated.
                 if (ß.lib[name]) reg("! ß.lib." + name + " already definded. Cannot add alias ß.lib." + module + "." + name);
                 if (!ß.lib[name]) {
                     ß.lib[name] = ß.lib[module][name];

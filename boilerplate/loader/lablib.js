@@ -123,7 +123,7 @@ user-services do not appear on unit logs. As a workaround use journalctl without
         .split("/")
         .pop()
         .split(".")[0];
-    ß.fs.writeFile(ß.VAR + "/debug/" + from + ".log", JSON.stringify(...arguments, null, 4), err => {
+    ß.fs.writeFile(ß.BPLOG + "/" + from + ".log", JSON.stringify(...arguments, null, 4), err => {
         đ(err);
     });
 };
@@ -135,7 +135,7 @@ user-services do not appear on unit logs. As a workaround use journalctl without
         .split("/")
         .pop()
         .split(".")[0];
-    ß.fs.writeFile(ß.VAR + "/debug/" + from + ".log", JSON.stringify(...arguments, null, 4), err => {
+    ß.fs.writeFile(ß.BPLOG + "/" + from + ".log", JSON.stringify(...arguments, null, 4), err => {
         đ(err);
     });
 };

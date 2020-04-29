@@ -1,3 +1,7 @@
+
+if (process.argv.indexOf("--restart-server") >= 0) return;
+
+
 // @DOC The vue source tree is built up at the init stage
 ß.lib.vue.uplink_source_tree();
 

@@ -1,3 +1,5 @@
+if (process.argv.indexOf("--restart-server") >= 0) return;
+
 /* -- cli-service 3.2.0 --
 
   Usage: vue-cli-service inspect [options] [...paths]

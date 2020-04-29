@@ -32,6 +32,8 @@ try {
     if (ß.CLI) require("./clilib.js");
 
     require("./lib.js");
+    require("./logic.js");
+
     require("./hook.js");
 
     require("./modules.js");

@@ -5,15 +5,13 @@
 
             <p>{{ description }}</p>
         </div>
+        <div v-if="!paid" ref="paypal"></div>
 
         <div v-if="paid">
-            <h1>##&en Success. Thank you. ##&hu Sikeres fizetés. Köszönjük. ##</h1>
+            <v-alert v-if="message" :type="message_type">
+                {{ message }}
+            </v-alert>
         </div>
-        <v-alert v-if="message" type="error">
-            {{ message }}
-        </v-alert>
-
-        <div v-if="!paid" ref="paypal"></div>
     </div>
 </template>
 
@@ -40,7 +38,9 @@ export default {
         return {
             loaded: false,
             paid: false,
-            message: false
+            message: false,
+            message_type: "success",
+            error: false
         };
     },
     mounted: function() {
@@ -76,15 +76,18 @@ export default {
                     },
                     onApprove: async (data, actions) => {
                         const order = await actions.order.capture();
-
+						_this.paid = true;
                         axios({
                             method: "post",
                             url: "/paypal-payment.json",
                             data: order
                         })
                             .then(function(response) {
-                                if (response.data) _this.paid = true;
+                                if (!response.data) return;
                                 if (response.data.message) _this.message = response.data.message;
+                          		else _this.message= "##&en Success. Thank you. ##&hu Sikeres fizetés. Köszönjük. ##";
+                                if (response.data.message_type) _this.message_type = response.data.message_type;
+                          		else _this.message_type = "success";
                                 if (response.data.commit) _this.$store.commit(response.data.commit);
                                 if (response.data.dispatch) _this.$store.dispatch(response.data.dispatch);
                                 if (response.data.push) _this.$root.$router.push(response.data.push);
@@ -93,6 +96,7 @@ export default {
                             })
                             .catch(function(error) {
                                 console.log(error);
+                                _this.message_type = "error";
                                 _this.message = "##&en Success, bu there was an error. ##&hu Sikeres fizetés, de hiba történt. ##";
                             });
 
@@ -100,6 +104,7 @@ export default {
                     },
                     onError: err => {
                         console.log(err);
+                        _this.message_type = "error";
                         _this.message = "##&en Failed. There was an error. ##&hu Sikertelen. Hiba történt. ##";
                     }
                 })

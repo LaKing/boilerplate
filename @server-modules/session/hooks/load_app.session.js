@@ -20,6 +20,10 @@ store.on("error", function(error) {
     console.log("ERROR in MongoDBStore", error);
 });
 
+// see https://github.com/expressjs/session
+// @DOC It is possible to access the session store via `ß.session_store`
+ß.session_store = store;
+
 module.exports = function() {
     // When the cookie maxAge is defined, express sessions are presistent across browser restarts.
     var session_days = 365;

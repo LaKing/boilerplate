@@ -1,3 +1,5 @@
+if (process.argv.indexOf("--restart-server") >= 0) return;
+
 /*ßoilerplate */
 
 // @DOC The most important variables are also exported vie the vue-cli env file

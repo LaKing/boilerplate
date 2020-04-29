@@ -14,7 +14,7 @@ A development-debug log is generated in the `ß.VAR` directory.
 */
 
 var log = "";
-const logfile = ß.VAR + "/debug/hooks.log";
+const logfile = ß.BPLOG + "/hooks.log";
 
 function reg(msg) {
     //ß.debug(msg);

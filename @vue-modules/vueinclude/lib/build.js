@@ -21,7 +21,7 @@ module.exports = function(base_path) {
 
     // In the second step we link all these files in the vue/src folder - as it would be a module
     function link(file_path) {
-        ß.link(ß.VAR + "/vue-include/" + file_path, ß.VAR + "/vue/src/vue-include/" + file_path);
+        if (ß.path.parse(file_path).ext === ".vue") ß.link(ß.VAR + "/vue-include/" + file_path, ß.VAR + "/vue/src/vue-include/" + file_path);
     }
 
     ß.fs.traverse_path_process_files(ß.VAR + "/vue-include/", link);

@@ -2,7 +2,7 @@
 
 if [[ $INSTALL_DIR ]]
 then
-	echo "PUBLISH from $INSTALL_DIR"
+	echo "PUBLISH from $INSTALL_DIR as $USER ($UID)"
 else
 	echo "publishlib.sh is not meant to be executed directly."
 fi

@@ -41,7 +41,7 @@ function traverse(path) {
         if (results) {
             if (results.length > ß.projectfiles_file_limit) return;
             results.forEach(entry => {
-                if (entry === "node_modules") return;
+                if (ß.BLACKLIST_DIRS.indexOf(entry) >= 0) return;
                 stat(path, entry);
             });
         }

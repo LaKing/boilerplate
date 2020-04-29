@@ -31,15 +31,12 @@ function statSync(base, path, entry) {
 function traverseSync(path) {
     const results = ß.fs.readdirSync(ß.projectdir + "/" + path);
     if (results) {
-        if (results.length > ß.projectfiles_file_limit)
-            return console.log(
-                "> ß.projectfiles_file_limit # " +
-                    results.length +
-                    " files/folder on " +
-                    path
-            );
+        if (results.length > ß.projectfiles_file_limit) return console.log("> ß.projectfiles_file_limit # " + results.length + " files/folder on " + path);
         results.forEach(entry => {
-            if (entry === "node_modules") return;
+            if (ß.BLACKLIST_DIRS.indexOf(entry) >= 0) {
+                console.log("Blacklisted dir /" + path + '/' + entry);
+                return;
+            }
             statSync(ß.projectdir, path, entry);
         });
     }

@@ -32,6 +32,7 @@ if (ß.DEBUG) Vue.config.debug = true;
 // we create $app via this plugin, to make the function $app.uri and the constant $app.url available globally.
 // it might get extended with others. ...
 import functions from "@/app-functions.js";
+
 const plugin = {
     install(Vue, options) {
         Vue.prototype.$app = functions;

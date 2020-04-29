@@ -4,14 +4,20 @@
         <v-btn text @click="start_payment()">{{ payment }} Payment</v-btn>
         <br />
         {{ response }}
-        _____________________
+        _____________________<br />
+        <br />
 
-        <paypal description="Some payment" :price="100" currency="EUR"></paypal>
+        <paypal description="PayPal payment" :price="10000" currency="HUF"></paypal>
+        _____________________<br />
+        <br />
+
+        <simple description="Simple payment" :price="11000" currency="HUF" :order="order"></simple>
     </div>
 </template>
 
 <script>
-//import paypal from "@/components/paypal-checkout.vue";
+import paypal from "@/components/paypal-checkout.vue";
+import simple from "@/components/simplepay-checkout.vue";
 
 import axios from "axios";
 
@@ -21,12 +27,14 @@ export default {
         return {
             debug: ß.DEBUG,
             payment: ß.PAYMENT,
-            response: ""
+            response: "",
+          	order: {}
         };
     },
     components: {
         // use it if the paypal module is enabled
-        //paypal
+        paypal,
+        simple
     },
     methods: {
         start_payment: function() {

@@ -1,4 +1,6 @@
-// @DOC Each nlanguage needs a vue-cli webpack configuration as well.
+if (process.argv.indexOf("--restart-server") >= 0) return;
+
+// @DOC Each language needs a vue-cli webpack configuration as well.
 
 const br = "\n";
 const webpack_dev_server_client = ß.VAR + "/node_modules/webpack-dev-server/client";
@@ -27,13 +29,17 @@ Object.keys(ß.APP_LANGUAGES).forEach(function(lang) {
     Object.keys(ß.PAGES).forEach(function(page) {
         if (ß.PAGES[page].lang === lang) LANG_PAGES[page] = ß.PAGES[page];
     });
-
+    str += br + "var fs = require('fs');";
+    str += br + "var path = require('path');";
     str += br + "var webpack = require('webpack');";
     str += br + "var wp_lang = new webpack.DefinePlugin({'LANG': JSON.stringify('" + lang + "')});";
     str += br + "var wp_build = new webpack.DefinePlugin({'BUILD_MODULE': JSON.stringify('" + ß.MODE + "')});";
     str += br + "var wp_boilerplate = new webpack.ProvidePlugin({ß: ['" + ß.VAR + "/boilerplate.es6.js', 'default']});";
     str += br + "var wp_debuglog = new webpack.ProvidePlugin({Ł: ['" + ß.VAR + "/debuglog.js', 'default']});";
 	str += br + "var wp_leadnull = new webpack.ProvidePlugin({ł: ['" + ß.VAR + "/leadnull.js', 'default']});";
+  
+  	//str += br + "var wp_test = new webpack.ProvidePlugin({$$$: path.resolve('/srv/codepad-project/lib/test.js')});";
+
   
     // since vuetify 2.0.7 the loaderplugin needs to be added here
     str += br + "const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');";
@@ -54,6 +60,8 @@ Object.keys(ß.APP_LANGUAGES).forEach(function(lang) {
     str += br + "        conf.plugins.push(wp_boilerplate);";
     str += br + "        conf.plugins.push(wp_debuglog);";
     str += br + "        conf.plugins.push(wp_leadnull);";
+  
+    //str += br + "        conf.plugins.push(wp_test);";
   
     // since vuetify 2.0.7 the loaderplugin needs to be added here
     str += br + "        conf.plugins.push(wp_vuetify);";

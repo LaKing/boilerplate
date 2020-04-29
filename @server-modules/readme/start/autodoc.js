@@ -1,3 +1,5 @@
+if (process.argv.indexOf("--restart-server") >= 0) return;
+
 /*ßoilerplate */
 
 /* @DOC

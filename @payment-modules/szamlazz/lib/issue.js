@@ -1,15 +1,10 @@
 // new method
 
 /*
-
-input arg: paymentid - string
-
-callback arg: file
-
-
+prepare parameters with ß.lib.szamlazz.prepare() ...
 */
 
-module.exports = function(prepared_parameters) {
+module.exports = function(prepared_parameters, callback) {
   
     const client = new ß.szamlazz.Client(ß.szamlazz_config.client);
 
@@ -17,7 +12,7 @@ module.exports = function(prepared_parameters) {
         if (err) return đ(err);
 
         ß.msg("Created invoice " + result.invoiceId);
-
+		if (callback) callback(err, result);
         ß.run_hook("invoice", result);
     });
 };

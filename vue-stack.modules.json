@@ -4,6 +4,7 @@
 	"clouddir",
 	"clouddata",
 	"csvloader",
+	"datadir",
 	"devel_iframe",
 	"googleapis",
 	"jest",

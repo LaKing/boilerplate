@@ -1,3 +1,5 @@
+if (process.argv.indexOf("--restart-server") >= 0) return;
+
 const fs = ß.fs;
 const path = require('path');
 

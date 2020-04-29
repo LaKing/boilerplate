@@ -1,3 +1,5 @@
+if (process.argv.indexOf("--restart-server") >= 0) return;
+
 // @DOC The `Ł` debug function has been implemented for the vue frontend!
 
 // write a debuglog.js with a default export to use Ł();

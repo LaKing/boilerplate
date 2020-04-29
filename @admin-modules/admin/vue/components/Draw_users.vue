@@ -27,23 +27,25 @@
                         </v-card-title>
                         <v-card-text>
                             <v-container>
-                                <v-row>
-                                    <v-col cols="6" sm="6" v-if="editedIndex > -1">
-                                        <v-text-field v-model="editedItem.local.email" label="Email" type="email"></v-text-field>
-                                    </v-col>
+                                <v-form ref="form_ref" v-model="form_valid" lazy-validation>
+                                    <v-row>
+                                        <v-col cols="6" sm="6" v-if="editedIndex > -1">
+                                            <v-text-field v-model="editedItem.local.email" label="Email" type="email" :rules="emailRules"></v-text-field>
+                                        </v-col>
 
-                                    <v-col cols="6" sm="6" v-if="editedIndex > -1">
-                                        <v-switch v-model="editedItem.local.verified" class="ma-2" label="Verified"></v-switch>
-                                    </v-col>
-                                </v-row>
-                                <v-row v-if="editedIndex === -1">
-                                    <v-col cols="6" sm="6">
-                                        <v-text-field v-model="new_user.email" label="Email" type="email"></v-text-field>
-                                    </v-col>
-                                    <v-col cols="6" sm="6">
-                                        <v-text-field v-model="new_user.password" label="Password" type="password"></v-text-field>
-                                    </v-col>
-                                </v-row>
+                                        <v-col cols="6" sm="6" v-if="editedIndex > -1">
+                                            <v-switch v-model="editedItem.local.verified" class="ma-2" label="Verified"></v-switch>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row v-if="editedIndex === -1">
+                                        <v-col cols="6" sm="6">
+                                            <v-text-field v-model="new_user.email" label="Email" type="email" :rules="emailRules"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="6" sm="6">
+                                            <v-text-field v-model="new_user.password" label="Password" type="password"></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                </v-form>
                             </v-container>
                         </v-card-text>
 
@@ -173,6 +175,9 @@ export default {
             email: ""
         },
         users: [],
+        re: ß.getRegexEmail(),
+      form_valid:false,
+        emailRules: [v => !!v || "Required", v => (v && ß.getRegexEmail().test(v)) || "Invalid email"],
         search: "",
         new_user: { email: "", password: "" },
         expanded: [],
@@ -195,7 +200,7 @@ export default {
 
     watch: {
         dialog(val) {
-            val || this.close();
+            if (!val) this.close();
         }
     },
 
@@ -204,7 +209,7 @@ export default {
     },
     sockets: {
         users(u) {
-            console.log("users", Object.assign({}, u));
+           // console.log("users", Object.assign({}, u));
             /*	u.forEach(f=>{
               if(!f.hasOwnProperty('mixer_locations')){
                 	console.log("no mixer object",f);
@@ -238,7 +243,7 @@ export default {
             const index = this.users.indexOf(item);
             if (confirm("Are you sure you want to delete this item?")) {
                 this.$socket.client.emit("admin-delete-user", item._id, function(data) {
-                    console.log("user deleted", data);
+                   // console.log("user deleted", data);
                 });
             }
         },
@@ -252,13 +257,15 @@ export default {
         },
 
         save() {
-            if (this.editedIndex === -1) {
-                this.$socket.client.emit("add_user", { email: this.new_user.email, password: this.new_user.password }, function(data) {
-                    console.log("new user", data);
-                });
-                //this.users.push(this.editedItem);
+            if (this.$refs.form_ref.validate()) {
+                if (this.editedIndex === -1) {
+                    this.$socket.client.emit("add_user", { email: this.new_user.email, password: this.new_user.password }, function(data) {
+                       // console.log("new user", data);
+                    });
+                    //this.users.push(this.editedItem);
+                }
+                this.close();
             }
-            this.close();
         },
         getArray(item) {
             console.log("getarray", item);
@@ -298,8 +305,8 @@ export default {
                                     }
                                     obj.children = this.prepareNode(item[n]);
                                 }
-                            }else{
-                              obj.value=item[n].toString();
+                            } else {
+                                obj.value = item[n].toString();
                             }
                         }
                         arr.push(obj);
@@ -340,7 +347,7 @@ export default {
                     this.orig_v(convert_obj, orig_obj);
                     console.log("changed object", orig_obj);
                     this.$socket.client.emit("admin-save-user", orig_obj, function(data) {
-                        console.log("user saved", data);
+                        //console.log("user saved", data);
                     });
                 }
             }
@@ -353,5 +360,21 @@ export default {
     background: #2d3950;
 }
 .admintable.v-data-table tbody tr.v-data-table__expanded__content .v-treeview {
+}
+  
+  /* Change autocomplete styles in WebKit */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: transparent;
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px #34415a inset;
+    transition: background-color 5000s ease-in-out 0s;
 }
 </style>

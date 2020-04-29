@@ -1,6 +1,6 @@
-// @DOC The clouddir is scanned and files attached to ß.CLOUDDIR in objects based on their path
+// @DOC The clouddir is scanned and files attached to ß.DATADIR in objects based on their path
 function add(path) {
-    var mime = ß.lib.mime.detect(ß.CLOUDDIR_PATH + path);
+    var mime = ß.lib.mime.detect(ß.CLOUDDATA_PATH + path);
     //_dir[file] = {};
 
     if (mime === "application/json") {
@@ -19,10 +19,10 @@ function add(path) {
             _dir = _dir[d];
         });
 
-        _dir[file] = ß.fs.readJsonSync(ß.CLOUDDIR_PATH + path);
+        _dir[file] = ß.fs.readJsonSync(ß.CLOUDDATA_PATH + path);
     }
 }
 
 module.exports = function() {
-    ß.fs.traverse_path_process_files(ß.CLOUDDIR_PATH, add);
+    ß.fs.traverse_path_process_files(ß.CLOUDDATA_PATH, add);
 };
