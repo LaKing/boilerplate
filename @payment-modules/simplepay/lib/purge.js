@@ -1,19 +1,19 @@
 
 // Not sure if the Purge function really makes sence. After all, the session will expire sooner or later ...
 
-function purge(session_i) {
-    let sid = session_i._id;
-    let session = session_i.session;
+function purge(sessions_i) {
+    let sid = sessions_i._id;
+    let session = sessions_i.session;
 
     const now = new Date();
 
     if (!session.simplepay) return;
   
-    for (let i = 0; i < session.simplepay.length; i++) {
+    for (let i in session.simplepay) {
         if (session.simplepay[i].timeout) {
             let idate = new Date(session.simplepay[i].timeout);
             if (now > idate) {
-                Ł(session.simplepay.splice(i, 1));
+                session.simplepay = session.simplepay.splice(i, 1);
             }
         }
     }
@@ -26,7 +26,7 @@ module.exports = function() {
         if (err) return đ(err);
 
         // so look at all sessions
-        for (let i = 0; i < sessions.length; i++) {
+        for (let i in sessions) {
             // that have a simplepay property array
             if (sessions[i].session.simplepay) purge(sessions[i]);
         }

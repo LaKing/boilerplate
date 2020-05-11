@@ -29,12 +29,15 @@ function link_vue(module, module_dir, priority) {
     const dest = destination + "/src";
 
     ß.fs.traverse_path_process_files(path, function(file_path) {
-        ß.link(path + file_path, dest + file_path);
+      
+        let base = path;
+        if (path.substring(0, ß.CWD.length) === ß.CWD) base = path.substring(ß.CWD.length);
+        if (ß.link(path + file_path, dest + file_path)) ß.VUE_LINK_SOURCE_TREE[file_path] = base;
     });
 }
 
 module.exports = function() {
-  	ß.debug("- Uplink vue source tree");
+    ß.debug("- Uplink vue source tree");
     // @DOC Based on `ß.vue_modules` we create a subset of node modules for vue
     ß.modules_process(ß.vue_modules, link_node_modules);
 

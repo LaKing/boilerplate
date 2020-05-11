@@ -18,18 +18,20 @@ function build_vue_config_js_file() {
     str += br + "var wp_lang = new webpack.DefinePlugin({'LANG': JSON.stringify('" + lang + "')});";
     str += br + "var wp_build = new webpack.DefinePlugin({'BUILD_MODULE': JSON.stringify('INDEX')});";
     str += br + "var wp_boilerplate = new webpack.ProvidePlugin({ß: ['" + ß.VAR + "/boilerplate.es6.js', 'default']});";
-    str += br + "var wp_debuglog = new webpack.ProvidePlugin({Ł: ['" + ß.VAR + "/debuglog.js', 'default']});";
+    str += br + "var wp_debuglog_Ł = new webpack.ProvidePlugin({Ł: ['" + ß.VAR + "/debuglog_Ł.js', 'default']});";
+    str += br + "var wp_debuglog_ŁOG = new webpack.ProvidePlugin({ŁOG: ['" + ß.VAR + "/debuglog_ŁOG.js', 'default']});";
+
     str += br + "var wp_leadnull = new webpack.ProvidePlugin({ł: ['" + ß.VAR + "/leadnull.js', 'default']});";
-  
+
     //str += br + "var wp_test = new webpack.ProvidePlugin({$$$: path.resolve('/srv/codepad-project/lib/test.js')});";
 
-  
     // since vuetify 2.0.7 the loaderplugin needs to be added here
     str += br + "const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');";
     str += br + "var wp_vuetify = new VuetifyLoaderPlugin();";
 
     str += br;
     str += br + "module.exports = {";
+    // str += br + "transpileDependencies: ['vuetify'],";
 
     if (ß.PAGES) {
         var LANG_PAGES = {};
@@ -55,12 +57,12 @@ function build_vue_config_js_file() {
     str += br + "        conf.plugins.push(wp_lang);";
     str += br + "        conf.plugins.push(wp_build);";
     str += br + "        conf.plugins.push(wp_boilerplate);";
-    str += br + "        conf.plugins.push(wp_debuglog);";
+    str += br + "        conf.plugins.push(wp_debuglog_Ł);";
+    str += br + "        conf.plugins.push(wp_debuglog_ŁOG);";
     str += br + "        conf.plugins.push(wp_leadnull);";
-  
+
     //str += br + "        conf.plugins.push(wp_test);";
 
-  
     // since vuetify 2.0.7 the loaderplugin needs to be added here
     str += br + "        conf.plugins.push(wp_vuetify);";
 
@@ -68,6 +70,14 @@ function build_vue_config_js_file() {
     str += br + "    },";
     str += br + "    chainWebpack: config => {";
     str += br + "        config.resolve.alias.set('ß', '" + ß.VAR + "/boilerplate.es6.js');";
+
+    //    str += br + "    config.plugin('VuetifyLoaderPlugin').tap(args => [{";
+    //    str += br + "      match (originalTag, { kebabTag, camelTag, path, component }) {";
+    //    str += br + "        if (kebabTag.startsWith('core-')) {";
+    //    str += br + "          return [camelTag, `import ${camelTag} from '@/components/core/${camelTag.substring(4)}.vue'`]";
+    //    str += br + "        }";
+    //    str += br + "      }";
+    //    str += br + "    }])";
 
     // use preloader language processor
     if (ß.USE_MULTILANGUAGE) {
@@ -95,7 +105,7 @@ function build_vue_config_js_file() {
     //str += br + "        clientLogLevel: 'info',";
     str += br + "        public: 'https://" + ß.HOSTNAME + ":9000',";
 
- /* 
+    /* 
   	// proxy requests made to the dev server to the live server
     str += br + "           proxy: {";
     str += br + "              context: '/api',";
@@ -103,11 +113,10 @@ function build_vue_config_js_file() {
     str += br + "            }";
   	
   */
-  
-    	// proxy requests made to the dev server to the live server
+
+    // proxy requests made to the dev server to the live server
     str += br + "           proxy: 'https://" + ß.HOSTNAME + "',";
-  	
-  
+
     str += br + "    },";
     str += br + "    outputDir: '" + ß.VAR + "/app'";
     str += br + "};";

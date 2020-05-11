@@ -51,9 +51,9 @@ export default {
     },
     methods: {
         currency_visual: function() {
-            if (this.currency === "HUF") return (this.currency_visual = "##&en Forint ##&hu Ft ##");
-            if (this.currency === "EUR") return (this.currency_visual = "€");
-            return (this.currency_visual = this.currency);
+            if (this.currency === "HUF") return "##&en Forint ##&hu Ft ##";
+            if (this.currency === "EUR") return "€";
+            return this.currency;
         },
         setLoaded: function() {
             this.loaded = true;

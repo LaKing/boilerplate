@@ -1,5 +1,7 @@
 if (process.argv.indexOf("--restart-server") >= 0) return;
 
+if (ß.DEBUG) return ß.debug("- Autodoc readme generation disabled in debug mode.");
+
 /*ßoilerplate */
 
 /* @DOC
@@ -21,7 +23,7 @@ function path_to_mdlink(filepath, line) {
     let path = filepath;
     if (filepath.substring(0, ß.CWD.length) === ß.CWD) {
         path = filepath.substring(ß.CWD.length);
-        if (ß.MODE !== "production") return "\n\n[`" + file + ":" + line + "`](https://" + ß.HOSTNAME + ":9001/p" + path + "?line=" + line + ")\n\n";
+        if (ß.MODE !== "production") return "\n\n[`" + file + ":" + line + "`](" + ß.EDITOR_LINKBASE + path + "?line=" + line + ")\n\n";
     }
     if (line === 1) return "\n\n[`" + path + "`]\n\n";
     return "\n\n[`" + path + " line " + line + "`]\n\n";
@@ -64,6 +66,7 @@ function traverse(path) {
         }
     }
     if (fs.isFileSync(path)) {
+      	// TODO - add options for other files, eg. vue
         if (path.split(".").pop() !== "js") return "";
         d += extract_doc(path);
     }

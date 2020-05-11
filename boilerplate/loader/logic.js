@@ -32,21 +32,29 @@ function reg(msg) {
 }
 
 function get_module_logic(module, dir) {
+  	// inicialize the ß namespace
     if (!ß.logic[module]) ß.logic[module] = {};
-  	if (!ß.logic_path[module]) ß.logic_path[module] = {};
-  
+    if (!ß.logic_path[module]) ß.logic_path[module] = {};
+	
+  	// if the modulke has a logic directory
     let path = dir + "/logic";
     if (fs.isDirSync(path)) {
         let files = fs.readdirSync(path);
-        for (let i = 0; i < files.length; i++) {
+      	// iterate through the files
+        for (const i in files) {
             let name = files[i].split(".")[0];
             if (ß.logic[module][name]) reg("- ß.logic." + module + "." + name + " already defined. Skipping " + path + "/" + files[i]);
-            if (!ß.logic[module][name]) {
+            else {
+              	// register the logig in the boilerplate namespace
                 reg("+ ß.logic." + module + "." + name + " definition from " + path + "/" + files[i]);
                 ß.logic[module][name] = require(path + "/" + files[i]);
-              	ß.logic_path[module][name] = path + "/" + files[i];
-              
-              	if (name.substring(0,3) !== 'get') console.log("WARNING By convention, logic function '" + name + "' should be starting with get and use a camelCase. Please rename: " +  path + "/" + files[i] );
+                ß.logic_path[module][name] = path + "/" + files[i];
+
+              	// logic functions should be simple, and by convention start with a get, as the just return a value.
+                if (name.substring(0, 3) !== "get")
+                    console.log("WARNING By convention, logic function '" + name + "' should be starting with get and use a camelCase. Please rename: " + path + "/" + files[i]);
+                
+              	// we can assign the logic directly to the ß namespace.
                 if (ß[name]) reg("! ß." + name + " already definded. Cannot alias ß.logic." + module + "." + name);
                 else {
                     ß[name] = ß.logic[module][name];

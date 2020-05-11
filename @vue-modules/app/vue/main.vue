@@ -33,10 +33,9 @@ import hello_socket_io from "@/components/HelloSocketIo.vue";
 import hello_payment from "@/components/HelloPayment.vue";
 
 //import hello_bootstrap from '@/components/HelloBootstrap.vue';
-
   
 export default {
-    name: "app",
+    name: "mainpage",
     data: function() {
         return {
             //open_login_dialog: false

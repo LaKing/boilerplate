@@ -3,7 +3,6 @@
 // @DOC The frontend simplepay component initiates a payment with a post-request
 
 ß.app.post("/simplepay-payment.json", function(req, res) {
-
     let request_data = req.body;
     // use the language on the payment page
     request_data.lang = req.session.lang;
@@ -15,22 +14,18 @@
             return;
         }
 
-        // create a reference in the session
-        if (!req.session.simplepay) req.session.simplepay = [];
-      
-      	let o = {
+        let simplepay = {
             ...request_data,
             ...response_data
         };
-      
-      	o.status = "STARTED";
-      	delete o.salt;
-      	delete o.sdkVersion;
-      	delete o.methods;
-        delete o.timeout;
-      
-      	// so the payment object is now in the session.
-        req.session.simplepay.push(o);
+
+        simplepay.status = "STARTED";
+        delete simplepay.salt;
+        delete simplepay.sdkVersion;
+        delete simplepay.methods;
+        delete simplepay.timeout;
+
+      	ß.lib.simplepay.session_payment(req.session, simplepay);
 
         //You may customize responses, response reactions
         res.json(response_data);

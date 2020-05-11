@@ -36,7 +36,7 @@ module.exports = function(data, callback) {
     if (!data.sdkVersion) data.sdkVersion = "SimplePayV2.1_Payment_PHP_SDK_2.0.7_190701:dd236896400d7463677a82a47f53e36e";
     if (!data.methods) data.methods = ["CARD"];
     if (!data.timeout) data.timeout = timeout;
-    if (!data.url) data.url = "https://" + ß.HOSTNAME + "/simplepay.html";
+    if (!data.url) data.url = "https://" + ß.HOSTNAME + "/simplepay-return.html";
     if (!data.total) data.total = "1000"; // Strangely its a string.
 
     var simplepay_url = "secure.simplepay.hu";
@@ -60,6 +60,7 @@ module.exports = function(data, callback) {
         //console.log(`statusCode: ${res.statusCode}`);
         res.on("data", d => {
             // we assume we get our data at once.
+            if (d.errorCodes) ß.err("Simplepay error: " + d.errorCodes);
             callback(null, JSON.parse(d.toString()));
         });
     });

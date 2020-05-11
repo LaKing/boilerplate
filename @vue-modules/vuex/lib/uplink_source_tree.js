@@ -32,6 +32,11 @@ function link_vue(module, module_dir, priority) {
   	ß.fs.mkdirpSync(dest);
 
     ß.fs.traverse_path_process_files(path, function(file_path) {
+      
+        let base = path;
+        if (path.substring(0, ß.CWD.length) === ß.CWD) base = path.substring(ß.CWD.length);
+        if (ß.link(path + file_path, dest + file_path)) ß.VUE_LINK_SOURCE_TREE[file_path] = base;
+      
         ß.link(path + file_path, dest + file_path);
       	
       	let vuex_file = file_path.substring(1);

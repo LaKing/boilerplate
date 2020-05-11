@@ -2,16 +2,18 @@
     <div>
         <div v-if="!paid">
             <h1>{{ price }} {{ currency_visual() }}</h1>
-            <v-btn text @click="start_payment()">{{ description }}</v-btn>
+            <p>{{ description }}</p>
+            <v-btn x-large @click="start_payment()" :disabled="started || price < 1" :color="btn_color" :dark="is_dark">##&en Start payment ##&hu Fizetés indítása ##</v-btn>
+            <br><br>
         </div>
-        <div v-if="!paid" ref="paypal"></div>
+       
+        <div v-if="!paid" ref="simple"></div>
 
         <div v-if="paid">
             <v-alert v-if="message" :type="message_type">
                 {{ message }}
             </v-alert>
         </div>
-
         <img @click="open_infopage()" :src="require('@/assets/simplepay_logo.svg')" :width="width" alt="##&en SimplePay informations ##&hu SimplePay vásárlói tájékoztató ##" />
     </div>
 </template>
@@ -42,13 +44,22 @@ export default {
       	order: {
       		type: Object,
       		required: false,
-          	default: {}
+          	default: () => ({})
+    	},
+      	btn_color: {
+      		type: Boolean,
+          	default: "white"
+    	},
+      	btn_is_dark: {
+      		type: Boolean,
+          	default: false
     	}
     },
     data: function() {
         return {
             loaded: false,
-            paid: false,
+            paid: false, 
+          	started: false,
             message: false,
             message_type: "success",
             error: false
@@ -57,15 +68,17 @@ export default {
     mounted: function() {},
     methods: {
         currency_visual: function() {
-            if (this.currency === "HUF") return (this.currency_visual = "##&en Forint ##&hu Ft ##");
-            if (this.currency === "EUR") return (this.currency_visual = "€");
-            return (this.currency_visual = this.currency);
+            if (this.currency === "HUF") return "##&en Forint ##&hu Ft ##";
+            if (this.currency === "EUR") return "€";
+            return this.currency;
         },
         open_infopage: function() {
             window.open("##&en http://simplepartner.hu/PaymentService/Payment_information.pdf ##&hu http://simplepartner.hu/PaymentService/Fizetesi_tajekoztato.pdf ##", "_blank");
         },
         start_payment() {
+          	this.started = true;
           	let _this = this;
+          	if (!_this.order) _this.order = {};
           	_this.order.total = _this.price;
             _this.order.currency = _this.currency;
             axios({

@@ -9,12 +9,12 @@ module.exports = function get_log_page(page, callback) {
         if (data) {
             let prep = data
                 .split("\n")
-                .slice((page-1) * loglength, (page) * loglength)
+                .slice((page - 1) * loglength, page * loglength)
                 .join("\n");
-           // let send = ß.lib.ansi.html(prep).replace(/[\r\n]/g, "<br />");
-         let send={};
+            // let send = ß.lib.ansi.html(prep).replace(/[\r\n]/g, "<br />");
+            let send = {};
             const html = ß.lib.ansi.html(prep).replace(/[\r\n]/g, "<br />");
-          	send.html=html;
+            send.html = html;
             send.pages = data.split("\n").length / loglength;
             return callback(null, send);
         }

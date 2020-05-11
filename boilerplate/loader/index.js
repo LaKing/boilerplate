@@ -33,6 +33,7 @@ try {
 
     require("./lib.js");
     require("./logic.js");
+    require("./chain.js");
 
     require("./hook.js");
 

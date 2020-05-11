@@ -1,14 +1,4 @@
-/* jshint esversion: 9 */
-
-function finalize(sid, parameters) {
-    ß.session_store.set(sid, parameters.session, function(err) {
-        if (err) return đ(err);
-        // process further
-        ß.msg(parameters.simplepay.status + " simplepay payment " + parameters.simplepay.orderRef);
-        ß.run_hook("payment", parameters);
-    });
-}
-
+// recieve a notification from the server
 ß.app.all("/simplepay-ipn", function(req, res) {
     //Ł("@", req.headers, req.body);
     // Assuming to be behind the reverse proxy
@@ -26,36 +16,7 @@ function finalize(sid, parameters) {
         }
     }
   
-    // register the successful payment
-    let parameters = {};
-    parameters.simplepay = req.body;
-
-    // find the session we recieved the ipn for
-    ß.session_store.all(function(err, sessions) {
-        if (err) return đ(err);
-
-        // so look at all sessions
-        for (let i = 0; i < sessions.length; i++) {
-            // that have a simplepay property array
-            if (sessions[i].session.simplepay) {
-                let sid = sessions[i]._id;
-                let session = sessions[i].session;
-                // find the payment in the simplepay array
-                for (let a = 0; a < session.simplepay.length; a++) {
-                    if (session.simplepay[a].orderRef === parameters.simplepay.orderRef) {
-                        // bingo
-                        let o = { ...session.simplepay[a], ...parameters.simplepay };
-                        delete o.salt;
-                        delete o.paymentUrl;
-
-                        session.simplepay[a] = o;
-                        parameters.session = session;
-                        return finalize(sid, parameters);
-                    }
-                }
-            }
-        }
-    });
+  	ß.lib.simplepay.session_ipn(req.body);
 
     // calculate recieveDate
     const now = new Date();

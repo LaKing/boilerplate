@@ -20,7 +20,6 @@
 
 <script>
 import language_selector from "@/components/LanguageSelector.vue";
-
 export default {
     name: "navigation",
     data: function() {
@@ -33,7 +32,7 @@ export default {
     },
     methods: {
         open_editor: function() {
-            window.open("https://" + ß.HOSTNAME + ":9001", "_blank");
+            window.open(ß.EDITOR_SITELINK, "_blank");
         },
         open_admin: function() {
             window.open("https://" + ß.HOSTNAME + "/admin", "_blank");

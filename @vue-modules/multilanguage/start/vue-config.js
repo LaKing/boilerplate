@@ -35,7 +35,9 @@ Object.keys(ß.APP_LANGUAGES).forEach(function(lang) {
     str += br + "var wp_lang = new webpack.DefinePlugin({'LANG': JSON.stringify('" + lang + "')});";
     str += br + "var wp_build = new webpack.DefinePlugin({'BUILD_MODULE': JSON.stringify('" + ß.MODE + "')});";
     str += br + "var wp_boilerplate = new webpack.ProvidePlugin({ß: ['" + ß.VAR + "/boilerplate.es6.js', 'default']});";
-    str += br + "var wp_debuglog = new webpack.ProvidePlugin({Ł: ['" + ß.VAR + "/debuglog.js', 'default']});";
+    str += br + "var wp_debuglog_Ł = new webpack.ProvidePlugin({Ł: ['" + ß.VAR + "/debuglog_Ł.js', 'default']});";
+    str += br + "var wp_debuglog_ŁOG = new webpack.ProvidePlugin({ŁOG: ['" + ß.VAR + "/debuglog_ŁOG.js', 'default']});";
+
 	str += br + "var wp_leadnull = new webpack.ProvidePlugin({ł: ['" + ß.VAR + "/leadnull.js', 'default']});";
   
   	//str += br + "var wp_test = new webpack.ProvidePlugin({$$$: path.resolve('/srv/codepad-project/lib/test.js')});";
@@ -48,7 +50,8 @@ Object.keys(ß.APP_LANGUAGES).forEach(function(lang) {
     str += br;
 
     str += br + "module.exports = {";
-      
+    // str += br + "transpileDependencies: ['vuetify'],";
+
     // from not sure
     // str += br + '"transpileDependencies": ["vuetify"],';
   
@@ -58,7 +61,8 @@ Object.keys(ß.APP_LANGUAGES).forEach(function(lang) {
     str += br + "        conf.plugins.push(wp_lang);";
     str += br + "        conf.plugins.push(wp_build);";
     str += br + "        conf.plugins.push(wp_boilerplate);";
-    str += br + "        conf.plugins.push(wp_debuglog);";
+    str += br + "        conf.plugins.push(wp_debuglog_Ł);";
+    str += br + "        conf.plugins.push(wp_debuglog_ŁOG);";
     str += br + "        conf.plugins.push(wp_leadnull);";
   
     //str += br + "        conf.plugins.push(wp_test);";
@@ -71,6 +75,15 @@ Object.keys(ß.APP_LANGUAGES).forEach(function(lang) {
     str += br + "    chainWebpack: config => {";
     str += br + "        config.resolve.alias.set('ß', '/var/codepad-project/boilerplate.es6.js');";
 
+//    str += br + "    config.plugin('VuetifyLoaderPlugin').tap(args => [{";
+//    str += br + "      match (originalTag, { kebabTag, camelTag, path, component }) {";
+//    str += br + "        if (kebabTag.startsWith('core-')) {";
+//    str += br + "          return [camelTag, `import ${camelTag} from '@/components/core/${camelTag.substring(4)}.vue'`]";
+//    str += br + "        }";
+//    str += br + "      }";
+//    str += br + "    }])";
+  
+  
     // use preloader language processor
     if (ß.USE_MULTILANGUAGE) {
         str += br + "        config.module.rule('vue').use('webpack-detagger').loader('webpack-detagger').options('" + lang + "').end()";

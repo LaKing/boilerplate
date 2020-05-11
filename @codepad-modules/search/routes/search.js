@@ -203,7 +203,7 @@ function express_search(req, res) {
     var replace_term = req.query.replace;
     var replace_file = '/' + req.params[0];
     ß.lib.search.replace(replace_file, search_term, replace_term, function(err, success) {
-        ß.lib.projectfiles.oplog(ß.lib.username_by_req(req), 'replaced ' + search_term + ' to ' + replace_term + ' in', replace_file);
+        ß.lib.projectfiles.oplog(ß.lib.basicauth.username_by_req(req), 'replaced ' + search_term + ' to ' + replace_term + ' in', replace_file);
         express_search(req, res);
     });
 
